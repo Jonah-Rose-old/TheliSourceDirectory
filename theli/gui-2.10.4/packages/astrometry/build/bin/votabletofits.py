@@ -1,1 +1,0 @@
-../lib/python/astrometry/util/votabletofits.py

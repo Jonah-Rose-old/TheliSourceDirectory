@@ -1,7 +1,0 @@
-# Bind command example
-# Carsten Moos, cmoos@gmx.de
-Print coordinates
-*.fits
-bind x
-echo "$x $y" | $text
-

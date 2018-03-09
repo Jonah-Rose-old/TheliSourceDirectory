@@ -1,1 +1,0 @@
-../lib/python/astrometry/util/merge-columns.py
