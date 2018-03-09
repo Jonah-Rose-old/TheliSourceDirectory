@@ -1,0 +1,317 @@
+BASHPATH -xv
+
+# $1: main directory (filter)
+# $2: Science directory
+# $3: Directory with the mask images
+# $4: chips to be processed
+
+# preliminary work:
+
+SCRIPTDIR=`pwd`
+
+INSTDIR=instruments_professional
+if [ ! -f ${INSTDIR}/${INSTRUMENT}.ini ]; then
+    INSTDIR=instruments_commercial
+fi
+if [ ! -f ${INSTDIR}/${INSTRUMENT}.ini ]; then
+    INSTDIR=~/.theli/instruments_user/
+fi
+. ${INSTDIR}/${INSTRUMENT:?}.ini
+
+. bash.include
+
+MASKIMAGEDIR=$3
+
+for CHIP in $4
+do
+  RESULTDIR[${CHIP}]="$1/$2"
+done
+
+# If gap size is left empty, put it to a very large value (114 years, in hours)
+if [ "${V_BACK_GAPSIZE}_A" = "_A" ]; then
+    V_BACK_GAPSIZE=1000000
+fi
+
+# This script combines static and dynamic background models, 
+# and forks where necessary ('staticdone' variable)
+mkdir -p /$1/$2/BACKGROUND
+if [ "${V_BACK_WINDOWSIZE}" = "0" ]; then
+    blockid=0
+fi
+
+# initialise a comparison file (making sure it exists and is empty)
+test -e ${TEMPDIR}/science_coadd_images_old_$$ && rm ${TEMPDIR}/science_coadd_images_old_$$
+touch ${TEMPDIR}/science_coadd_images_old_$$
+
+
+##########################################################
+#       Calculate the background model                   #
+##########################################################
+
+
+# This script combines static and dynamic background models, 
+# and forks where necessary ('staticdone' variable)
+
+
+if [ "${V_BACK_WINDOWSIZE}" != "0" ]; then
+    mkdir -p /$1/$2/BACKGROUND
+else
+    blockid=0
+fi
+
+for CHIP in $4; do
+    # Cleanup, just in case 
+    test -e ${TEMPDIR}/all_maskimages_mjd_$$ && rm ${TEMPDIR}/all_maskimages_mjd_$$
+    test -e ${TEMPDIR}/all_backcorr_images_mjd_$$ && rm ${TEMPDIR}/all_backcorr_images_mjd_$$
+    
+    NUMTHREAD=`${SCRIPTDIR}/get_nthreads.sh ${NCHIPS} ${NPARA} ${CHIP}`
+    
+    RESULTDIR[${CHIP}]="$1/$2"
+    
+    # The list of OFC images that need to be background corrected
+    ls -1 /$1/$2/*_${CHIP}OFC.fits > ${TEMPDIR}/all_backcorr_images_$$
+    
+    # The list of (sky) images from which the background model is created
+    # the tr -s / / removes multiple occurences of ///
+    # Not really needed, but I keep it here for future reference
+    allmaskimages=`ls -1 ${MASKIMAGEDIR}/*_${CHIP}OFC.mask.fits | tr -s / / | tee ${TEMPDIR}/all_maskimages_$$`
+    
+    # add the MJD to the list of sky images
+    cat ${TEMPDIR}/all_maskimages_$$ | \
+    while read thisfile
+    do
+	MJD=`get_key ${thisfile} MJD-OBS`
+	echo ${thisfile} ${MJD} >> ${TEMPDIR}/all_maskimages_mjd_$$ 
+    done
+
+    sort -g -k 2 ${TEMPDIR}/all_maskimages_mjd_$$ > ${TEMPDIR}/all_maskimages_mjd_sort_$$  
+    # not used anywhere, just for reference in the log file:
+    numallmaskimages=`ls ${MASKIMAGEDIR}/*_${CHIP}OFC.mask.fits | wc | ${P_GAWK} '{print $1}'`
+    
+    # remove the files listed in background_exclusion from the list of mask files
+    if [ -s /$1/$2/background_exclusion ]; then
+	# we strip the suffix in the background exclusion file 
+	# because for pairwise subtraction the suffix changes from OFC to OFCb.
+	# The awk 'index()' function does a pattern matching
+	${P_GAWK} 'BEGIN{FS="OFC"} {print $1}' /$1/$2/background_exclusion > \
+	    /$1/$2/background_exclusion_stripped
+	
+	${P_GAWK} 'BEGIN {nex = 0;
+                          while (getline <"/'$1/$2'/background_exclusion_stripped" > 0) {
+                                 ex[nex]=$1; nex++;
+                          }}
+                         {exclude = 0; i=0;
+                          while (i<nex) {
+                                 if (index($1, ex[i])!=0) {exclude = 1}
+	                             i++;
+                          }
+                          if(exclude == 0) {print $0}}' \
+			      ${TEMPDIR}/all_maskimages_mjd_sort_$$ > \
+			      ${TEMPDIR}/all_maskimages_mjd_sort2_$$
+	mv ${TEMPDIR}/all_maskimages_mjd_sort2_$$ ${TEMPDIR}/all_maskimages_mjd_sort_$$
+    fi
+
+    # add the MJD to the list of science images
+    cat ${TEMPDIR}/all_backcorr_images_$$ | \
+	while read thisfile; do
+	    MJD=`get_key ${thisfile} MJD-OBS`
+	    echo ${thisfile} ${MJD} >> ${TEMPDIR}/all_backcorr_images_mjd_$$ 
+    done
+    sort -g -k 2 ${TEMPDIR}/all_backcorr_images_mjd_$$ > ${TEMPDIR}/all_backcorr_images_mjd_sort_$$  
+    
+    get_statminsection
+    get_region
+    prepare_imred_for_backgroundmodel $1 $2
+    
+    staticdone=0
+    
+    # Loop over all science images
+    cat ${TEMPDIR}/all_backcorr_images_mjd_$$ | \
+    {
+    while read individualfile mjdref; do
+	# Get a list of images from which to calculate the background model;
+	BASE=`basename ${individualfile} .fits`
+	
+	if [ "${V_BACK_WINDOWSIZE}" != "0" ]; then
+	    images=`${P_BACKGROUNDDYNAMIC} \
+		-i ${mjdref} \
+		-g ${V_BACK_GAPSIZE} \
+		-w ${V_BACK_WINDOWSIZE} \
+		-f ${TEMPDIR}/all_maskimages_mjd_sort_$$`
+	else
+	    images=`${P_BACKGROUNDSTATIC} \
+		-i ${mjdref} \
+		-g ${V_BACK_GAPSIZE} \
+		-f ${TEMPDIR}/all_maskimages_mjd_sort_$$ \
+		-s ${TEMPDIR}/all_backcorr_images_mjd_sort_$$ \
+		-o ${TEMPDIR}/all_backcorr_images_blockid_$$`
+	fi
+	
+	# Park the image if no suitable sky images are found
+	if [ "${images}" = "NO_MATCHING_SKY_FOUND" ]; then
+	    mkdir -p /$1/$2/NOSKYCORR
+	    mv ${individualfile} /$1/$2/NOSKYCORR
+	    continue
+	fi
+	
+	# Do statistics for them. This is necessary to get the mode of the combination from 
+        # all images, so that the combination where images have been excluded can be scaled accordingly. 
+	if [ "${V_BACK_WINDOWSIZE}" = "0" ]; then
+	    # which block does the individualfile belong to?
+	    blockid_old=${blockid}
+	    blockid=`cat ${TEMPDIR}/all_backcorr_images_blockid_$$ | grep ${individualfile} | ${P_GAWK} '{print $2}'`
+	    
+	    # In case of a static background model, we have to do this only once
+	    if [ "${staticdone}" = "0" ] || [ "${blockid_old}" != "${blockid}" ]; then
+		${P_IMSTATS} \
+		    -d 6 ${images} \
+		    -o ${TEMPDIR}/science_images_$$ \
+		    -t -1e8 1e8 \
+		    -s ${statminsection_imstats}
+	    fi
+	else
+	    # Now get the statistics
+	    ${P_IMSTATS} \
+		-d 6 ${images} \
+		-o ${TEMPDIR}/science_images_$$ \
+		-t -1e8 1e8 \
+		-s ${statminsection_imstats}
+	fi
+	
+	RESULTMODE=`${P_GAWK} 'BEGIN {mean=0.0; n=0} ($1!="#") {
+		    n=n+1; mean=mean+$2} END {print mean/n}' ${TEMPDIR}/science_images_$$`
+	
+	cp ${TEMPDIR}/science_images_$$ ${TEMPDIR}/science_coadd_images_$$
+	
+	# Exit if two or less images contribute to the stack
+	stacksize=`${P_GAWK} 'BEGIN{count=0} {if ($1 != "#") count=count+1} END {
+		                  print count-'"${V_BACK_NLOW}"'-'"${V_BACK_NHIGH}"'}' \
+			          ${TEMPDIR}/science_coadd_images_$$`
+	if [ ${stacksize} -le 2 ]; then
+	    ${P_ERRTEST} 0
+	    echo "2 or less images contribute effectively to the background model!"
+	    echo "Consider reducing the nlow/nhigh rejection parameters."
+	    exit
+	fi
+	
+	# Check whether the mask image list has changed (in case of windowed separate sky 
+	# observations this might not be the case), hence the background model is the same
+	# but might still have to be rescaled
+	diff=`diff ${TEMPDIR}/science_coadd_images_$$ ${TEMPDIR}/science_coadd_images_old_$$ | ${P_GAWK} '(NR==1)'`
+	
+	#################################################################
+	# Create the background model
+	# For a static model, do it only once for all images in a block
+	#################################################################
+	
+	if [[ "${staticdone}" = "0" && "${diff}"_A != "_A" || \
+	    "${blockid_old}" != "${blockid}" ]]; then
+	    ${P_IMCOMBFLAT_IMCAT} \
+		-i ${TEMPDIR}/science_coadd_images_$$ \
+		-o ${RESULTDIR[${CHIP}]}/$2_${CHIP}.fits \
+		-e ${V_BACK_NLOW} ${V_BACK_NHIGH} \
+		-c ${V_BACK_COMBINEMETHOD} \
+		-m ${RESULTMODE} \
+		-s 1 -t -1e8 1e8
+	    
+	    if [ "${RESULTDIR[${CHIP}]}" != "$1/$2" ]; then
+		ln -s ${RESULTDIR[${CHIP}]}/$2_${CHIP}.fits /$1/$2/$2_${CHIP}.fits
+	    fi
+	    
+	    # Depending on the application mode, we have to create separate 
+	    # superflats and/or fringe models, possibly smoothed
+	    if [[ "${V_BACK_ILLUMSMOOTH}"_A != "_A"  || \
+		"${V_BACK_APPLYMODE}" = "2" || \
+		"${V_BACK_APPLYMODE}" = "3" ]]; then
+		./create_illumfringe_para.sh $1 $2 ${CHIP}
+	    fi
+
+	    # increase the counter for the blocks
+	fi
+	
+	cp ${TEMPDIR}/science_coadd_images_$$ ${TEMPDIR}/science_coadd_images_old_$$
+	
+	#################################################################
+	# Apply the background model
+	# For a static model, do it only once for all images in a block
+	#################################################################
+		
+	if [ "${V_BACK_WINDOWSIZE}" = "0" ]; then
+	    if [ "${blockid}" = "-1" ]; then
+		mkdir -p /$1/$2/NOSKYCORR
+		mv ${individualfile} /$1/$2/NOSKYCORR
+		continue
+	    fi
+	    
+	    # which are the other images belonging to the same block, so that we can correct them in one go?
+	    FILES=`${P_GAWK} '($2=="'${blockid}'") {print $1}' ${TEMPDIR}/all_backcorr_images_blockid_$$`
+	    if [ "${staticdone}" = "0" ] || [ "${blockid_old}" != "${blockid}" ]; then
+		${P_IMRED_ECL:?} ${FILES} \
+		    -c ${CONF}/imred.conf \
+		    -MAXIMAGES ${NFRAMES} \
+		    -OVERSCAN N -BIAS N -COMBINE N -TRIM N \
+		    -OUTPUT Y -OUTPUT_SUFFIX b.fits \
+		    -OUTPUT_DIR ${RESULTDIR[${CHIP}]} \
+		    ${flatstring} \
+		    ${fringestring} \
+		    -STATSSEC ${statminsection}
+	    fi
+	else
+	    ${P_IMRED_ECL:?} ${individualfile} \
+		-c ${CONF}/imred.conf \
+		-MAXIMAGES ${NFRAMES} \
+		-OVERSCAN N -BIAS N -COMBINE N -TRIM N \
+		-OUTPUT Y -OUTPUT_SUFFIX b.fits \
+		-OUTPUT_DIR ${RESULTDIR[${CHIP}]} \
+		${flatstring} \
+		${fringestring} \
+		-STATSSEC ${statminsection}
+	fi
+	
+	BASE=`basename ${individualfile} .fits`
+	
+	# Write the sky background into the header if it is subtracted
+	if [ "${V_BACK_APPLYMODE}" = "0" ]; then
+	    skyexist=`get_key ${individualfile} SKYVALUE`
+	    if [ "${skyexist}"_A = "_A" ]; then
+		NEXTDUMMY=`${P_DFITS} ${individualfile} | grep DUMMY | \
+		    ${P_GAWK} 'BEGIN {nrmin=1000+0} {
+             if (index($1,"DUMMY")==1) {
+			 nr=substr($1,6)+0; if(nr<nrmin) {nrmin=nr}}}
+         END {if(NR>0) {print nrmin}}'`
+		sky=`${P_IMSTATS} -d 6 ${individualfile} -t -1e8 1e8 -s ${statminsection_imstats} | \
+		    ${P_GAWK} '($1 != "#") {print $2}'`
+		${P_REPLACEKEY} ${individualfile} "SKYVALUE= ${sky}" DUMMY${NEXTDUMMY}
+		${P_REPLACEKEY} ${RESULTDIR[${CHIP}]}/${BASE}b.fits "SKYVALUE= ${sky}" DUMMY${NEXTDUMMY}
+	    fi
+	fi
+	
+	if [ "${RESULTDIR[${CHIP}]}" != "$1/$2" ]; then
+	    ln -s ${RESULTDIR[${CHIP}]}/${BASE}b.fits \
+		/$1/$2/${BASE}b.fits
+	fi
+	
+	# Save the background models
+	if [ "${V_BACK_WINDOWSIZE}" != "0" ]; then
+	    mv /$1/$2/$2_${CHIP}.fits $1/$2/BACKGROUND/${BASE}.back.fits
+	    test -e /$1/$2/$2_${CHIP}_illum.fits && \
+		mv /$1/$2/$2_${CHIP}_illum.fits $1/$2/BACKGROUND/${BASE}.backillum.fits
+	    test -e /$1/$2/$2_${CHIP}_fringe.fits && \
+		mv /$1/$2/$2_${CHIP}_fringe.fits $1/$2/BACKGROUND/${BASE}.backfringe.fits
+	else
+	    test -e /$1/$2/$2_${CHIP}.fits && \
+		 mv /$1/$2/$2_${CHIP}.fits $1/$2/BACKGROUND/$2_block${blockid}_${CHIP}.fits
+	    test -e /$1/$2/$2_${CHIP}_illum.fits && \
+		 mv /$1/$2/$2_${CHIP}_illum.fits $1/$2/BACKGROUND/$2_block${blockid}_${CHIP}_illum.fits
+	    test -e /$1/$2/$2_${CHIP}_fringe.fits && \
+		 mv /$1/$2/$2_${CHIP}_fringe.fits $1/$2/BACKGROUND/$2_block${blockid}_${CHIP}_fringe.fits
+	    # Set the static flag to indicate that some tasks don't have to be repeated
+	    staticdone=1
+	fi
+    done
+    }
+done
+
+
+echo "=========== END_BACKGROUND_ASSISTANT ==========="
+echo " "

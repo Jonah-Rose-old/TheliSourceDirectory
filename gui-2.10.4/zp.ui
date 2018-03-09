@@ -1,0 +1,937 @@
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>zp</class>
+<widget class="QDialog">
+    <property name="name">
+        <cstring>zp</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>546</width>
+            <height>570</height>
+        </rect>
+    </property>
+    <property name="paletteBackgroundPixmap">
+        <pixmap>guiback.png</pixmap>
+    </property>
+    <property name="caption">
+        <string>Direct absolute photometric calibration</string>
+    </property>
+    <grid>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <widget class="QPushButton" row="2" column="2">
+            <property name="name">
+                <cstring>zp_abortPushButton</cstring>
+            </property>
+            <property name="minimumSize">
+                <size>
+                    <width>120</width>
+                    <height>0</height>
+                </size>
+            </property>
+            <property name="maximumSize">
+                <size>
+                    <width>120</width>
+                    <height>32767</height>
+                </size>
+            </property>
+            <property name="paletteForegroundColor">
+                <color>
+                    <red>170</red>
+                    <green>0</green>
+                    <blue>0</blue>
+                </color>
+            </property>
+            <property name="text">
+                <string>Abort</string>
+            </property>
+        </widget>
+        <widget class="QPushButton" row="2" column="3">
+            <property name="name">
+                <cstring>zp_closePushButton</cstring>
+            </property>
+            <property name="minimumSize">
+                <size>
+                    <width>120</width>
+                    <height>0</height>
+                </size>
+            </property>
+            <property name="maximumSize">
+                <size>
+                    <width>120</width>
+                    <height>32767</height>
+                </size>
+            </property>
+            <property name="text">
+                <string>Close</string>
+            </property>
+        </widget>
+        <spacer row="1" column="2">
+            <property name="name">
+                <cstring>spacer42</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Vertical</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Fixed</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>20</width>
+                    <height>20</height>
+                </size>
+            </property>
+        </spacer>
+        <widget class="QPushButton" row="2" column="1">
+            <property name="name">
+                <cstring>zp_startPushButton</cstring>
+            </property>
+            <property name="minimumSize">
+                <size>
+                    <width>120</width>
+                    <height>0</height>
+                </size>
+            </property>
+            <property name="maximumSize">
+                <size>
+                    <width>120</width>
+                    <height>32767</height>
+                </size>
+            </property>
+            <property name="paletteForegroundColor">
+                <color>
+                    <red>0</red>
+                    <green>0</green>
+                    <blue>0</blue>
+                </color>
+            </property>
+            <property name="text">
+                <string>Get ZP</string>
+            </property>
+        </widget>
+        <spacer row="2" column="0">
+            <property name="name">
+                <cstring>spacer40</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Horizontal</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Expanding</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>68</width>
+                    <height>20</height>
+                </size>
+            </property>
+        </spacer>
+        <widget class="QGroupBox" row="0" column="0" rowspan="1" colspan="4">
+            <property name="name">
+                <cstring>groupBox20</cstring>
+            </property>
+            <property name="paletteBackgroundPixmap">
+                <pixmap>guiback_blue.png</pixmap>
+            </property>
+            <property name="font">
+                <font>
+                </font>
+            </property>
+            <property name="title">
+                <string></string>
+            </property>
+            <grid>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QLabel" row="2" column="0">
+                    <property name="name">
+                        <cstring>textLabel2</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Photometric reference catalog</string>
+                    </property>
+                </widget>
+                <spacer row="1" column="2">
+                    <property name="name">
+                        <cstring>spacer37</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Vertical</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Fixed</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>20</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                </spacer>
+                <widget class="QLabel" row="4" column="0">
+                    <property name="name">
+                        <cstring>textLabel3</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Filter in which you observed</string>
+                    </property>
+                </widget>
+                <widget class="QLabel" row="3" column="0">
+                    <property name="name">
+                        <cstring>textLabel1_3</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Download server</string>
+                    </property>
+                </widget>
+                <widget class="QLayoutWidget" row="0" column="0" rowspan="1" colspan="7">
+                    <property name="name">
+                        <cstring>layout3</cstring>
+                    </property>
+                    <grid>
+                        <property name="name">
+                            <cstring>unnamed</cstring>
+                        </property>
+                        <widget class="QLabel" row="0" column="0">
+                            <property name="name">
+                                <cstring>textLabel1</cstring>
+                            </property>
+                            <property name="text">
+                                <string>Full path to the image</string>
+                            </property>
+                        </widget>
+                        <widget class="QPushButton" row="0" column="2">
+                            <property name="name">
+                                <cstring>zp_loadPushButton</cstring>
+                            </property>
+                            <property name="minimumSize">
+                                <size>
+                                    <width>120</width>
+                                    <height>0</height>
+                                </size>
+                            </property>
+                            <property name="maximumSize">
+                                <size>
+                                    <width>120</width>
+                                    <height>32767</height>
+                                </size>
+                            </property>
+                            <property name="text">
+                                <string>Locate image ...</string>
+                            </property>
+                        </widget>
+                        <widget class="QLineEdit" row="1" column="0" rowspan="1" colspan="3">
+                            <property name="name">
+                                <cstring>zp_imageLineEdit</cstring>
+                            </property>
+                            <property name="sizePolicy">
+                                <sizepolicy>
+                                    <hsizetype>5</hsizetype>
+                                    <vsizetype>0</vsizetype>
+                                    <horstretch>0</horstretch>
+                                    <verstretch>0</verstretch>
+                                </sizepolicy>
+                            </property>
+                            <property name="minimumSize">
+                                <size>
+                                    <width>500</width>
+                                    <height>0</height>
+                                </size>
+                            </property>
+                            <property name="alignment">
+                                <set>AlignRight</set>
+                            </property>
+                            <property name="toolTip" stdset="0">
+                                <string>The directory with the images you want to combine</string>
+                            </property>
+                        </widget>
+                        <spacer row="0" column="1">
+                            <property name="name">
+                                <cstring>spacer38</cstring>
+                            </property>
+                            <property name="orientation">
+                                <enum>Horizontal</enum>
+                            </property>
+                            <property name="sizeType">
+                                <enum>Expanding</enum>
+                            </property>
+                            <property name="sizeHint">
+                                <size>
+                                    <width>232</width>
+                                    <height>20</height>
+                                </size>
+                            </property>
+                        </spacer>
+                    </grid>
+                </widget>
+                <widget class="QLabel" row="11" column="4" rowspan="1" colspan="3">
+                    <property name="name">
+                        <cstring>textLabel4_2</cstring>
+                    </property>
+                    <property name="text">
+                        <string>&lt;b&gt;FITS KEY&lt;/b&gt;</string>
+                    </property>
+                </widget>
+                <widget class="QLineEdit" row="12" column="1" rowspan="1" colspan="2">
+                    <property name="name">
+                        <cstring>zp_resultLineEdit</cstring>
+                    </property>
+                    <property name="minimumSize">
+                        <size>
+                            <width>100</width>
+                            <height>0</height>
+                        </size>
+                    </property>
+                    <property name="maximumSize">
+                        <size>
+                            <width>100</width>
+                            <height>32767</height>
+                        </size>
+                    </property>
+                    <property name="paletteBackgroundColor">
+                        <color>
+                            <red>255</red>
+                            <green>254</green>
+                            <blue>212</blue>
+                        </color>
+                    </property>
+                    <property name="alignment">
+                        <set>AlignRight</set>
+                    </property>
+                    <property name="readOnly">
+                        <bool>true</bool>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>The photometric zeropoint&lt;br&gt;</string>
+                    </property>
+                </widget>
+                <spacer row="9" column="0">
+                    <property name="name">
+                        <cstring>spacer39</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Vertical</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Fixed</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>20</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                </spacer>
+                <widget class="QLabel" row="12" column="0">
+                    <property name="name">
+                        <cstring>textLabel4</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Photometric ZP</string>
+                    </property>
+                </widget>
+                <widget class="QLabel" row="14" column="4" rowspan="1" colspan="2">
+                    <property name="name">
+                        <cstring>textLabel5_3</cstring>
+                    </property>
+                    <property name="text">
+                        <string>ZP_D_RMS</string>
+                    </property>
+                </widget>
+                <widget class="QLineEdit" row="14" column="1" rowspan="1" colspan="2">
+                    <property name="name">
+                        <cstring>zp_resultrmsLineEdit</cstring>
+                    </property>
+                    <property name="minimumSize">
+                        <size>
+                            <width>100</width>
+                            <height>0</height>
+                        </size>
+                    </property>
+                    <property name="maximumSize">
+                        <size>
+                            <width>100</width>
+                            <height>32767</height>
+                        </size>
+                    </property>
+                    <property name="paletteBackgroundColor">
+                        <color>
+                            <red>255</red>
+                            <green>254</green>
+                            <blue>212</blue>
+                        </color>
+                    </property>
+                    <property name="alignment">
+                        <set>AlignRight</set>
+                    </property>
+                    <property name="readOnly">
+                        <bool>true</bool>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>The scattering of the magnitude differences between image and reference system</string>
+                    </property>
+                </widget>
+                <spacer row="15" column="3">
+                    <property name="name">
+                        <cstring>spacer13_4</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Fixed</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>30</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                </spacer>
+                <widget class="QLabel" row="10" column="0">
+                    <property name="name">
+                        <cstring>textLabel1_4</cstring>
+                    </property>
+                    <property name="text">
+                        <string>&lt;b&gt;Results :&lt;/b&gt;</string>
+                    </property>
+                </widget>
+                <widget class="QLabel" row="12" column="4" rowspan="1" colspan="3">
+                    <property name="name">
+                        <cstring>textLabel5</cstring>
+                    </property>
+                    <property name="text">
+                        <string>ZP_D</string>
+                    </property>
+                </widget>
+                <widget class="QLabel" row="14" column="0">
+                    <property name="name">
+                        <cstring>textLabel4_4</cstring>
+                    </property>
+                    <property name="text">
+                        <string>RMS of (MagOBJ - MagREF)</string>
+                    </property>
+                </widget>
+                <spacer row="13" column="6" rowspan="2" colspan="1">
+                    <property name="name">
+                        <cstring>spacer17</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Expanding</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>40</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                </spacer>
+                <widget class="QLineEdit" row="13" column="1" rowspan="1" colspan="2">
+                    <property name="name">
+                        <cstring>zp_resulterrLineEdit</cstring>
+                    </property>
+                    <property name="minimumSize">
+                        <size>
+                            <width>100</width>
+                            <height>0</height>
+                        </size>
+                    </property>
+                    <property name="maximumSize">
+                        <size>
+                            <width>100</width>
+                            <height>32767</height>
+                        </size>
+                    </property>
+                    <property name="paletteBackgroundColor">
+                        <color>
+                            <red>255</red>
+                            <green>254</green>
+                            <blue>212</blue>
+                        </color>
+                    </property>
+                    <property name="alignment">
+                        <set>AlignRight</set>
+                    </property>
+                    <property name="readOnly">
+                        <bool>true</bool>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>Uncertainty of the ZP</string>
+                    </property>
+                </widget>
+                <widget class="QLabel" row="13" column="0">
+                    <property name="name">
+                        <cstring>textLabel4_5</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Zeropoint error</string>
+                    </property>
+                </widget>
+                <widget class="QLabel" row="11" column="0">
+                    <property name="name">
+                        <cstring>textLabel2_2</cstring>
+                    </property>
+                    <property name="text">
+                        <string>&lt;b&gt;Description&lt;/b&gt;</string>
+                    </property>
+                </widget>
+                <widget class="QLabel" row="15" column="4" rowspan="1" colspan="3">
+                    <property name="name">
+                        <cstring>textLabel5_2</cstring>
+                    </property>
+                    <property name="text">
+                        <string>ZP_D_NUM</string>
+                    </property>
+                </widget>
+                <widget class="QLineEdit" row="15" column="1" rowspan="1" colspan="2">
+                    <property name="name">
+                        <cstring>zp_resultnumLineEdit</cstring>
+                    </property>
+                    <property name="minimumSize">
+                        <size>
+                            <width>100</width>
+                            <height>0</height>
+                        </size>
+                    </property>
+                    <property name="maximumSize">
+                        <size>
+                            <width>100</width>
+                            <height>32767</height>
+                        </size>
+                    </property>
+                    <property name="paletteBackgroundColor">
+                        <color>
+                            <red>255</red>
+                            <green>254</green>
+                            <blue>212</blue>
+                        </color>
+                    </property>
+                    <property name="alignment">
+                        <set>AlignRight</set>
+                    </property>
+                    <property name="readOnly">
+                        <bool>true</bool>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>The number of sources used to determine the zeropoint&lt;br&gt;</string>
+                    </property>
+                </widget>
+                <widget class="QLabel" row="11" column="1" rowspan="1" colspan="2">
+                    <property name="name">
+                        <cstring>textLabel3_2</cstring>
+                    </property>
+                    <property name="text">
+                        <string>&lt;b&gt;Value&lt;/b&gt;</string>
+                    </property>
+                </widget>
+                <spacer row="13" column="3">
+                    <property name="name">
+                        <cstring>spacer13_2</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Fixed</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>30</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                </spacer>
+                <spacer row="14" column="3">
+                    <property name="name">
+                        <cstring>spacer13_3</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Fixed</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>30</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                </spacer>
+                <spacer row="12" column="3">
+                    <property name="name">
+                        <cstring>spacer13</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Fixed</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>30</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                </spacer>
+                <widget class="QLabel" row="13" column="4" rowspan="1" colspan="2">
+                    <property name="name">
+                        <cstring>textLabel5_4</cstring>
+                    </property>
+                    <property name="text">
+                        <string>ZP_D_ERR</string>
+                    </property>
+                </widget>
+                <widget class="QLabel" row="15" column="0">
+                    <property name="name">
+                        <cstring>textLabel4_3</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Number of sources used</string>
+                    </property>
+                </widget>
+                <widget class="QLabel" row="5" column="0">
+                    <property name="name">
+                        <cstring>textLabel1_2_2</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Saturation / non-lin. level</string>
+                    </property>
+                </widget>
+                <widget class="QLabel" row="6" column="0">
+                    <property name="name">
+                        <cstring>textLabel1_2_2_2_2</cstring>
+                    </property>
+                    <property name="text">
+                        <string>SExtractor mag type</string>
+                    </property>
+                </widget>
+                <widget class="QLineEdit" row="7" column="2" rowspan="1" colspan="3">
+                    <property name="name">
+                        <cstring>zp_maxphoterrorLineEdit</cstring>
+                    </property>
+                    <property name="minimumSize">
+                        <size>
+                            <width>100</width>
+                            <height>0</height>
+                        </size>
+                    </property>
+                    <property name="maximumSize">
+                        <size>
+                            <width>100</width>
+                            <height>32767</height>
+                        </size>
+                    </property>
+                    <property name="alignment">
+                        <set>AlignRight</set>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>The maximum error allowed in the measurement of an object's magnitude if it enters the fit. If left empty, this value will be set to 0.05.&lt;br&gt;</string>
+                    </property>
+                </widget>
+                <widget class="QComboBox" row="6" column="2" rowspan="1" colspan="3">
+                    <item>
+                        <property name="text">
+                            <string>MAG_APER</string>
+                        </property>
+                    </item>
+                    <item>
+                        <property name="text">
+                            <string>MAG_AUTO</string>
+                        </property>
+                    </item>
+                    <property name="name">
+                        <cstring>zp_magtypeComboBox</cstring>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>Choose the SExtractor magnitude type</string>
+                    </property>
+                </widget>
+                <widget class="QLineEdit" row="5" column="2" rowspan="1" colspan="3">
+                    <property name="name">
+                        <cstring>zp_saturationLineEdit</cstring>
+                    </property>
+                    <property name="minimumSize">
+                        <size>
+                            <width>100</width>
+                            <height>0</height>
+                        </size>
+                    </property>
+                    <property name="maximumSize">
+                        <size>
+                            <width>100</width>
+                            <height>32767</height>
+                        </size>
+                    </property>
+                    <property name="alignment">
+                        <set>AlignRight</set>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>This is the level at which saturation (or non-linearity) occurs in the coadded image. Sources with pixels brighter than this value will not be used in the analysis.&lt;br&gt;</string>
+                    </property>
+                </widget>
+                <widget class="QLabel" row="7" column="0" rowspan="1" colspan="2">
+                    <property name="name">
+                        <cstring>textLabel1_2</cstring>
+                    </property>
+                    <property name="text">
+                        <string>SExtractor max phot error (mag)</string>
+                    </property>
+                </widget>
+                <widget class="QLineEdit" row="8" column="2" rowspan="1" colspan="3">
+                    <property name="name">
+                        <cstring>zp_aperturesizeLineEdit</cstring>
+                    </property>
+                    <property name="minimumSize">
+                        <size>
+                            <width>100</width>
+                            <height>0</height>
+                        </size>
+                    </property>
+                    <property name="maximumSize">
+                        <size>
+                            <width>100</width>
+                            <height>32767</height>
+                        </size>
+                    </property>
+                    <property name="alignment">
+                        <set>AlignRight</set>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>Aperture diameter if MAG_APER is chosen</string>
+                    </property>
+                </widget>
+                <widget class="QLabel" row="8" column="0">
+                    <property name="name">
+                        <cstring>textLabel1_2_2_2</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Aperture diameter (pixel)</string>
+                    </property>
+                </widget>
+                <spacer row="4" column="5" rowspan="1" colspan="2">
+                    <property name="name">
+                        <cstring>spacer41</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Expanding</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>120</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                </spacer>
+                <widget class="QComboBox" row="2" column="2" rowspan="1" colspan="3">
+                    <item>
+                        <property name="text">
+                            <string>SDSS</string>
+                        </property>
+                    </item>
+                    <item>
+                        <property name="text">
+                            <string>2MASS</string>
+                        </property>
+                    </item>
+                    <property name="name">
+                        <cstring>zp_refcatComboBox</cstring>
+                    </property>
+                    <property name="minimumSize">
+                        <size>
+                            <width>100</width>
+                            <height>0</height>
+                        </size>
+                    </property>
+                    <property name="maximumSize">
+                        <size>
+                            <width>100</width>
+                            <height>32767</height>
+                        </size>
+                    </property>
+                </widget>
+                <widget class="QComboBox" row="3" column="2" rowspan="1" colspan="3">
+                    <item>
+                        <property name="text">
+                            <string>France</string>
+                        </property>
+                    </item>
+                    <item>
+                        <property name="text">
+                            <string>USA</string>
+                        </property>
+                    </item>
+                    <item>
+                        <property name="text">
+                            <string>Canada</string>
+                        </property>
+                    </item>
+                    <item>
+                        <property name="text">
+                            <string>Japan</string>
+                        </property>
+                    </item>
+                    <item>
+                        <property name="text">
+                            <string>India</string>
+                        </property>
+                    </item>
+                    <item>
+                        <property name="text">
+                            <string>China</string>
+                        </property>
+                    </item>
+                    <item>
+                        <property name="text">
+                            <string>UK</string>
+                        </property>
+                    </item>
+                    <item>
+                        <property name="text">
+                            <string>Hawaii</string>
+                        </property>
+                    </item>
+                    <item>
+                        <property name="text">
+                            <string>Russia</string>
+                        </property>
+                    </item>
+                    <property name="name">
+                        <cstring>zp_serverComboBox</cstring>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>7</hsizetype>
+                            <vsizetype>0</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                    <property name="minimumSize">
+                        <size>
+                            <width>100</width>
+                            <height>0</height>
+                        </size>
+                    </property>
+                    <property name="maximumSize">
+                        <size>
+                            <width>100</width>
+                            <height>32767</height>
+                        </size>
+                    </property>
+                    <property name="focusPolicy">
+                        <enum>NoFocus</enum>
+                    </property>
+                    <property name="sizeLimit">
+                        <number>11</number>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>The server from where the data is downloaded.</string>
+                    </property>
+                </widget>
+                <widget class="QComboBox" row="4" column="2" rowspan="1" colspan="3">
+                    <property name="name">
+                        <cstring>zp_filterComboBox</cstring>
+                    </property>
+                    <property name="minimumSize">
+                        <size>
+                            <width>100</width>
+                            <height>0</height>
+                        </size>
+                    </property>
+                    <property name="maximumSize">
+                        <size>
+                            <width>100</width>
+                            <height>32767</height>
+                        </size>
+                    </property>
+                </widget>
+            </grid>
+        </widget>
+    </grid>
+</widget>
+<connections>
+    <connection>
+        <sender>zp_closePushButton</sender>
+        <signal>clicked()</signal>
+        <receiver>zp</receiver>
+        <slot>quit()</slot>
+    </connection>
+    <connection>
+        <sender>zp_loadPushButton</sender>
+        <signal>clicked()</signal>
+        <receiver>zp</receiver>
+        <slot>select_image()</slot>
+    </connection>
+    <connection>
+        <sender>zp_refcatComboBox</sender>
+        <signal>activated(const QString&amp;)</signal>
+        <receiver>zp</receiver>
+        <slot>update_filter_comboboxes()</slot>
+    </connection>
+    <connection>
+        <sender>zp_maxphoterrorLineEdit</sender>
+        <signal>textChanged(const QString&amp;)</signal>
+        <receiver>zp</receiver>
+        <slot>validate()</slot>
+    </connection>
+    <connection>
+        <sender>zp_imageLineEdit</sender>
+        <signal>textChanged(const QString&amp;)</signal>
+        <receiver>zp</receiver>
+        <slot>validate()</slot>
+    </connection>
+    <connection>
+        <sender>zp_abortPushButton</sender>
+        <signal>clicked()</signal>
+        <receiver>zp</receiver>
+        <slot>kill_process()</slot>
+    </connection>
+    <connection>
+        <sender>zp_startPushButton</sender>
+        <signal>clicked()</signal>
+        <receiver>zp</receiver>
+        <slot>get_zp()</slot>
+    </connection>
+    <connection>
+        <sender>zp_saturationLineEdit</sender>
+        <signal>textChanged(const QString&amp;)</signal>
+        <receiver>zp</receiver>
+        <slot>validate()</slot>
+    </connection>
+    <connection>
+        <sender>zp_magtypeComboBox</sender>
+        <signal>activated(const QString&amp;)</signal>
+        <receiver>zp</receiver>
+        <slot>show_hide()</slot>
+    </connection>
+</connections>
+<slots>
+    <slot>validate()</slot>
+    <slot>get_zp()</slot>
+    <slot>show_hide()</slot>
+    <slot>select_image()</slot>
+    <slot>update_filter_comboboxes()</slot>
+    <slot>fill_in_zp()</slot>
+    <slot>kill_process()</slot>
+    <slot returnType="int">scan_for_errors()</slot>
+    <slot>quit()</slot>
+</slots>
+<functions>
+    <function access="private" specifier="non virtual">init()</function>
+</functions>
+<pixmapinproject/>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>

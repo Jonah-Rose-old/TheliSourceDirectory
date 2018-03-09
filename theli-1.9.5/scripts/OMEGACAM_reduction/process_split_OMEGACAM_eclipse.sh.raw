@@ -1,0 +1,305 @@
+#!/bin/bash
+
+# Splits OMEGACAM Fits extension images into the 32 chips.  Assumes
+# that ONLY unsplit images are in the directory.
+#
+
+# History comments:
+# =================
+#
+# 28.10.2011:
+# Project Started
+#
+# 19.11.2012:
+# We now transfer the GAIN as header keyword to the splitted images.
+#
+# 23.11.2012:
+# I corrected a bug in the writing of the SATLEVEL keyword. It was
+# too low by 5000.
+#
+# 27.12.2012:
+# - I reversed the change from 23.11.2012. Setting the saturation level
+#   'lower' by 500 counts is conservative. I somethmes observed saturated
+#   pixels low by some counts from our estimate.
+# - All images now get a BADCCD keyword to make CCDs as BAD if necessary.
+#
+# 02.01.2013:
+# I made the script more robust if no files to process are present.
+#
+# 11.01.2013:
+# We now transfer the start time of the OB to the exposure. At the moment
+# we need this to test whether crosstalk correction is stable over an OB.
+#
+# 13.01.2013:
+# I corrected a bug in transfering OB info (change from 11.01.2013)
+#
+# 11.05.2013:
+# We have now the option to delete the original files after splitting
+# (set the '-d' command line option if you want to do so).
+#
+# 08.07.2013:
+# chip 23 is marked as BAD if the observation was obtained before 02/06/2012.
+# Before that date the chip had gain issues.
+#
+# 04.12.2013:
+# The masking of chip 23 (see change from 08.07.) can be switched on/off
+# with the command line switch '-markchip'. I introduced it to allow
+# backwards compatible processing.
+#
+# 20.01.2014:
+# We can now provide a file with OBJECTS names - command line argument 'of'
+# (OBJECTS file). The file needs to list per line: 'basename_of_ESO_archive
+# image_name' and 'OBJECTS_name' (the basename is without .fits etc.). It
+# is useful if you want to give other OBJECTS names than those provided in
+# the original headers, e.g. for the ATLAS survey. 
+#
+# 19.02.2014:
+# I deal with empty OBJECT names. Files with such a name were not splitted.
+# They now obtain 'DUMMY_OBJECT' as OBJECT keyword.
+
+. ./OMEGACAM.ini
+. ./bash_functions.include
+theli_start "$*"
+
+# On some systems we might consider to split data in parallel;
+# e.g. on a RAMDISK. As the systems where this is possible without
+# different mefsplit processes blocking each other we keep this
+# functionality VERY internal!
+NPROC=6
+
+#
+# parse command line arguments
+#
+MD=
+SD=
+CLEANORIG=0 # delete original files after splitting? (1=Yes)
+MARKCHIP=0  # by default we do not mark chip 23 for problematic periods
+OBJECTSFILE="" # provide the objectsfile with the complete path!
+GoOn=0
+while [ $GoOn = 0 ]
+do
+  case $1 in
+  -d)
+      CLEANORIG=1
+      shift
+      ;;
+  -markchip)
+      MARKCHIP=1
+      shift
+      ;;
+  -md)
+      MD=${2}
+      shift 2
+      ;;
+  -of)
+      OBJECTSFILE=${2}
+      shift 2
+      ;;
+  -sd)
+      SD=${2}
+      shift 2
+      ;;
+   *)
+      if [ $# -ge 1 ]; then
+        theli_error "Unknown command line option: ${1}"
+        exit 1
+      else
+        GoOn=1
+      fi
+      ;;
+  esac
+done
+
+# sanity checks:
+if [ -z ${MD} ] || [ -z ${SD} ]; then
+  theli_error "You need to provide at least main and science directory!"
+  exit 1;
+fi
+
+DIR=`pwd`
+
+# split files 'in parallel':
+FILES=`${P_FIND} /${MD}/${SD}/ORIGINALS/ -name \*.fits`
+
+# do we need to do something at all?
+if [ "${FILES}" != "" ]; then
+  i=0
+  while [ ${i} -lt ${NPROC} ]
+  do
+    NFIELDS[${i}]=0
+    i=$(( $i + 1 ))
+  done
+  
+  i=1
+  for FIELD in ${FILES}
+  do
+    PROC=$(( $i % ${NPROC} ))
+    FIELDS[${PROC}]="${FIELDS[${PROC}]} ${FIELD}"
+    NFIELDS[${PROC}]=$(( ${NFIELDS[${PROC}]} + 1 ))
+    i=$(( $i + 1 ))
+  done
+  
+  cd /${MD}/${SD}/ORIGINALS
+  
+  IPARA=0
+  while [ ${IPARA} -lt ${NPROC} ]
+  do
+    JPARA=$(( ${IPARA} + 1 ))
+    echo -e "Starting Job ${JPARA}. It has ${NFIELDS[${IPARA}]} files to process!\n"
+    (
+      for FILE in ${FIELDS[${IPARA}]}
+      do
+        BASE=`basename ${FILE} .fits`
+  
+        FILTNAM=`${P_DFITS} ${FILE} |\
+          ${P_FITSORT} -d "HIERARCH ESO INS FILT1 NAME"  | cut -f 2`
+
+        OBJECT=""
+        if [ -f ${OBJECTSFILE} ]; then
+          grep ${BASE} ${OBJECTSFILE}
+
+          if [ $? -eq 0 ]; then
+            OBJECT=`grep ${BASE} ${OBJECTSFILE} | awk '{print $2}'`  
+          fi
+        fi
+
+        if [ "${OBJECT}" = "" ]; then  
+          # The 'awk' command for OBJECT ensures that also OBJECT names with
+          # a space (such as 'Abell 1835') can be treated. Spaces within the
+          # OBJECTS keyword are substituted with underscores. Spaces would be
+          # deleted by the following 'mefsplit' program call.
+          OBJECT=`${P_DFITS} ${FILE} | ${P_FITSORT} OBJECT  |\
+                  ${P_GAWK} '($1 != "FILE") {gsub($1, ""); string = "";
+                        for(i = 1; i < NF; i++) {string = string $i "_"};
+                        string = string $NF; print string}'`
+
+          # deal with an empty OBJECTS string or one that only
+          # contains whitespace characters; this would lead to an
+          # error message in the splitting probcess below:
+          OBJECT=`echo ${OBJECT} | tr -d '[:space:]'`
+          if [ "${OBJECT}" = "" ]; then  
+            OBJECT="DUMMY_OBJECT"  
+          fi
+        fi
+
+        RA=`${P_DFITS} -x 1  ${FILE} | ${P_FITSORT} -d CRVAL1  | cut -f 2`
+        DEC=`${P_DFITS} -x 1 ${FILE} | ${P_FITSORT} -d CRVAL2 | cut -f 2`
+        LST=`${P_DFITS} ${FILE} | ${P_FITSORT} -d LST | cut -f 2`
+        MJD=`${P_DFITS} ${FILE} | ${P_FITSORT} -d MJD-OBS  | cut -f 2`
+        EXPTIME=`${P_DFITS} ${FILE} | ${P_FITSORT} -d EXPTIME | cut -f 2`
+        AIRMASS=`${P_AIRMASS} -t ${LST} -e ${EXPTIME} \
+                              -r ${RA} -d ${DEC} -l ${OBSLAT}`
+        GABODSID=`${P_NIGHTID} -t ${REFERENCETIME} -d 31/12/1998 -m ${MJD} |\
+                  ${P_GAWK} ' ($1 ~ /Days/) {print $6}' |\
+                  ${P_GAWK} 'BEGIN{ FS = "."} {print $1}'`
+  
+        # we recalculate the civil observation date from the GABODSID because
+        # we want the local time at the telescope, NOT UT.
+        DATEOBS=`${P_CALDATE} -d 31/12/1998 -i ${GABODSID} | cut -d ' ' -f 3`
+  
+        HEADERSTRING="-HEADER DATE-OBS ${DATEOBS} obs._date_(YYYY-MM-DD;_local_time_at_tel.)"
+        
+        # add BADCCD header keyword:
+        HEADERSTRING="${HEADERSTRING} -HEADER BADCCD 0 Is_CCD_Bad_(1=Yes)"
+
+        # get an identifier for the ESO observing block of the exposure.
+        # I only found suitable 'HIERARCH ESO TPL START' giving the start
+        # date/time of the OB:
+        OBSTART=`${P_DFITS} ${FILE} |\
+                 ${P_FITSORT} -d "HIERARCH ESO TPL START" | cut -f 2`
+        HEADERSTRING="${HEADERSTRING} -HEADER OBSTART ${OBSTART} Start_time_of_Observing_Block"
+
+
+        ${P_FITSSPLIT_ECL} -CRPIX1 \
+          "${REFPIXX[1]},${REFPIXX[2]},${REFPIXX[3]},${REFPIXX[4]},${REFPIXX[5]},${REFPIXX[6]},${REFPIXX[7]},${REFPIXX[8]},${REFPIXX[9]},${REFPIXX[10]},${REFPIXX[11]},${REFPIXX[12]},${REFPIXX[13]},${REFPIXX[14]},${REFPIXX[15]},${REFPIXX[16]},${REFPIXX[17]},${REFPIXX[18]},${REFPIXX[19]},${REFPIXX[20]},${REFPIXX[21]},${REFPIXX[22]},${REFPIXX[23]},${REFPIXX[24]},${REFPIXX[25]},${REFPIXX[26]},${REFPIXX[27]},${REFPIXX[28]},${REFPIXX[29]},${REFPIXX[30]},${REFPIXX[31]},${REFPIXX[32]}"\
+                             -CRPIX2 \
+          "${REFPIXY[1]},${REFPIXY[2]},${REFPIXY[3]},${REFPIXY[4]},${REFPIXY[5]},${REFPIXY[6]},${REFPIXY[7]},${REFPIXY[8]},${REFPIXY[9]},${REFPIXY[10]},${REFPIXY[11]},${REFPIXY[12]},${REFPIXY[13]},${REFPIXY[14]},${REFPIXY[15]},${REFPIXY[16]},${REFPIXY[17]},${REFPIXY[18]},${REFPIXY[19]},${REFPIXY[20]},${REFPIXY[21]},${REFPIXY[22]},${REFPIXY[23]},${REFPIXY[24]},${REFPIXY[25]},${REFPIXY[26]},${REFPIXY[27]},${REFPIXY[28]},${REFPIXY[29]},${REFPIXY[30]},${REFPIXY[31]},${REFPIXY[32]}"\
+                             -CD11 \
+          "${CD11[1]},${CD11[2]},${CD11[3]},${CD11[4]},${CD11[5]},${CD11[6]},${CD11[7]},${CD11[8]},${CD11[9]},${CD11[10]},${CD11[11]},${CD11[12]},${CD11[13]},${CD11[14]},${CD11[15]},${CD11[16]},${CD11[17]},${CD11[18]},${CD11[19]},${CD11[20]},${CD11[21]},${CD11[22]},${CD11[23]},${CD11[24]},${CD11[25]},${CD11[26]},${CD11[27]},${CD11[28]},${CD11[29]},${CD11[30]},${CD11[31]},${CD11[32]}"\
+                             -CD22 \
+          "${CD22[1]},${CD22[2]},${CD22[3]},${CD22[4]},${CD22[5]},${CD22[6]},${CD22[7]},${CD22[8]},${CD22[9]},${CD22[10]},${CD22[11]},${CD22[12]},${CD22[13]},${CD22[14]},${CD22[15]},${CD22[16]},${CD22[17]},${CD22[18]},${CD22[19]},${CD22[20]},${CD22[21]},${CD22[22]},${CD22[23]},${CD22[24]},${CD22[25]},${CD22[26]},${CD22[27]},${CD22[28]},${CD22[29]},${CD22[30]},${CD22[31]},${CD22[32]}"\
+                             -CD12 \
+          "${CD12[1]},${CD12[2]},${CD12[3]},${CD12[4]},${CD12[5]},${CD12[6]},${CD12[7]},${CD12[8]},${CD12[9]},${CD12[10]},${CD12[11]},${CD12[12]},${CD12[13]},${CD12[14]},${CD12[15]},${CD12[16]},${CD12[17]},${CD12[18]},${CD12[19]},${CD12[20]},${CD12[21]},${CD12[22]},${CD12[23]},${CD12[24]},${CD12[25]},${CD12[26]},${CD12[27]},${CD12[28]},${CD12[29]},${CD12[30]},${CD12[31]},${CD12[32]}"\
+                             -CD21 \
+          "${CD21[1]},${CD21[2]},${CD21[3]},${CD21[4]},${CD21[5]},${CD21[6]},${CD21[7]},${CD21[8]},${CD21[9]},${CD21[10]},${CD21[11]},${CD21[12]},${CD21[13]},${CD21[14]},${CD21[15]},${CD21[16]},${CD21[17]},${CD21[18]},${CD21[19]},${CD21[20]},${CD21[21]},${CD21[22]},${CD21[23]},${CD21[24]},${CD21[25]},${CD21[26]},${CD21[27]},${CD21[28]},${CD21[29]},${CD21[30]},${CD21[31]},${CD21[32]}"\
+                              -M11 \
+         "${M11[1]},${M11[2]},${M11[3]},${M11[4]},${M11[5]},${M11[6]},${M11[7]},${M11[8]},${M11[9]},${M11[10]},${M11[11]},${M11[12]},${M11[13]},${M11[14]},${M11[15]},${M11[16]},${M11[17]},${M11[18]},${M11[19]},${M11[20]},${M11[21]},${M11[22]},${M11[23]},${M11[24]},${M11[25]},${M11[26]},${M11[27]},${M11[28]},${M11[29]},${M11[30]},${M11[31]},${M11[32]}"\
+                              -M22 \
+         "${M22[1]},${M22[2]},${M22[3]},${M22[4]},${M22[5]},${M22[6]},${M22[7]},${M22[8]},${M22[9]},${M22[10]},${M22[11]},${M22[12]},${M22[13]},${M22[14]},${M22[15]},${M22[16]},${M22[17]},${M22[18]},${M22[19]},${M22[20]},${M22[21]},${M22[22]},${M22[23]},${M22[24]},${M22[25]},${M22[26]},${M22[27]},${M22[28]},${M22[29]},${M22[30]},${M22[31]},${M22[32]}"\
+                              -M12 \
+         "${M12[1]},${M12[2]},${M12[3]},${M12[4]},${M12[5]},${M12[6]},${M12[7]},${M12[8]},${M12[9]},${M12[10]},${M12[11]},${M12[12]},${M12[13]},${M12[14]},${M12[15]},${M12[16]},${M12[17]},${M12[18]},${M12[19]},${M12[20]},${M12[21]},${M12[22]},${M12[23]},${M12[24]},${M12[25]},${M12[26]},${M12[27]},${M12[28]},${M12[29]},${M12[30]},${M12[31]},${M12[32]}"\
+                              -M21 \
+         "${M21[1]},${M21[2]},${M21[3]},${M21[4]},${M21[5]},${M21[6]},${M21[7]},${M21[8]},${M21[9]},${M21[10]},${M21[11]},${M21[12]},${M21[13]},${M21[14]},${M21[15]},${M21[16]},${M21[17]},${M21[18]},${M21[19]},${M21[20]},${M21[21]},${M21[22]},${M21[23]},${M21[24]},${M21[25]},${M21[26]},${M21[27]},${M21[28]},${M21[29]},${M21[30]},${M21[31]},${M21[32]}"\
+                              -IMAGEID \
+         "${IMAGEID[1]},${IMAGEID[2]},${IMAGEID[3]},${IMAGEID[4]},${IMAGEID[5]},${IMAGEID[6]},${IMAGEID[7]},${IMAGEID[8]},${IMAGEID[9]},${IMAGEID[10]},${IMAGEID[11]},${IMAGEID[12]},${IMAGEID[13]},${IMAGEID[14]},${IMAGEID[15]},${IMAGEID[16]},${IMAGEID[17]},${IMAGEID[18]},${IMAGEID[19]},${IMAGEID[20]},${IMAGEID[21]},${IMAGEID[22]},${IMAGEID[23]},${IMAGEID[24]},${IMAGEID[25]},${IMAGEID[26]},${IMAGEID[27]},${IMAGEID[28]},${IMAGEID[29]},${IMAGEID[30]},${IMAGEID[31]},${IMAGEID[32]}"\
+                              -CRVAL1 ${RA} -CRVAL2 ${DEC}\
+                              -EXPTIME ${EXPTIME}\
+                              -AIRMASS ${AIRMASS}\
+                              -GABODSID ${GABODSID}\
+                              -FILTER ${FILTNAM}  \
+                              -OBJECT "${OBJECT}"  \
+                              ${HEADERSTRING} \
+                              -HEADTRANSFER "HIERARCH ESO DET OUT1 CONAD" GAIN \
+                              -OUTPUT_DIR .. \
+                              ${FILE}
+  
+  
+        # update image headers of unsplit images with the saturation level:
+        # the following is optimised for speed, not for readability!  
+        BASE=`basename ${FILE} .fits`
+
+        # as we are in a subshell '$$' still contains the process ID from
+        # the calling script. We therefore include the parallel channel
+        # to construct unique names for temporary files.
+        IDENTIFIER=job_${JPARA}_$$
+        ${P_IMSTATS} -t 50000 100000 ../${BASE}_*fits > \
+            satlevels.txt_${IDENTIFIER}
+        ${P_GAWK} '$1 !~ /#/ {
+                image = $1;
+                if ($2 > 50000) {
+                  satlev = sprintf(" \"SATLEVEL= %20.2f / saturation level\"",
+                                   int($2) - 5000);
+                } else {
+                  satlev = sprintf(" \"SATLEVEL= %20.2f / saturation level\"",
+                                   60000.00);
+                }
+                system("'${P_REPLACEKEY}' " image satlev " DUMMY1");
+                }' satlevels.txt_${IDENTIFIER}
+        rm satlevels.txt_${IDENTIFIER}
+
+        # mark chip 23 as BAD if requested:
+        if [ ${MARKCHIP} -eq 1 ]; then
+          # chip 23 had gain issues before 02/02/2012 (GABODSID 4902).
+          # We mark it as BAD if the observation was taken before that date:
+          if [ "${GABODSID}" -le 4902 ]; then
+            value "1"  
+            writekey ../${BASE}_23.fits BADCCD \
+                     "${VALUE} / Is_CCD_Bad_(1=Yes)" REPLACE  
+          fi
+        fi
+
+        # delete original file if requested:
+        if [ ${CLEANORIG} -eq 1 ]; then
+          rm ${FILE}  
+        fi
+      done
+    ) 2> ${DIR}/process_split_job_${IPARA}.log &
+    IPARA=$(( ${IPARA} + 1 ))
+  done
+  
+  wait
+  
+  cd ${DIR}
+  
+  # clean up!!
+  test -f phot_$$.asc         && rm phot_$$.asc
+  test -f qual_$$.asc         && rm qual_$$.asc
+  test -f seeingcentre_$$.asc && rm seeingcentre_$$.asc
+  test -f seeingcorner_$$.asc && rm seeingcorner_$$.asc
+else
+  theli_error "No files to process!"
+  exit 1;
+fi
+
+theli_end
+exit 0;

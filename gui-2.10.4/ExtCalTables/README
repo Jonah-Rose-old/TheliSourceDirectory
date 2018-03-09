@@ -1,0 +1,7 @@
+This directory contains external calibration files, such as crosstalk
+coefficients and linearity tables.
+
+Individual notes:
+
+DECam@CTIO_xtalk.txt: same as DECam master calibration file xtalk_20130606.txt
+DECam@CTIO_nlin.fits: same as DECam master calibration file linearity_table_v0.4.fits
