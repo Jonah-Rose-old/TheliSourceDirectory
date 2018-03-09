@@ -1,0 +1,2685 @@
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>color_form</class>
+<widget class="QDialog">
+    <property name="name">
+        <cstring>color_form</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>766</width>
+            <height>586</height>
+        </rect>
+    </property>
+    <property name="sizePolicy">
+        <sizepolicy>
+            <hsizetype>3</hsizetype>
+            <vsizetype>3</vsizetype>
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+        </sizepolicy>
+    </property>
+    <property name="paletteBackgroundPixmap">
+        <pixmap>guiback.png</pixmap>
+    </property>
+    <property name="caption">
+        <string>Prepare colour picture</string>
+    </property>
+    <grid>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <widget class="QLayoutWidget" row="1" column="0">
+            <property name="name">
+                <cstring>layout39</cstring>
+            </property>
+            <hbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <spacer>
+                    <property name="name">
+                        <cstring>spacer62</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Expanding</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>40</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                </spacer>
+                <widget class="QPushButton">
+                    <property name="name">
+                        <cstring>color_closePushButton</cstring>
+                    </property>
+                    <property name="minimumSize">
+                        <size>
+                            <width>100</width>
+                            <height>0</height>
+                        </size>
+                    </property>
+                    <property name="focusPolicy">
+                        <enum>NoFocus</enum>
+                    </property>
+                    <property name="text">
+                        <string>Close</string>
+                    </property>
+                </widget>
+            </hbox>
+        </widget>
+        <widget class="QTabWidget" row="0" column="0">
+            <property name="name">
+                <cstring>color_TabWidget</cstring>
+            </property>
+            <property name="sizePolicy">
+                <sizepolicy>
+                    <hsizetype>3</hsizetype>
+                    <vsizetype>3</vsizetype>
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                </sizepolicy>
+            </property>
+            <property name="paletteBackgroundPixmap">
+                <pixmap>guiback_blue.png</pixmap>
+            </property>
+            <property name="focusPolicy">
+                <enum>NoFocus</enum>
+            </property>
+            <widget class="QWidget">
+                <property name="name">
+                    <cstring>tab</cstring>
+                </property>
+                <attribute name="title">
+                    <string>Coadditions</string>
+                </attribute>
+                <grid>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
+                    </property>
+                    <spacer row="0" column="1">
+                        <property name="name">
+                            <cstring>spacer47</cstring>
+                        </property>
+                        <property name="orientation">
+                            <enum>Horizontal</enum>
+                        </property>
+                        <property name="sizeType">
+                            <enum>Expanding</enum>
+                        </property>
+                        <property name="sizeHint">
+                            <size>
+                                <width>209</width>
+                                <height>20</height>
+                            </size>
+                        </property>
+                    </spacer>
+                    <spacer row="1" column="0">
+                        <property name="name">
+                            <cstring>spacer29_2</cstring>
+                        </property>
+                        <property name="orientation">
+                            <enum>Vertical</enum>
+                        </property>
+                        <property name="sizeType">
+                            <enum>Expanding</enum>
+                        </property>
+                        <property name="sizeHint">
+                            <size>
+                                <width>20</width>
+                                <height>20</height>
+                            </size>
+                        </property>
+                    </spacer>
+                    <widget class="QGroupBox" row="0" column="0">
+                        <property name="name">
+                            <cstring>groupBox5</cstring>
+                        </property>
+                        <property name="paletteBackgroundPixmap">
+                            <pixmap>guiback_green.png</pixmap>
+                        </property>
+                        <property name="title">
+                            <string></string>
+                        </property>
+                        <grid>
+                            <property name="name">
+                                <cstring>unnamed</cstring>
+                            </property>
+                            <spacer row="5" column="0">
+                                <property name="name">
+                                    <cstring>spacer5</cstring>
+                                </property>
+                                <property name="orientation">
+                                    <enum>Vertical</enum>
+                                </property>
+                                <property name="sizeType">
+                                    <enum>Fixed</enum>
+                                </property>
+                                <property name="sizeHint">
+                                    <size>
+                                        <width>20</width>
+                                        <height>16</height>
+                                    </size>
+                                </property>
+                            </spacer>
+                            <spacer row="9" column="2" rowspan="1" colspan="2">
+                                <property name="name">
+                                    <cstring>spacer9</cstring>
+                                </property>
+                                <property name="orientation">
+                                    <enum>Horizontal</enum>
+                                </property>
+                                <property name="sizeType">
+                                    <enum>Fixed</enum>
+                                </property>
+                                <property name="sizeHint">
+                                    <size>
+                                        <width>140</width>
+                                        <height>20</height>
+                                    </size>
+                                </property>
+                            </spacer>
+                            <widget class="QLayoutWidget" row="9" column="0" rowspan="1" colspan="2">
+                                <property name="name">
+                                    <cstring>layout32</cstring>
+                                </property>
+                                <grid>
+                                    <property name="name">
+                                        <cstring>unnamed</cstring>
+                                    </property>
+                                    <widget class="QLabel" row="0" column="0" rowspan="1" colspan="2">
+                                        <property name="name">
+                                            <cstring>textLabel10</cstring>
+                                        </property>
+                                        <property name="sizePolicy">
+                                            <sizepolicy>
+                                                <hsizetype>0</hsizetype>
+                                                <vsizetype>5</vsizetype>
+                                                <horstretch>0</horstretch>
+                                                <verstretch>0</verstretch>
+                                            </sizepolicy>
+                                        </property>
+                                        <property name="text">
+                                            <string>Statistics region:</string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QLineEdit" row="1" column="2">
+                                        <property name="name">
+                                            <cstring>color_xmaxLineEdit</cstring>
+                                        </property>
+                                        <property name="sizePolicy">
+                                            <sizepolicy>
+                                                <hsizetype>3</hsizetype>
+                                                <vsizetype>5</vsizetype>
+                                                <horstretch>0</horstretch>
+                                                <verstretch>0</verstretch>
+                                            </sizepolicy>
+                                        </property>
+                                        <property name="minimumSize">
+                                            <size>
+                                                <width>80</width>
+                                                <height>0</height>
+                                            </size>
+                                        </property>
+                                        <property name="maximumSize">
+                                            <size>
+                                                <width>80</width>
+                                                <height>32767</height>
+                                            </size>
+                                        </property>
+                                        <property name="alignment">
+                                            <set>AlignRight</set>
+                                        </property>
+                                        <property name="toolTip" stdset="0">
+                                            <string>Right limit of the statistics region</string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QLineEdit" row="1" column="1">
+                                        <property name="name">
+                                            <cstring>color_xminLineEdit</cstring>
+                                        </property>
+                                        <property name="sizePolicy">
+                                            <sizepolicy>
+                                                <hsizetype>3</hsizetype>
+                                                <vsizetype>5</vsizetype>
+                                                <horstretch>0</horstretch>
+                                                <verstretch>0</verstretch>
+                                            </sizepolicy>
+                                        </property>
+                                        <property name="minimumSize">
+                                            <size>
+                                                <width>80</width>
+                                                <height>0</height>
+                                            </size>
+                                        </property>
+                                        <property name="maximumSize">
+                                            <size>
+                                                <width>80</width>
+                                                <height>32767</height>
+                                            </size>
+                                        </property>
+                                        <property name="alignment">
+                                            <set>AlignRight</set>
+                                        </property>
+                                        <property name="toolTip" stdset="0">
+                                            <string>Left limit of the statistics region</string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QLabel" row="1" column="0">
+                                        <property name="name">
+                                            <cstring>textLabel9</cstring>
+                                        </property>
+                                        <property name="sizePolicy">
+                                            <sizepolicy>
+                                                <hsizetype>0</hsizetype>
+                                                <vsizetype>5</vsizetype>
+                                                <horstretch>0</horstretch>
+                                                <verstretch>0</verstretch>
+                                            </sizepolicy>
+                                        </property>
+                                        <property name="text">
+                                            <string>xmin | xmax</string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QLabel" row="2" column="0">
+                                        <property name="name">
+                                            <cstring>textLabel9_4</cstring>
+                                        </property>
+                                        <property name="sizePolicy">
+                                            <sizepolicy>
+                                                <hsizetype>0</hsizetype>
+                                                <vsizetype>5</vsizetype>
+                                                <horstretch>0</horstretch>
+                                                <verstretch>0</verstretch>
+                                            </sizepolicy>
+                                        </property>
+                                        <property name="text">
+                                            <string>ymin | ymax</string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QLineEdit" row="2" column="2">
+                                        <property name="name">
+                                            <cstring>color_ymaxLineEdit</cstring>
+                                        </property>
+                                        <property name="sizePolicy">
+                                            <sizepolicy>
+                                                <hsizetype>3</hsizetype>
+                                                <vsizetype>5</vsizetype>
+                                                <horstretch>0</horstretch>
+                                                <verstretch>0</verstretch>
+                                            </sizepolicy>
+                                        </property>
+                                        <property name="minimumSize">
+                                            <size>
+                                                <width>80</width>
+                                                <height>0</height>
+                                            </size>
+                                        </property>
+                                        <property name="maximumSize">
+                                            <size>
+                                                <width>80</width>
+                                                <height>32767</height>
+                                            </size>
+                                        </property>
+                                        <property name="alignment">
+                                            <set>AlignRight</set>
+                                        </property>
+                                        <property name="toolTip" stdset="0">
+                                            <string>Upper limit of the statistics region</string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QLineEdit" row="2" column="1">
+                                        <property name="name">
+                                            <cstring>color_yminLineEdit</cstring>
+                                        </property>
+                                        <property name="sizePolicy">
+                                            <sizepolicy>
+                                                <hsizetype>3</hsizetype>
+                                                <vsizetype>5</vsizetype>
+                                                <horstretch>0</horstretch>
+                                                <verstretch>0</verstretch>
+                                            </sizepolicy>
+                                        </property>
+                                        <property name="minimumSize">
+                                            <size>
+                                                <width>80</width>
+                                                <height>0</height>
+                                            </size>
+                                        </property>
+                                        <property name="maximumSize">
+                                            <size>
+                                                <width>80</width>
+                                                <height>32767</height>
+                                            </size>
+                                        </property>
+                                        <property name="alignment">
+                                            <set>AlignRight</set>
+                                        </property>
+                                        <property name="toolTip" stdset="0">
+                                            <string>Lower limit of the statistics region</string>
+                                        </property>
+                                    </widget>
+                                </grid>
+                            </widget>
+                            <widget class="QListBox" row="6" column="0" rowspan="2" colspan="2">
+                                <property name="name">
+                                    <cstring>color_imagesListBox</cstring>
+                                </property>
+                                <property name="minimumSize">
+                                    <size>
+                                        <width>240</width>
+                                        <height>100</height>
+                                    </size>
+                                </property>
+                                <property name="maximumSize">
+                                    <size>
+                                        <width>300</width>
+                                        <height>32767</height>
+                                    </size>
+                                </property>
+                                <property name="focusPolicy">
+                                    <enum>ClickFocus</enum>
+                                </property>
+                                <property name="selectionMode">
+                                    <enum>Extended</enum>
+                                </property>
+                                <property name="toolTip" stdset="0">
+                                    <string>List of the color channels</string>
+                                </property>
+                            </widget>
+                            <widget class="QPushButton" row="6" column="3">
+                                <property name="name">
+                                    <cstring>color_removeimagePushButton</cstring>
+                                </property>
+                                <property name="minimumSize">
+                                    <size>
+                                        <width>200</width>
+                                        <height>0</height>
+                                    </size>
+                                </property>
+                                <property name="maximumSize">
+                                    <size>
+                                        <width>200</width>
+                                        <height>32767</height>
+                                    </size>
+                                </property>
+                                <property name="focusPolicy">
+                                    <enum>NoFocus</enum>
+                                </property>
+                                <property name="text">
+                                    <string>Remove image(s) from list</string>
+                                </property>
+                                <property name="toolTip" stdset="0">
+                                    <string>Deletes the highlighted image(s) from the list</string>
+                                </property>
+                            </widget>
+                            <widget class="QListBox" row="3" column="0" rowspan="2" colspan="2">
+                                <property name="name">
+                                    <cstring>color_coaddListBox</cstring>
+                                </property>
+                                <property name="minimumSize">
+                                    <size>
+                                        <width>240</width>
+                                        <height>100</height>
+                                    </size>
+                                </property>
+                                <property name="focusPolicy">
+                                    <enum>ClickFocus</enum>
+                                </property>
+                                <property name="selectionMode">
+                                    <enum>Extended</enum>
+                                </property>
+                            </widget>
+                            <spacer row="7" column="2">
+                                <property name="name">
+                                    <cstring>spacer8</cstring>
+                                </property>
+                                <property name="orientation">
+                                    <enum>Horizontal</enum>
+                                </property>
+                                <property name="sizeType">
+                                    <enum>Fixed</enum>
+                                </property>
+                                <property name="sizeHint">
+                                    <size>
+                                        <width>16</width>
+                                        <height>20</height>
+                                    </size>
+                                </property>
+                            </spacer>
+                            <spacer row="4" column="3">
+                                <property name="name">
+                                    <cstring>spacer44</cstring>
+                                </property>
+                                <property name="orientation">
+                                    <enum>Vertical</enum>
+                                </property>
+                                <property name="sizeType">
+                                    <enum>Expanding</enum>
+                                </property>
+                                <property name="sizeHint">
+                                    <size>
+                                        <width>20</width>
+                                        <height>70</height>
+                                    </size>
+                                </property>
+                            </spacer>
+                            <widget class="QPushButton" row="7" column="3">
+                                <property name="name">
+                                    <cstring>color_rereadimagePushButton</cstring>
+                                </property>
+                                <property name="minimumSize">
+                                    <size>
+                                        <width>200</width>
+                                        <height>0</height>
+                                    </size>
+                                </property>
+                                <property name="maximumSize">
+                                    <size>
+                                        <width>200</width>
+                                        <height>32767</height>
+                                    </size>
+                                </property>
+                                <property name="focusPolicy">
+                                    <enum>NoFocus</enum>
+                                </property>
+                                <property name="text">
+                                    <string>Restore all images</string>
+                                </property>
+                                <property name="toolTip" stdset="0">
+                                    <string>Restores previously removed images in the list</string>
+                                </property>
+                            </widget>
+                            <spacer row="8" column="0">
+                                <property name="name">
+                                    <cstring>spacer63</cstring>
+                                </property>
+                                <property name="orientation">
+                                    <enum>Vertical</enum>
+                                </property>
+                                <property name="sizeType">
+                                    <enum>Fixed</enum>
+                                </property>
+                                <property name="sizeHint">
+                                    <size>
+                                        <width>20</width>
+                                        <height>20</height>
+                                    </size>
+                                </property>
+                            </spacer>
+                            <widget class="QLabel" row="2" column="0" rowspan="1" colspan="2">
+                                <property name="name">
+                                    <cstring>textLabel1_5</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Select coadditions:</string>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="1" column="0">
+                                <property name="name">
+                                    <cstring>textLabel1</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>SCIENCE dir:</string>
+                                </property>
+                            </widget>
+                            <widget class="QPushButton" row="3" column="3">
+                                <property name="name">
+                                    <cstring>color_getcoaddedimagesPushButton</cstring>
+                                </property>
+                                <property name="focusPolicy">
+                                    <enum>NoFocus</enum>
+                                </property>
+                                <property name="text">
+                                    <string>Get coadded images</string>
+                                </property>
+                                <property name="toolTip" stdset="0">
+                                    <string>Links all coadded images selected to a subdirectory called 'color_theli'. These images are then cropped to the largest area in common in such a way that the same object ends up on the same pixel in all images.&lt;br&gt;</string>
+                                </property>
+                            </widget>
+                            <widget class="QPushButton" row="0" column="3">
+                                <property name="name">
+                                    <cstring>color_selectdirPushButton</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Select dir ...</string>
+                                </property>
+                            </widget>
+                            <widget class="QLineEdit" row="1" column="1" rowspan="1" colspan="3">
+                                <property name="name">
+                                    <cstring>color_dirLineEdit</cstring>
+                                </property>
+                                <property name="minimumSize">
+                                    <size>
+                                        <width>0</width>
+                                        <height>0</height>
+                                    </size>
+                                </property>
+                                <property name="alignment">
+                                    <set>AlignRight</set>
+                                </property>
+                                <property name="toolTip" stdset="0">
+                                    <string>The path where the individual color channels are</string>
+                                </property>
+                            </widget>
+                        </grid>
+                    </widget>
+                </grid>
+            </widget>
+            <widget class="QWidget">
+                <property name="name">
+                    <cstring>TabPage</cstring>
+                </property>
+                <attribute name="title">
+                    <string>ELum + NB combination</string>
+                </attribute>
+                <grid>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
+                    </property>
+                    <widget class="QGroupBox" row="0" column="0">
+                        <property name="name">
+                            <cstring>groupBox5_2</cstring>
+                        </property>
+                        <property name="sizePolicy">
+                            <sizepolicy>
+                                <hsizetype>5</hsizetype>
+                                <vsizetype>3</vsizetype>
+                                <horstretch>0</horstretch>
+                                <verstretch>0</verstretch>
+                            </sizepolicy>
+                        </property>
+                        <property name="paletteBackgroundPixmap">
+                            <pixmap>guiback_green.png</pixmap>
+                        </property>
+                        <property name="title">
+                            <string></string>
+                        </property>
+                        <grid>
+                            <property name="name">
+                                <cstring>unnamed</cstring>
+                            </property>
+                            <widget class="QLabel" row="1" column="0">
+                                <property name="name">
+                                    <cstring>textLabel2_2</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Select images:</string>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="0" column="0" rowspan="1" colspan="2">
+                                <property name="name">
+                                    <cstring>textLabel1_9</cstring>
+                                </property>
+                                <property name="paletteForegroundColor">
+                                    <color>
+                                        <red>170</red>
+                                        <green>0</green>
+                                        <blue>0</blue>
+                                    </color>
+                                </property>
+                                <property name="text">
+                                    <string>&lt;b&gt;Create enhanced luminance&lt;/b&gt;</string>
+                                </property>
+                            </widget>
+                            <widget class="QListBox" row="2" column="0">
+                                <property name="name">
+                                    <cstring>color_ELum_imagesListBox</cstring>
+                                </property>
+                                <property name="sizePolicy">
+                                    <sizepolicy>
+                                        <hsizetype>3</hsizetype>
+                                        <vsizetype>7</vsizetype>
+                                        <horstretch>0</horstretch>
+                                        <verstretch>0</verstretch>
+                                    </sizepolicy>
+                                </property>
+                                <property name="minimumSize">
+                                    <size>
+                                        <width>250</width>
+                                        <height>0</height>
+                                    </size>
+                                </property>
+                                <property name="maximumSize">
+                                    <size>
+                                        <width>32767</width>
+                                        <height>32767</height>
+                                    </size>
+                                </property>
+                                <property name="focusPolicy">
+                                    <enum>ClickFocus</enum>
+                                </property>
+                                <property name="selectionMode">
+                                    <enum>Extended</enum>
+                                </property>
+                                <property name="toolTip" stdset="0">
+                                    <string>Select the images you want to combine</string>
+                                </property>
+                            </widget>
+                            <spacer row="2" column="1">
+                                <property name="name">
+                                    <cstring>spacer44_2</cstring>
+                                </property>
+                                <property name="orientation">
+                                    <enum>Horizontal</enum>
+                                </property>
+                                <property name="sizeType">
+                                    <enum>Fixed</enum>
+                                </property>
+                                <property name="sizeHint">
+                                    <size>
+                                        <width>20</width>
+                                        <height>20</height>
+                                    </size>
+                                </property>
+                            </spacer>
+                            <widget class="QLayoutWidget" row="0" column="2" rowspan="3" colspan="1">
+                                <property name="name">
+                                    <cstring>layout5</cstring>
+                                </property>
+                                <grid>
+                                    <property name="name">
+                                        <cstring>unnamed</cstring>
+                                    </property>
+                                    <widget class="QLabel" row="3" column="0">
+                                        <property name="name">
+                                            <cstring>textLabel1_4</cstring>
+                                        </property>
+                                        <property name="text">
+                                            <string>Combination method:</string>
+                                        </property>
+                                    </widget>
+                                    <spacer row="5" column="0">
+                                        <property name="name">
+                                            <cstring>spacer39</cstring>
+                                        </property>
+                                        <property name="orientation">
+                                            <enum>Vertical</enum>
+                                        </property>
+                                        <property name="sizeType">
+                                            <enum>Fixed</enum>
+                                        </property>
+                                        <property name="sizeHint">
+                                            <size>
+                                                <width>20</width>
+                                                <height>10</height>
+                                            </size>
+                                        </property>
+                                    </spacer>
+                                    <widget class="QPushButton" row="6" column="0">
+                                        <property name="name">
+                                            <cstring>color_ELum_doitPushButton</cstring>
+                                        </property>
+                                        <property name="focusPolicy">
+                                            <enum>NoFocus</enum>
+                                        </property>
+                                        <property name="text">
+                                            <string>Create ELum</string>
+                                        </property>
+                                        <property name="toolTip" stdset="0">
+                                            <string>Start the combination</string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QCheckBox" row="1" column="0">
+                                        <property name="name">
+                                            <cstring>color_ELum_maskCheckBox</cstring>
+                                        </property>
+                                        <property name="focusPolicy">
+                                            <enum>NoFocus</enum>
+                                        </property>
+                                        <property name="text">
+                                            <string>Mask combined image</string>
+                                        </property>
+                                        <property name="toolTip" stdset="0">
+                                            <string>Activate this if you want to set pixels to zero that were not covered by all input images. This requires the weight images to be present, too.&lt;br&gt;</string>
+                                        </property>
+                                    </widget>
+                                    <spacer row="2" column="0">
+                                        <property name="name">
+                                            <cstring>spacer40</cstring>
+                                        </property>
+                                        <property name="orientation">
+                                            <enum>Vertical</enum>
+                                        </property>
+                                        <property name="sizeType">
+                                            <enum>Fixed</enum>
+                                        </property>
+                                        <property name="sizeHint">
+                                            <size>
+                                                <width>20</width>
+                                                <height>10</height>
+                                            </size>
+                                        </property>
+                                    </spacer>
+                                    <spacer row="0" column="0">
+                                        <property name="name">
+                                            <cstring>spacer41</cstring>
+                                        </property>
+                                        <property name="orientation">
+                                            <enum>Vertical</enum>
+                                        </property>
+                                        <property name="sizeType">
+                                            <enum>Expanding</enum>
+                                        </property>
+                                        <property name="sizeHint">
+                                            <size>
+                                                <width>20</width>
+                                                <height>30</height>
+                                            </size>
+                                        </property>
+                                    </spacer>
+                                    <widget class="QComboBox" row="4" column="0">
+                                        <item>
+                                            <property name="text">
+                                                <string>Noise normalised</string>
+                                            </property>
+                                        </item>
+                                        <item>
+                                            <property name="text">
+                                                <string>Mean</string>
+                                            </property>
+                                        </item>
+                                        <property name="name">
+                                            <cstring>color_ELum_modeComboBox</cstring>
+                                        </property>
+                                        <property name="focusPolicy">
+                                            <enum>NoFocus</enum>
+                                        </property>
+                                        <property name="toolTip" stdset="0">
+                                            <string>Noise-optimised combination (chi-square) or average combination (mean)</string>
+                                        </property>
+                                    </widget>
+                                </grid>
+                            </widget>
+                        </grid>
+                    </widget>
+                    <spacer row="2" column="0">
+                        <property name="name">
+                            <cstring>spacer34</cstring>
+                        </property>
+                        <property name="orientation">
+                            <enum>Vertical</enum>
+                        </property>
+                        <property name="sizeType">
+                            <enum>Fixed</enum>
+                        </property>
+                        <property name="sizeHint">
+                            <size>
+                                <width>20</width>
+                                <height>70</height>
+                            </size>
+                        </property>
+                    </spacer>
+                    <spacer row="1" column="2">
+                        <property name="name">
+                            <cstring>spacer41_3</cstring>
+                        </property>
+                        <property name="orientation">
+                            <enum>Horizontal</enum>
+                        </property>
+                        <property name="sizeType">
+                            <enum>Expanding</enum>
+                        </property>
+                        <property name="sizeHint">
+                            <size>
+                                <width>40</width>
+                                <height>20</height>
+                            </size>
+                        </property>
+                    </spacer>
+                    <widget class="QGroupBox" row="1" column="0">
+                        <property name="name">
+                            <cstring>combine_GroupBox</cstring>
+                        </property>
+                        <property name="sizePolicy">
+                            <sizepolicy>
+                                <hsizetype>3</hsizetype>
+                                <vsizetype>3</vsizetype>
+                                <horstretch>0</horstretch>
+                                <verstretch>0</verstretch>
+                            </sizepolicy>
+                        </property>
+                        <property name="paletteBackgroundPixmap">
+                            <pixmap>guiback_green.png</pixmap>
+                        </property>
+                        <property name="title">
+                            <string></string>
+                        </property>
+                        <grid>
+                            <property name="name">
+                                <cstring>unnamed</cstring>
+                            </property>
+                            <widget class="QLabel" row="2" column="0">
+                                <property name="name">
+                                    <cstring>textLabel1_7</cstring>
+                                </property>
+                                <property name="sizePolicy">
+                                    <sizepolicy>
+                                        <hsizetype>1</hsizetype>
+                                        <vsizetype>5</vsizetype>
+                                        <horstretch>0</horstretch>
+                                        <verstretch>0</verstretch>
+                                    </sizepolicy>
+                                </property>
+                                <property name="text">
+                                    <string>Broad</string>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="3" column="0">
+                                <property name="name">
+                                    <cstring>textLabel2_3</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Narrow</string>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="0" column="0" rowspan="1" colspan="7">
+                                <property name="name">
+                                    <cstring>textLabel1_9_3</cstring>
+                                </property>
+                                <property name="paletteForegroundColor">
+                                    <color>
+                                        <red>170</red>
+                                        <green>0</green>
+                                        <blue>0</blue>
+                                    </color>
+                                </property>
+                                <property name="text">
+                                    <string>&lt;b&gt;Combine broad-band and narrow-band filters&lt;/b&gt; &lt;font color=black&gt;&lt;/font&gt;</string>
+                                </property>
+                            </widget>
+                            <widget class="QLineEdit" row="3" column="6">
+                                <property name="name">
+                                    <cstring>color_bbnb_weightLineEdit</cstring>
+                                </property>
+                                <property name="sizePolicy">
+                                    <sizepolicy>
+                                        <hsizetype>0</hsizetype>
+                                        <vsizetype>0</vsizetype>
+                                        <horstretch>0</horstretch>
+                                        <verstretch>0</verstretch>
+                                    </sizepolicy>
+                                </property>
+                                <property name="minimumSize">
+                                    <size>
+                                        <width>80</width>
+                                        <height>0</height>
+                                    </size>
+                                </property>
+                                <property name="maximumSize">
+                                    <size>
+                                        <width>80</width>
+                                        <height>32767</height>
+                                    </size>
+                                </property>
+                                <property name="toolTip" stdset="0">
+                                    <string>Weight of the narrow-band filter in the combination</string>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="2" column="6">
+                                <property name="name">
+                                    <cstring>textLabel4</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>NB weight</string>
+                                </property>
+                            </widget>
+                            <widget class="QPushButton" row="4" column="4" rowspan="1" colspan="3">
+                                <property name="name">
+                                    <cstring>color_bbnb_combinePushButton</cstring>
+                                </property>
+                                <property name="sizePolicy">
+                                    <sizepolicy>
+                                        <hsizetype>1</hsizetype>
+                                        <vsizetype>0</vsizetype>
+                                        <horstretch>0</horstretch>
+                                        <verstretch>0</verstretch>
+                                    </sizepolicy>
+                                </property>
+                                <property name="minimumSize">
+                                    <size>
+                                        <width>160</width>
+                                        <height>0</height>
+                                    </size>
+                                </property>
+                                <property name="maximumSize">
+                                    <size>
+                                        <width>160</width>
+                                        <height>32767</height>
+                                    </size>
+                                </property>
+                                <property name="focusPolicy">
+                                    <enum>NoFocus</enum>
+                                </property>
+                                <property name="text">
+                                    <string>Combine</string>
+                                </property>
+                                <property name="toolTip" stdset="0">
+                                    <string>Combines the broad- and the narrow-band image without changing stellar colors</string>
+                                </property>
+                            </widget>
+                            <spacer row="4" column="0" rowspan="1" colspan="4">
+                                <property name="name">
+                                    <cstring>spacer41_2</cstring>
+                                </property>
+                                <property name="orientation">
+                                    <enum>Horizontal</enum>
+                                </property>
+                                <property name="sizeType">
+                                    <enum>Expanding</enum>
+                                </property>
+                                <property name="sizeHint">
+                                    <size>
+                                        <width>320</width>
+                                        <height>20</height>
+                                    </size>
+                                </property>
+                            </spacer>
+                            <widget class="QComboBox" row="2" column="1">
+                                <property name="name">
+                                    <cstring>color_bbnb_broadComboBox</cstring>
+                                </property>
+                                <property name="sizePolicy">
+                                    <sizepolicy>
+                                        <hsizetype>4</hsizetype>
+                                        <vsizetype>0</vsizetype>
+                                        <horstretch>0</horstretch>
+                                        <verstretch>0</verstretch>
+                                    </sizepolicy>
+                                </property>
+                                <property name="minimumSize">
+                                    <size>
+                                        <width>200</width>
+                                        <height>0</height>
+                                    </size>
+                                </property>
+                                <property name="toolTip" stdset="0">
+                                    <string>Select a broad-band image for combination</string>
+                                </property>
+                            </widget>
+                            <widget class="QComboBox" row="3" column="1">
+                                <property name="name">
+                                    <cstring>color_bbnb_narrowComboBox</cstring>
+                                </property>
+                                <property name="sizePolicy">
+                                    <sizepolicy>
+                                        <hsizetype>4</hsizetype>
+                                        <vsizetype>0</vsizetype>
+                                        <horstretch>0</horstretch>
+                                        <verstretch>0</verstretch>
+                                    </sizepolicy>
+                                </property>
+                                <property name="minimumSize">
+                                    <size>
+                                        <width>200</width>
+                                        <height>0</height>
+                                    </size>
+                                </property>
+                                <property name="toolTip" stdset="0">
+                                    <string>Select a narrow-band image for combination</string>
+                                </property>
+                            </widget>
+                            <widget class="QLineEdit" row="3" column="3" rowspan="1" colspan="2">
+                                <property name="name">
+                                    <cstring>color_bbnb_narrowwidthLineEdit</cstring>
+                                </property>
+                                <property name="sizePolicy">
+                                    <sizepolicy>
+                                        <hsizetype>0</hsizetype>
+                                        <vsizetype>0</vsizetype>
+                                        <horstretch>0</horstretch>
+                                        <verstretch>0</verstretch>
+                                    </sizepolicy>
+                                </property>
+                                <property name="minimumSize">
+                                    <size>
+                                        <width>80</width>
+                                        <height>0</height>
+                                    </size>
+                                </property>
+                                <property name="maximumSize">
+                                    <size>
+                                        <width>80</width>
+                                        <height>32767</height>
+                                    </size>
+                                </property>
+                                <property name="toolTip" stdset="0">
+                                    <string>Width of the narrow-band filter in nm</string>
+                                </property>
+                            </widget>
+                            <widget class="QLineEdit" row="2" column="3" rowspan="1" colspan="2">
+                                <property name="name">
+                                    <cstring>color_bbnb_broadwidthLineEdit</cstring>
+                                </property>
+                                <property name="sizePolicy">
+                                    <sizepolicy>
+                                        <hsizetype>0</hsizetype>
+                                        <vsizetype>0</vsizetype>
+                                        <horstretch>0</horstretch>
+                                        <verstretch>0</verstretch>
+                                    </sizepolicy>
+                                </property>
+                                <property name="minimumSize">
+                                    <size>
+                                        <width>80</width>
+                                        <height>0</height>
+                                    </size>
+                                </property>
+                                <property name="maximumSize">
+                                    <size>
+                                        <width>80</width>
+                                        <height>32767</height>
+                                    </size>
+                                </property>
+                                <property name="toolTip" stdset="0">
+                                    <string>Width of the broad-band filter in nm</string>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="1" column="3" rowspan="1" colspan="4">
+                                <property name="name">
+                                    <cstring>textLabel3_2</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Width [nm]</string>
+                                </property>
+                            </widget>
+                            <spacer row="2" column="2">
+                                <property name="name">
+                                    <cstring>spacer32</cstring>
+                                </property>
+                                <property name="orientation">
+                                    <enum>Horizontal</enum>
+                                </property>
+                                <property name="sizeType">
+                                    <enum>Fixed</enum>
+                                </property>
+                                <property name="sizeHint">
+                                    <size>
+                                        <width>16</width>
+                                        <height>20</height>
+                                    </size>
+                                </property>
+                            </spacer>
+                            <spacer row="3" column="5">
+                                <property name="name">
+                                    <cstring>spacer32_3</cstring>
+                                </property>
+                                <property name="orientation">
+                                    <enum>Horizontal</enum>
+                                </property>
+                                <property name="sizeType">
+                                    <enum>Fixed</enum>
+                                </property>
+                                <property name="sizeHint">
+                                    <size>
+                                        <width>16</width>
+                                        <height>20</height>
+                                    </size>
+                                </property>
+                            </spacer>
+                            <spacer row="3" column="2">
+                                <property name="name">
+                                    <cstring>spacer32_2</cstring>
+                                </property>
+                                <property name="orientation">
+                                    <enum>Horizontal</enum>
+                                </property>
+                                <property name="sizeType">
+                                    <enum>Fixed</enum>
+                                </property>
+                                <property name="sizeHint">
+                                    <size>
+                                        <width>16</width>
+                                        <height>20</height>
+                                    </size>
+                                </property>
+                            </spacer>
+                        </grid>
+                    </widget>
+                </grid>
+            </widget>
+            <widget class="QWidget">
+                <property name="name">
+                    <cstring>tab</cstring>
+                </property>
+                <attribute name="title">
+                    <string>Color calibration</string>
+                </attribute>
+                <grid>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
+                    </property>
+                    <spacer row="0" column="1">
+                        <property name="name">
+                            <cstring>spacer37_2</cstring>
+                        </property>
+                        <property name="orientation">
+                            <enum>Horizontal</enum>
+                        </property>
+                        <property name="sizeType">
+                            <enum>Expanding</enum>
+                        </property>
+                        <property name="sizeHint">
+                            <size>
+                                <width>252</width>
+                                <height>20</height>
+                            </size>
+                        </property>
+                    </spacer>
+                    <spacer row="1" column="0">
+                        <property name="name">
+                            <cstring>spacer57</cstring>
+                        </property>
+                        <property name="orientation">
+                            <enum>Vertical</enum>
+                        </property>
+                        <property name="sizeType">
+                            <enum>Expanding</enum>
+                        </property>
+                        <property name="sizeHint">
+                            <size>
+                                <width>20</width>
+                                <height>121</height>
+                            </size>
+                        </property>
+                    </spacer>
+                    <widget class="QGroupBox" row="0" column="0">
+                        <property name="name">
+                            <cstring>groupBox3</cstring>
+                        </property>
+                        <property name="paletteBackgroundPixmap">
+                            <pixmap>guiback_green.png</pixmap>
+                        </property>
+                        <property name="title">
+                            <string></string>
+                        </property>
+                        <grid>
+                            <property name="name">
+                                <cstring>unnamed</cstring>
+                            </property>
+                            <spacer row="1" column="2">
+                                <property name="name">
+                                    <cstring>spacer51</cstring>
+                                </property>
+                                <property name="orientation">
+                                    <enum>Vertical</enum>
+                                </property>
+                                <property name="sizeType">
+                                    <enum>Fixed</enum>
+                                </property>
+                                <property name="sizeHint">
+                                    <size>
+                                        <width>20</width>
+                                        <height>16</height>
+                                    </size>
+                                </property>
+                            </spacer>
+                            <spacer row="3" column="0">
+                                <property name="name">
+                                    <cstring>spacer52</cstring>
+                                </property>
+                                <property name="orientation">
+                                    <enum>Vertical</enum>
+                                </property>
+                                <property name="sizeType">
+                                    <enum>Fixed</enum>
+                                </property>
+                                <property name="sizeHint">
+                                    <size>
+                                        <width>20</width>
+                                        <height>16</height>
+                                    </size>
+                                </property>
+                            </spacer>
+                            <spacer row="4" column="1">
+                                <property name="name">
+                                    <cstring>spacer56</cstring>
+                                </property>
+                                <property name="orientation">
+                                    <enum>Horizontal</enum>
+                                </property>
+                                <property name="sizeType">
+                                    <enum>MinimumExpanding</enum>
+                                </property>
+                                <property name="sizeHint">
+                                    <size>
+                                        <width>16</width>
+                                        <height>20</height>
+                                    </size>
+                                </property>
+                            </spacer>
+                            <widget class="QLayoutWidget" row="0" column="0" rowspan="1" colspan="3">
+                                <property name="name">
+                                    <cstring>layout34</cstring>
+                                </property>
+                                <grid>
+                                    <property name="name">
+                                        <cstring>unnamed</cstring>
+                                    </property>
+                                    <widget class="QComboBox" row="0" column="1">
+                                        <property name="name">
+                                            <cstring>color_BV_r_ComboBox</cstring>
+                                        </property>
+                                        <property name="sizePolicy">
+                                            <sizepolicy>
+                                                <hsizetype>3</hsizetype>
+                                                <vsizetype>0</vsizetype>
+                                                <horstretch>0</horstretch>
+                                                <verstretch>0</verstretch>
+                                            </sizepolicy>
+                                        </property>
+                                        <property name="minimumSize">
+                                            <size>
+                                                <width>200</width>
+                                                <height>0</height>
+                                            </size>
+                                        </property>
+                                        <property name="focusPolicy">
+                                            <enum>NoFocus</enum>
+                                        </property>
+                                    </widget>
+                                    <widget class="QComboBox" row="2" column="1">
+                                        <property name="name">
+                                            <cstring>color_BV_b_ComboBox</cstring>
+                                        </property>
+                                        <property name="sizePolicy">
+                                            <sizepolicy>
+                                                <hsizetype>5</hsizetype>
+                                                <vsizetype>0</vsizetype>
+                                                <horstretch>0</horstretch>
+                                                <verstretch>0</verstretch>
+                                            </sizepolicy>
+                                        </property>
+                                        <property name="minimumSize">
+                                            <size>
+                                                <width>200</width>
+                                                <height>0</height>
+                                            </size>
+                                        </property>
+                                        <property name="focusPolicy">
+                                            <enum>NoFocus</enum>
+                                        </property>
+                                    </widget>
+                                    <widget class="QLabel" row="2" column="0">
+                                        <property name="name">
+                                            <cstring>textLabel1_2_3</cstring>
+                                        </property>
+                                        <property name="paletteForegroundColor">
+                                            <color>
+                                                <red>0</red>
+                                                <green>0</green>
+                                                <blue>255</blue>
+                                            </color>
+                                        </property>
+                                        <property name="paletteBackgroundPixmap">
+                                            <pixmap>guiback_green.png</pixmap>
+                                        </property>
+                                        <property name="text">
+                                            <string>Blue image</string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QLabel" row="1" column="0">
+                                        <property name="name">
+                                            <cstring>textLabel1_2_2</cstring>
+                                        </property>
+                                        <property name="paletteForegroundColor">
+                                            <color>
+                                                <red>0</red>
+                                                <green>140</green>
+                                                <blue>0</blue>
+                                            </color>
+                                        </property>
+                                        <property name="paletteBackgroundPixmap">
+                                            <pixmap>guiback_green.png</pixmap>
+                                        </property>
+                                        <property name="text">
+                                            <string>Green image</string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QLabel" row="0" column="0">
+                                        <property name="name">
+                                            <cstring>textLabel1_2</cstring>
+                                        </property>
+                                        <property name="paletteForegroundColor">
+                                            <color>
+                                                <red>255</red>
+                                                <green>0</green>
+                                                <blue>0</blue>
+                                            </color>
+                                        </property>
+                                        <property name="paletteBackgroundPixmap">
+                                            <pixmap>guiback_green.png</pixmap>
+                                        </property>
+                                        <property name="text">
+                                            <string>Red image</string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QComboBox" row="1" column="1">
+                                        <property name="name">
+                                            <cstring>color_BV_v_ComboBox</cstring>
+                                        </property>
+                                        <property name="sizePolicy">
+                                            <sizepolicy>
+                                                <hsizetype>5</hsizetype>
+                                                <vsizetype>0</vsizetype>
+                                                <horstretch>0</horstretch>
+                                                <verstretch>0</verstretch>
+                                            </sizepolicy>
+                                        </property>
+                                        <property name="minimumSize">
+                                            <size>
+                                                <width>200</width>
+                                                <height>0</height>
+                                            </size>
+                                        </property>
+                                        <property name="focusPolicy">
+                                            <enum>NoFocus</enum>
+                                        </property>
+                                    </widget>
+                                </grid>
+                            </widget>
+                            <widget class="QButtonGroup" row="4" column="2">
+                                <property name="name">
+                                    <cstring>color_resultButtonGroup</cstring>
+                                </property>
+                                <property name="title">
+                                    <string>Choose calibration result</string>
+                                </property>
+                                <property name="exclusive">
+                                    <bool>true</bool>
+                                </property>
+                                <grid>
+                                    <property name="name">
+                                        <cstring>unnamed</cstring>
+                                    </property>
+                                    <widget class="QPushButton" row="0" column="0">
+                                        <property name="name">
+                                            <cstring>color_SDSSPushButton</cstring>
+                                        </property>
+                                        <property name="minimumSize">
+                                            <size>
+                                                <width>100</width>
+                                                <height>0</height>
+                                            </size>
+                                        </property>
+                                        <property name="maximumSize">
+                                            <size>
+                                                <width>100</width>
+                                                <height>32767</height>
+                                            </size>
+                                        </property>
+                                        <property name="text">
+                                            <string>SDSS</string>
+                                        </property>
+                                        <property name="toggleButton">
+                                            <bool>true</bool>
+                                        </property>
+                                        <property name="toolTip" stdset="0">
+                                            <string>Using u-g, g-r, r-i colors</string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QPushButton" row="1" column="0">
+                                        <property name="name">
+                                            <cstring>color_UCAC4PushButton</cstring>
+                                        </property>
+                                        <property name="minimumSize">
+                                            <size>
+                                                <width>100</width>
+                                                <height>0</height>
+                                            </size>
+                                        </property>
+                                        <property name="maximumSize">
+                                            <size>
+                                                <width>100</width>
+                                                <height>32767</height>
+                                            </size>
+                                        </property>
+                                        <property name="text">
+                                            <string>UCAC4</string>
+                                        </property>
+                                        <property name="toggleButton">
+                                            <bool>true</bool>
+                                        </property>
+                                        <property name="toolTip" stdset="0">
+                                            <string>Using B-V, g-r, r-i colors</string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QLabel" row="0" column="1">
+                                        <property name="name">
+                                            <cstring>color_nstarsSDSSTextLabel</cstring>
+                                        </property>
+                                        <property name="text">
+                                            <string>0 stars</string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QLabel" row="2" column="1">
+                                        <property name="name">
+                                            <cstring>color_nstarsNOMADTextLabel</cstring>
+                                        </property>
+                                        <property name="text">
+                                            <string>0 stars</string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QLabel" row="3" column="1">
+                                        <property name="name">
+                                            <cstring>color_nstarsAVGWHITETextLabel</cstring>
+                                        </property>
+                                        <property name="text">
+                                            <string>0 stars</string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QPushButton" row="2" column="0">
+                                        <property name="name">
+                                            <cstring>color_NOMADPushButton</cstring>
+                                        </property>
+                                        <property name="minimumSize">
+                                            <size>
+                                                <width>100</width>
+                                                <height>0</height>
+                                            </size>
+                                        </property>
+                                        <property name="maximumSize">
+                                            <size>
+                                                <width>100</width>
+                                                <height>32767</height>
+                                            </size>
+                                        </property>
+                                        <property name="text">
+                                            <string>NOMAD</string>
+                                        </property>
+                                        <property name="toggleButton">
+                                            <bool>true</bool>
+                                        </property>
+                                        <property name="toolTip" stdset="0">
+                                            <string>Using B-V, V-R colors</string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QPushButton" row="3" column="0">
+                                        <property name="name">
+                                            <cstring>color_AVGWHITEPushButton</cstring>
+                                        </property>
+                                        <property name="minimumSize">
+                                            <size>
+                                                <width>100</width>
+                                                <height>0</height>
+                                            </size>
+                                        </property>
+                                        <property name="maximumSize">
+                                            <size>
+                                                <width>100</width>
+                                                <height>32767</height>
+                                            </size>
+                                        </property>
+                                        <property name="text">
+                                            <string>AVGWHITE</string>
+                                        </property>
+                                        <property name="toggleButton">
+                                            <bool>true</bool>
+                                        </property>
+                                        <property name="toolTip" stdset="0">
+                                            <string>Correction will result in average of all sources being white</string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QLabel" row="1" column="1">
+                                        <property name="name">
+                                            <cstring>color_nstarsUCAC4TextLabel</cstring>
+                                        </property>
+                                        <property name="text">
+                                            <string>0 stars</string>
+                                        </property>
+                                    </widget>
+                                </grid>
+                            </widget>
+                            <widget class="QGroupBox" row="4" column="0">
+                                <property name="name">
+                                    <cstring>groupBox7</cstring>
+                                </property>
+                                <property name="title">
+                                    <string>Correction factors</string>
+                                </property>
+                                <grid>
+                                    <property name="name">
+                                        <cstring>unnamed</cstring>
+                                    </property>
+                                    <widget class="QLineEdit" row="3" column="2">
+                                        <property name="name">
+                                            <cstring>color_errorGLineEdit</cstring>
+                                        </property>
+                                        <property name="minimumSize">
+                                            <size>
+                                                <width>80</width>
+                                                <height>0</height>
+                                            </size>
+                                        </property>
+                                        <property name="maximumSize">
+                                            <size>
+                                                <width>80</width>
+                                                <height>32767</height>
+                                            </size>
+                                        </property>
+                                        <property name="paletteBackgroundColor">
+                                            <color>
+                                                <red>255</red>
+                                                <green>254</green>
+                                                <blue>212</blue>
+                                            </color>
+                                        </property>
+                                        <property name="focusPolicy">
+                                            <enum>NoFocus</enum>
+                                        </property>
+                                        <property name="alignment">
+                                            <set>AlignRight</set>
+                                        </property>
+                                        <property name="readOnly">
+                                            <bool>true</bool>
+                                        </property>
+                                        <property name="toolTip" stdset="0">
+                                            <string>The error level for the green correction factor. As the green channel is the reference channel, the error level is always zero. &lt;br&gt;</string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QLineEdit" row="3" column="1">
+                                        <property name="name">
+                                            <cstring>color_factorGLineEdit</cstring>
+                                        </property>
+                                        <property name="minimumSize">
+                                            <size>
+                                                <width>80</width>
+                                                <height>0</height>
+                                            </size>
+                                        </property>
+                                        <property name="maximumSize">
+                                            <size>
+                                                <width>80</width>
+                                                <height>32767</height>
+                                            </size>
+                                        </property>
+                                        <property name="paletteBackgroundColor">
+                                            <color>
+                                                <red>255</red>
+                                                <green>254</green>
+                                                <blue>212</blue>
+                                            </color>
+                                        </property>
+                                        <property name="focusPolicy">
+                                            <enum>NoFocus</enum>
+                                        </property>
+                                        <property name="alignment">
+                                            <set>AlignRight</set>
+                                        </property>
+                                        <property name="readOnly">
+                                            <bool>true</bool>
+                                        </property>
+                                        <property name="toolTip" stdset="0">
+                                            <string>The correction factor for the green channel. As this is the reference channel, it is always 1.0 and displayed just for completeness.&lt;br&gt;</string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QLineEdit" row="1" column="1">
+                                        <property name="name">
+                                            <cstring>color_factorRLineEdit</cstring>
+                                        </property>
+                                        <property name="minimumSize">
+                                            <size>
+                                                <width>80</width>
+                                                <height>0</height>
+                                            </size>
+                                        </property>
+                                        <property name="maximumSize">
+                                            <size>
+                                                <width>80</width>
+                                                <height>32767</height>
+                                            </size>
+                                        </property>
+                                        <property name="alignment">
+                                            <set>AlignRight</set>
+                                        </property>
+                                        <property name="toolTip" stdset="0">
+                                            <string>The correction factor for the red channel</string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QLabel" row="1" column="0">
+                                        <property name="name">
+                                            <cstring>textLabel2</cstring>
+                                        </property>
+                                        <property name="text">
+                                            <string>Red</string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QLabel" row="3" column="0">
+                                        <property name="name">
+                                            <cstring>textLabel3_3</cstring>
+                                        </property>
+                                        <property name="text">
+                                            <string>Green</string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QLineEdit" row="1" column="2">
+                                        <property name="name">
+                                            <cstring>color_errorRLineEdit</cstring>
+                                        </property>
+                                        <property name="minimumSize">
+                                            <size>
+                                                <width>80</width>
+                                                <height>0</height>
+                                            </size>
+                                        </property>
+                                        <property name="maximumSize">
+                                            <size>
+                                                <width>80</width>
+                                                <height>32767</height>
+                                            </size>
+                                        </property>
+                                        <property name="paletteBackgroundColor">
+                                            <color>
+                                                <red>255</red>
+                                                <green>254</green>
+                                                <blue>212</blue>
+                                            </color>
+                                        </property>
+                                        <property name="focusPolicy">
+                                            <enum>NoFocus</enum>
+                                        </property>
+                                        <property name="alignment">
+                                            <set>AlignRight</set>
+                                        </property>
+                                        <property name="readOnly">
+                                            <bool>true</bool>
+                                        </property>
+                                        <property name="toolTip" stdset="0">
+                                            <string>The error level for the red correction factor.</string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QLineEdit" row="2" column="2">
+                                        <property name="name">
+                                            <cstring>color_errorBLineEdit</cstring>
+                                        </property>
+                                        <property name="minimumSize">
+                                            <size>
+                                                <width>80</width>
+                                                <height>0</height>
+                                            </size>
+                                        </property>
+                                        <property name="maximumSize">
+                                            <size>
+                                                <width>80</width>
+                                                <height>32767</height>
+                                            </size>
+                                        </property>
+                                        <property name="paletteBackgroundColor">
+                                            <color>
+                                                <red>255</red>
+                                                <green>254</green>
+                                                <blue>212</blue>
+                                            </color>
+                                        </property>
+                                        <property name="focusPolicy">
+                                            <enum>NoFocus</enum>
+                                        </property>
+                                        <property name="alignment">
+                                            <set>AlignRight</set>
+                                        </property>
+                                        <property name="readOnly">
+                                            <bool>true</bool>
+                                        </property>
+                                        <property name="toolTip" stdset="0">
+                                            <string>The error level for the blue correction factor.</string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QLabel" row="2" column="0">
+                                        <property name="name">
+                                            <cstring>textLabel4_2</cstring>
+                                        </property>
+                                        <property name="text">
+                                            <string>Blue</string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QLineEdit" row="2" column="1">
+                                        <property name="name">
+                                            <cstring>color_factorBLineEdit</cstring>
+                                        </property>
+                                        <property name="minimumSize">
+                                            <size>
+                                                <width>80</width>
+                                                <height>0</height>
+                                            </size>
+                                        </property>
+                                        <property name="maximumSize">
+                                            <size>
+                                                <width>80</width>
+                                                <height>32767</height>
+                                            </size>
+                                        </property>
+                                        <property name="alignment">
+                                            <set>AlignRight</set>
+                                        </property>
+                                        <property name="toolTip" stdset="0">
+                                            <string>The correction factor for the blue channel</string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QLabel" row="0" column="1">
+                                        <property name="name">
+                                            <cstring>textLabel3</cstring>
+                                        </property>
+                                        <property name="text">
+                                            <string>Factor</string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QLabel" row="0" column="2">
+                                        <property name="name">
+                                            <cstring>textLabel1_3</cstring>
+                                        </property>
+                                        <property name="text">
+                                            <string>Error</string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QPushButton" row="4" column="0" rowspan="1" colspan="2">
+                                        <property name="name">
+                                            <cstring>color_stiffpreviewPushButton</cstring>
+                                        </property>
+                                        <property name="focusPolicy">
+                                            <enum>NoFocus</enum>
+                                        </property>
+                                        <property name="text">
+                                            <string>Preview</string>
+                                        </property>
+                                    </widget>
+                                </grid>
+                            </widget>
+                            <widget class="QLayoutWidget" row="2" column="0" rowspan="1" colspan="3">
+                                <property name="name">
+                                    <cstring>layout6</cstring>
+                                </property>
+                                <hbox>
+                                    <property name="name">
+                                        <cstring>unnamed</cstring>
+                                    </property>
+                                    <widget class="QLabel">
+                                        <property name="name">
+                                            <cstring>color_serverTextLabel</cstring>
+                                        </property>
+                                        <property name="text">
+                                            <string>Catalog server:</string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QComboBox">
+                                        <item>
+                                            <property name="text">
+                                                <string>France</string>
+                                            </property>
+                                        </item>
+                                        <item>
+                                            <property name="text">
+                                                <string>USA</string>
+                                            </property>
+                                        </item>
+                                        <item>
+                                            <property name="text">
+                                                <string>Canada</string>
+                                            </property>
+                                        </item>
+                                        <item>
+                                            <property name="text">
+                                                <string>Japan</string>
+                                            </property>
+                                        </item>
+                                        <item>
+                                            <property name="text">
+                                                <string>India</string>
+                                            </property>
+                                        </item>
+                                        <item>
+                                            <property name="text">
+                                                <string>China</string>
+                                            </property>
+                                        </item>
+                                        <item>
+                                            <property name="text">
+                                                <string>UK</string>
+                                            </property>
+                                        </item>
+                                        <item>
+                                            <property name="text">
+                                                <string>Hawaii</string>
+                                            </property>
+                                        </item>
+                                        <item>
+                                            <property name="text">
+                                                <string>Russia</string>
+                                            </property>
+                                        </item>
+                                        <property name="name">
+                                            <cstring>color_serverComboBox</cstring>
+                                        </property>
+                                        <property name="sizePolicy">
+                                            <sizepolicy>
+                                                <hsizetype>7</hsizetype>
+                                                <vsizetype>0</vsizetype>
+                                                <horstretch>0</horstretch>
+                                                <verstretch>0</verstretch>
+                                            </sizepolicy>
+                                        </property>
+                                        <property name="focusPolicy">
+                                            <enum>NoFocus</enum>
+                                        </property>
+                                        <property name="sizeLimit">
+                                            <number>11</number>
+                                        </property>
+                                        <property name="toolTip" stdset="0">
+                                            <string>The server from where the photometric reference data is downloaded.</string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QPushButton">
+                                        <property name="name">
+                                            <cstring>color_getBVcalPushButton</cstring>
+                                        </property>
+                                        <property name="minimumSize">
+                                            <size>
+                                                <width>120</width>
+                                                <height>0</height>
+                                            </size>
+                                        </property>
+                                        <property name="focusPolicy">
+                                            <enum>NoFocus</enum>
+                                        </property>
+                                        <property name="text">
+                                            <string>Calibrate</string>
+                                        </property>
+                                        <property name="toolTip" stdset="0">
+                                            <string>Obtain photometric color calibration, as well as an average white point.</string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QPushButton">
+                                        <property name="name">
+                                            <cstring>color_BV_resetPushButton</cstring>
+                                        </property>
+                                        <property name="minimumSize">
+                                            <size>
+                                                <width>80</width>
+                                                <height>0</height>
+                                            </size>
+                                        </property>
+                                        <property name="maximumSize">
+                                            <size>
+                                                <width>80</width>
+                                                <height>32767</height>
+                                            </size>
+                                        </property>
+                                        <property name="focusPolicy">
+                                            <enum>NoFocus</enum>
+                                        </property>
+                                        <property name="text">
+                                            <string>Reset</string>
+                                        </property>
+                                        <property name="toolTip" stdset="0">
+                                            <string>Sets the colour correction factors to 1.0</string>
+                                        </property>
+                                    </widget>
+                                </hbox>
+                            </widget>
+                        </grid>
+                    </widget>
+                </grid>
+            </widget>
+            <widget class="QWidget">
+                <property name="name">
+                    <cstring>TabPage</cstring>
+                </property>
+                <attribute name="title">
+                    <string>FITS &gt;&gt; TIFF</string>
+                </attribute>
+                <grid>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
+                    </property>
+                    <spacer row="0" column="1">
+                        <property name="name">
+                            <cstring>spacer39_2</cstring>
+                        </property>
+                        <property name="orientation">
+                            <enum>Horizontal</enum>
+                        </property>
+                        <property name="sizeType">
+                            <enum>Maximum</enum>
+                        </property>
+                        <property name="sizeHint">
+                            <size>
+                                <width>40</width>
+                                <height>20</height>
+                            </size>
+                        </property>
+                    </spacer>
+                    <spacer row="3" column="0">
+                        <property name="name">
+                            <cstring>spacer61</cstring>
+                        </property>
+                        <property name="orientation">
+                            <enum>Vertical</enum>
+                        </property>
+                        <property name="sizeType">
+                            <enum>Fixed</enum>
+                        </property>
+                        <property name="sizeHint">
+                            <size>
+                                <width>20</width>
+                                <height>8</height>
+                            </size>
+                        </property>
+                    </spacer>
+                    <widget class="QGroupBox" row="2" column="0">
+                        <property name="name">
+                            <cstring>groupBox15</cstring>
+                        </property>
+                        <property name="paletteBackgroundPixmap">
+                            <pixmap>guiback_green.png</pixmap>
+                        </property>
+                        <property name="title">
+                            <string></string>
+                        </property>
+                        <grid>
+                            <property name="name">
+                                <cstring>unnamed</cstring>
+                            </property>
+                            <widget class="QLabel" row="0" column="0" rowspan="1" colspan="4">
+                                <property name="name">
+                                    <cstring>textLabel5</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>&lt;b&gt;Convert FITS to TIFF (using STIFF)&lt;/b&gt;</string>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="2" column="2">
+                                <property name="name">
+                                    <cstring>textLabel4_3</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Gamma</string>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="1" column="2">
+                                <property name="name">
+                                    <cstring>textLabel3_4</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Saturation</string>
+                                </property>
+                            </widget>
+                            <spacer row="2" column="4">
+                                <property name="name">
+                                    <cstring>spacer83</cstring>
+                                </property>
+                                <property name="orientation">
+                                    <enum>Horizontal</enum>
+                                </property>
+                                <property name="sizeType">
+                                    <enum>Expanding</enum>
+                                </property>
+                                <property name="sizeHint">
+                                    <size>
+                                        <width>110</width>
+                                        <height>20</height>
+                                    </size>
+                                </property>
+                            </spacer>
+                            <widget class="QLabel" row="1" column="0">
+                                <property name="name">
+                                    <cstring>textLabel2_4</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Min level</string>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="2" column="0">
+                                <property name="name">
+                                    <cstring>textLabel1_10</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Max level</string>
+                                </property>
+                            </widget>
+                            <widget class="QComboBox" row="0" column="5">
+                                <property name="name">
+                                    <cstring>color_stiffRGBLUMComboBox</cstring>
+                                </property>
+                                <property name="minimumSize">
+                                    <size>
+                                        <width>220</width>
+                                        <height>0</height>
+                                    </size>
+                                </property>
+                                <property name="maximumSize">
+                                    <size>
+                                        <width>220</width>
+                                        <height>32767</height>
+                                    </size>
+                                </property>
+                                <property name="focusPolicy">
+                                    <enum>NoFocus</enum>
+                                </property>
+                                <property name="toolTip" stdset="0">
+                                    <string>Select if you want to create a RGB TIFF or a luminance TIFF</string>
+                                </property>
+                            </widget>
+                            <widget class="QPushButton" row="2" column="5">
+                                <property name="name">
+                                    <cstring>color_stiffPushButton</cstring>
+                                </property>
+                                <property name="minimumSize">
+                                    <size>
+                                        <width>220</width>
+                                        <height>0</height>
+                                    </size>
+                                </property>
+                                <property name="maximumSize">
+                                    <size>
+                                        <width>220</width>
+                                        <height>32767</height>
+                                    </size>
+                                </property>
+                                <property name="focusPolicy">
+                                    <enum>NoFocus</enum>
+                                </property>
+                                <property name="text">
+                                    <string>Convert FITS to TIFF</string>
+                                </property>
+                                <property name="toolTip" stdset="0">
+                                    <string>Converts the RGB or Luminance channel(s) into a 16bit TIFF and displays it.&lt;br&gt;</string>
+                                </property>
+                            </widget>
+                            <widget class="QPushButton" row="1" column="5">
+                                <property name="name">
+                                    <cstring>color_stiffdefaultsPushButton</cstring>
+                                </property>
+                                <property name="minimumSize">
+                                    <size>
+                                        <width>220</width>
+                                        <height>0</height>
+                                    </size>
+                                </property>
+                                <property name="maximumSize">
+                                    <size>
+                                        <width>220</width>
+                                        <height>32767</height>
+                                    </size>
+                                </property>
+                                <property name="focusPolicy">
+                                    <enum>NoFocus</enum>
+                                </property>
+                                <property name="text">
+                                    <string>STIFF defaults</string>
+                                </property>
+                            </widget>
+                            <widget class="QLineEdit" row="1" column="3">
+                                <property name="name">
+                                    <cstring>color_stiffsatvalLineEdit</cstring>
+                                </property>
+                                <property name="minimumSize">
+                                    <size>
+                                        <width>80</width>
+                                        <height>0</height>
+                                    </size>
+                                </property>
+                                <property name="maximumSize">
+                                    <size>
+                                        <width>80</width>
+                                        <height>32767</height>
+                                    </size>
+                                </property>
+                                <property name="alignment">
+                                    <set>AlignRight</set>
+                                </property>
+                                <property name="toolTip" stdset="0">
+                                    <string>The colour saturation of the RGB</string>
+                                </property>
+                            </widget>
+                            <widget class="QLineEdit" row="2" column="3">
+                                <property name="name">
+                                    <cstring>color_stiffgammaLineEdit</cstring>
+                                </property>
+                                <property name="minimumSize">
+                                    <size>
+                                        <width>80</width>
+                                        <height>0</height>
+                                    </size>
+                                </property>
+                                <property name="maximumSize">
+                                    <size>
+                                        <width>80</width>
+                                        <height>32767</height>
+                                    </size>
+                                </property>
+                                <property name="alignment">
+                                    <set>AlignRight</set>
+                                </property>
+                                <property name="toolTip" stdset="0">
+                                    <string>The luminance gamma correction factor.</string>
+                                </property>
+                            </widget>
+                            <widget class="QLineEdit" row="1" column="1">
+                                <property name="name">
+                                    <cstring>color_stiffminvalLineEdit</cstring>
+                                </property>
+                                <property name="minimumSize">
+                                    <size>
+                                        <width>80</width>
+                                        <height>0</height>
+                                    </size>
+                                </property>
+                                <property name="maximumSize">
+                                    <size>
+                                        <width>80</width>
+                                        <height>32767</height>
+                                    </size>
+                                </property>
+                                <property name="alignment">
+                                    <set>AlignRight</set>
+                                </property>
+                                <property name="toolTip" stdset="0">
+                                    <string>Pixel values lower than this will be black.</string>
+                                </property>
+                            </widget>
+                            <widget class="QLineEdit" row="2" column="1">
+                                <property name="name">
+                                    <cstring>color_stiffmaxvalLineEdit</cstring>
+                                </property>
+                                <property name="minimumSize">
+                                    <size>
+                                        <width>80</width>
+                                        <height>0</height>
+                                    </size>
+                                </property>
+                                <property name="maximumSize">
+                                    <size>
+                                        <width>80</width>
+                                        <height>32767</height>
+                                    </size>
+                                </property>
+                                <property name="alignment">
+                                    <set>AlignRight</set>
+                                </property>
+                                <property name="toolTip" stdset="0">
+                                    <string>Pixel values higher than this will be white.</string>
+                                </property>
+                            </widget>
+                        </grid>
+                    </widget>
+                    <spacer row="1" column="0">
+                        <property name="name">
+                            <cstring>spacer61_2</cstring>
+                        </property>
+                        <property name="orientation">
+                            <enum>Vertical</enum>
+                        </property>
+                        <property name="sizeType">
+                            <enum>Fixed</enum>
+                        </property>
+                        <property name="sizeHint">
+                            <size>
+                                <width>20</width>
+                                <height>8</height>
+                            </size>
+                        </property>
+                    </spacer>
+                    <widget class="QGroupBox" row="0" column="0">
+                        <property name="name">
+                            <cstring>groupBox6</cstring>
+                        </property>
+                        <property name="paletteBackgroundPixmap">
+                            <pixmap>guiback_green.png</pixmap>
+                        </property>
+                        <property name="title">
+                            <string></string>
+                        </property>
+                        <grid>
+                            <property name="name">
+                                <cstring>unnamed</cstring>
+                            </property>
+                            <widget class="QPushButton" row="4" column="2">
+                                <property name="name">
+                                    <cstring>color_fits2tiffPushButton</cstring>
+                                </property>
+                                <property name="minimumSize">
+                                    <size>
+                                        <width>220</width>
+                                        <height>0</height>
+                                    </size>
+                                </property>
+                                <property name="maximumSize">
+                                    <size>
+                                        <width>220</width>
+                                        <height>32767</height>
+                                    </size>
+                                </property>
+                                <property name="focusPolicy">
+                                    <enum>NoFocus</enum>
+                                </property>
+                                <property name="text">
+                                    <string>Convert FITS to TIFF</string>
+                                </property>
+                                <property name="toolTip" stdset="0">
+                                    <string>Converts the FITS images to TIFF format, including sky subtraction</string>
+                                </property>
+                            </widget>
+                            <spacer row="4" column="0" rowspan="1" colspan="2">
+                                <property name="name">
+                                    <cstring>spacer27_3</cstring>
+                                </property>
+                                <property name="orientation">
+                                    <enum>Horizontal</enum>
+                                </property>
+                                <property name="sizeType">
+                                    <enum>Expanding</enum>
+                                </property>
+                                <property name="sizeHint">
+                                    <size>
+                                        <width>280</width>
+                                        <height>20</height>
+                                    </size>
+                                </property>
+                            </spacer>
+                            <widget class="QLabel" row="3" column="0" rowspan="1" colspan="3">
+                                <property name="name">
+                                    <cstring>textLabel1_6</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Edit the sky level, TIFFmin and TIFFmax according to your needs</string>
+                                </property>
+                            </widget>
+                            <widget class="QTable" row="2" column="0" rowspan="1" colspan="3">
+                                <column>
+                                    <property name="text">
+                                        <string>Name</string>
+                                    </property>
+                                </column>
+                                <column>
+                                    <property name="text">
+                                        <string>Sky</string>
+                                    </property>
+                                </column>
+                                <column>
+                                    <property name="text">
+                                        <string>TIFFmin</string>
+                                    </property>
+                                </column>
+                                <column>
+                                    <property name="text">
+                                        <string>TIFFmax</string>
+                                    </property>
+                                </column>
+                                <column>
+                                    <property name="text">
+                                        <string>rms</string>
+                                    </property>
+                                </column>
+                                <property name="name">
+                                    <cstring>color_statisticsTable</cstring>
+                                </property>
+                                <property name="sizePolicy">
+                                    <sizepolicy>
+                                        <hsizetype>3</hsizetype>
+                                        <vsizetype>7</vsizetype>
+                                        <horstretch>0</horstretch>
+                                        <verstretch>0</verstretch>
+                                    </sizepolicy>
+                                </property>
+                                <property name="minimumSize">
+                                    <size>
+                                        <width>300</width>
+                                        <height>200</height>
+                                    </size>
+                                </property>
+                                <property name="focusPolicy">
+                                    <enum>ClickFocus</enum>
+                                </property>
+                                <property name="numRows">
+                                    <number>3</number>
+                                </property>
+                                <property name="numCols">
+                                    <number>5</number>
+                                </property>
+                                <property name="readOnly">
+                                    <bool>false</bool>
+                                </property>
+                                <property name="selectionMode">
+                                    <enum>MultiRow</enum>
+                                </property>
+                                <property name="toolTip" stdset="0">
+                                    <string>The sky level and conversion thresholds for the images</string>
+                                </property>
+                            </widget>
+                            <widget class="QPushButton" row="1" column="0">
+                                <property name="name">
+                                    <cstring>color_getstatisticsPushButton</cstring>
+                                </property>
+                                <property name="minimumSize">
+                                    <size>
+                                        <width>140</width>
+                                        <height>0</height>
+                                    </size>
+                                </property>
+                                <property name="maximumSize">
+                                    <size>
+                                        <width>200</width>
+                                        <height>32767</height>
+                                    </size>
+                                </property>
+                                <property name="focusPolicy">
+                                    <enum>NoFocus</enum>
+                                </property>
+                                <property name="text">
+                                    <string>Get statistics</string>
+                                </property>
+                                <property name="toolTip" stdset="0">
+                                    <string>Obtain the statistics for the region in all listed images. The sky residual is taken as the mode, and an estimate for the lower and upper FITS-to-TIFF threshold is obtained.&lt;br&gt;</string>
+                                </property>
+                            </widget>
+                            <spacer row="1" column="1" rowspan="1" colspan="2">
+                                <property name="name">
+                                    <cstring>spacer27_2</cstring>
+                                </property>
+                                <property name="orientation">
+                                    <enum>Horizontal</enum>
+                                </property>
+                                <property name="sizeType">
+                                    <enum>Expanding</enum>
+                                </property>
+                                <property name="sizeHint">
+                                    <size>
+                                        <width>300</width>
+                                        <height>20</height>
+                                    </size>
+                                </property>
+                            </spacer>
+                            <widget class="QLabel" row="0" column="0" rowspan="1" colspan="2">
+                                <property name="name">
+                                    <cstring>textLabel5_2</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>&lt;b&gt;Convert FITS to TIFF (classic)&lt;/b&gt;</string>
+                                </property>
+                            </widget>
+                        </grid>
+                    </widget>
+                </grid>
+            </widget>
+        </widget>
+    </grid>
+</widget>
+<connections>
+    <connection>
+        <sender>color_stiffPushButton</sender>
+        <signal>clicked()</signal>
+        <receiver>color_form</receiver>
+        <slot>stiff()</slot>
+    </connection>
+    <connection>
+        <sender>color_BV_resetPushButton</sender>
+        <signal>clicked()</signal>
+        <receiver>color_form</receiver>
+        <slot>reset_BVcorr()</slot>
+    </connection>
+    <connection>
+        <sender>color_closePushButton</sender>
+        <signal>clicked()</signal>
+        <receiver>color_form</receiver>
+        <slot>close()</slot>
+    </connection>
+    <connection>
+        <sender>color_fits2tiffPushButton</sender>
+        <signal>clicked()</signal>
+        <receiver>color_form</receiver>
+        <slot>fits2tiff()</slot>
+    </connection>
+    <connection>
+        <sender>color_bbnb_combinePushButton</sender>
+        <signal>clicked()</signal>
+        <receiver>color_form</receiver>
+        <slot>combine_images()</slot>
+    </connection>
+    <connection>
+        <sender>color_dirLineEdit</sender>
+        <signal>textChanged(const QString&amp;)</signal>
+        <receiver>color_form</receiver>
+        <slot>validator_main()</slot>
+    </connection>
+    <connection>
+        <sender>color_dirLineEdit</sender>
+        <signal>textChanged(const QString&amp;)</signal>
+        <receiver>color_form</receiver>
+        <slot>update_colordirpath()</slot>
+    </connection>
+    <connection>
+        <sender>color_ELum_doitPushButton</sender>
+        <signal>clicked()</signal>
+        <receiver>color_form</receiver>
+        <slot>enhance_luminance()</slot>
+    </connection>
+    <connection>
+        <sender>color_factorBLineEdit</sender>
+        <signal>textChanged(const QString&amp;)</signal>
+        <receiver>color_form</receiver>
+        <slot>validator_sec()</slot>
+    </connection>
+    <connection>
+        <sender>color_factorGLineEdit</sender>
+        <signal>textChanged(const QString&amp;)</signal>
+        <receiver>color_form</receiver>
+        <slot>validator_sec()</slot>
+    </connection>
+    <connection>
+        <sender>color_factorRLineEdit</sender>
+        <signal>textChanged(const QString&amp;)</signal>
+        <receiver>color_form</receiver>
+        <slot>validator_sec()</slot>
+    </connection>
+    <connection>
+        <sender>color_getBVcalPushButton</sender>
+        <signal>clicked()</signal>
+        <receiver>color_form</receiver>
+        <slot>get_color_correction()</slot>
+    </connection>
+    <connection>
+        <sender>color_getcoaddedimagesPushButton</sender>
+        <signal>clicked()</signal>
+        <receiver>color_form</receiver>
+        <slot>link_coaddimages()</slot>
+    </connection>
+    <connection>
+        <sender>color_getstatisticsPushButton</sender>
+        <signal>clicked()</signal>
+        <receiver>color_form</receiver>
+        <slot>get_statistics()</slot>
+    </connection>
+    <connection>
+        <sender>color_removeimagePushButton</sender>
+        <signal>clicked()</signal>
+        <receiver>color_form</receiver>
+        <slot>remove_imagefromlist()</slot>
+    </connection>
+    <connection>
+        <sender>color_rereadimagePushButton</sender>
+        <signal>clicked()</signal>
+        <receiver>color_form</receiver>
+        <slot>get_colorchannels()</slot>
+    </connection>
+    <connection>
+        <sender>color_stiffdefaultsPushButton</sender>
+        <signal>clicked()</signal>
+        <receiver>color_form</receiver>
+        <slot>stiff_defaults()</slot>
+    </connection>
+    <connection>
+        <sender>color_stiffgammaLineEdit</sender>
+        <signal>textChanged(const QString&amp;)</signal>
+        <receiver>color_form</receiver>
+        <slot>validator_sec()</slot>
+    </connection>
+    <connection>
+        <sender>color_stiffmaxvalLineEdit</sender>
+        <signal>textChanged(const QString&amp;)</signal>
+        <receiver>color_form</receiver>
+        <slot>validator_sec()</slot>
+    </connection>
+    <connection>
+        <sender>color_stiffminvalLineEdit</sender>
+        <signal>textChanged(const QString&amp;)</signal>
+        <receiver>color_form</receiver>
+        <slot>validator_sec()</slot>
+    </connection>
+    <connection>
+        <sender>color_stiffsatvalLineEdit</sender>
+        <signal>textChanged(const QString&amp;)</signal>
+        <receiver>color_form</receiver>
+        <slot>validator_sec()</slot>
+    </connection>
+    <connection>
+        <sender>color_xmaxLineEdit</sender>
+        <signal>textChanged(const QString&amp;)</signal>
+        <receiver>color_form</receiver>
+        <slot>validator_sec()</slot>
+    </connection>
+    <connection>
+        <sender>color_xminLineEdit</sender>
+        <signal>textChanged(const QString&amp;)</signal>
+        <receiver>color_form</receiver>
+        <slot>validator_sec()</slot>
+    </connection>
+    <connection>
+        <sender>color_ymaxLineEdit</sender>
+        <signal>textChanged(const QString&amp;)</signal>
+        <receiver>color_form</receiver>
+        <slot>validator_sec()</slot>
+    </connection>
+    <connection>
+        <sender>color_yminLineEdit</sender>
+        <signal>textChanged(const QString&amp;)</signal>
+        <receiver>color_form</receiver>
+        <slot>validator_sec()</slot>
+    </connection>
+    <connection>
+        <sender>color_stiffpreviewPushButton</sender>
+        <signal>clicked()</signal>
+        <receiver>color_form</receiver>
+        <slot>stiff()</slot>
+    </connection>
+    <connection>
+        <sender>color_selectdirPushButton</sender>
+        <signal>clicked()</signal>
+        <receiver>color_form</receiver>
+        <slot>select_dir()</slot>
+    </connection>
+    <connection>
+        <sender>color_bbnb_broadwidthLineEdit</sender>
+        <signal>textChanged(const QString&amp;)</signal>
+        <receiver>color_form</receiver>
+        <slot>validator_sec()</slot>
+    </connection>
+    <connection>
+        <sender>color_bbnb_narrowwidthLineEdit</sender>
+        <signal>textChanged(const QString&amp;)</signal>
+        <receiver>color_form</receiver>
+        <slot>validator_sec()</slot>
+    </connection>
+    <connection>
+        <sender>color_bbnb_weightLineEdit</sender>
+        <signal>textChanged(const QString&amp;)</signal>
+        <receiver>color_form</receiver>
+        <slot>validator_sec()</slot>
+    </connection>
+    <connection>
+        <sender>color_bbnb_combinePushButton</sender>
+        <signal>clicked()</signal>
+        <receiver>color_form</receiver>
+        <slot>combine_images()</slot>
+    </connection>
+    <connection>
+        <sender>color_SDSSPushButton</sender>
+        <signal>clicked()</signal>
+        <receiver>color_form</receiver>
+        <slot>set_toggle_button()</slot>
+    </connection>
+    <connection>
+        <sender>color_UCAC4PushButton</sender>
+        <signal>clicked()</signal>
+        <receiver>color_form</receiver>
+        <slot>set_toggle_button()</slot>
+    </connection>
+    <connection>
+        <sender>color_NOMADPushButton</sender>
+        <signal>clicked()</signal>
+        <receiver>color_form</receiver>
+        <slot>set_toggle_button()</slot>
+    </connection>
+    <connection>
+        <sender>color_AVGWHITEPushButton</sender>
+        <signal>clicked()</signal>
+        <receiver>color_form</receiver>
+        <slot>set_toggle_button()</slot>
+    </connection>
+</connections>
+<tabstops>
+    <tabstop>color_dirLineEdit</tabstop>
+    <tabstop>color_coaddListBox</tabstop>
+    <tabstop>color_imagesListBox</tabstop>
+    <tabstop>color_xminLineEdit</tabstop>
+    <tabstop>color_xmaxLineEdit</tabstop>
+    <tabstop>color_yminLineEdit</tabstop>
+    <tabstop>color_ymaxLineEdit</tabstop>
+    <tabstop>color_ELum_imagesListBox</tabstop>
+    <tabstop>color_factorRLineEdit</tabstop>
+    <tabstop>color_factorBLineEdit</tabstop>
+    <tabstop>color_statisticsTable</tabstop>
+    <tabstop>color_stiffminvalLineEdit</tabstop>
+    <tabstop>color_stiffsatvalLineEdit</tabstop>
+    <tabstop>color_stiffmaxvalLineEdit</tabstop>
+    <tabstop>color_stiffgammaLineEdit</tabstop>
+</tabstops>
+<includes>
+    <include location="local" impldecl="in implementation">color_form.ui.h</include>
+</includes>
+<slots>
+    <slot>select_dir()</slot>
+    <slot>get_coadddirs()</slot>
+    <slot>link_coaddimages()</slot>
+    <slot>get_colorchannels()</slot>
+    <slot>validator_main()</slot>
+    <slot>validator_sec()</slot>
+    <slot>remove_imagefromlist()</slot>
+    <slot>flush_table()</slot>
+    <slot>get_statistics()</slot>
+    <slot>update_tiffthresholds( int numimages )</slot>
+    <slot>stiff_defaults()</slot>
+    <slot>enhance_luminance()</slot>
+    <slot>fill_in_elum()</slot>
+    <slot>get_current_imagelist()</slot>
+    <slot>populate_stiffcombobox()</slot>
+    <slot>write_superscriptbody(QString, QString, QString)</slot>
+    <slot>update_cropText()</slot>
+    <slot>update_combineText()</slot>
+    <slot>update_colcalibText()</slot>
+    <slot>update_stiffText()</slot>
+    <slot>update_fits2tiffText()</slot>
+    <slot>update_elumText()</slot>
+    <slot>update_combine_elements()</slot>
+    <slot>combine_images()</slot>
+    <slot>show_preview()</slot>
+    <slot>reset_BVcorr()</slot>
+    <slot>stiff()</slot>
+    <slot>get_color_correction()</slot>
+    <slot>fill_in_colcalib()</slot>
+    <slot>read_into_struct(QString, int)</slot>
+    <slot>set_toggle_button()</slot>
+    <slot>fits2tiff()</slot>
+    <slot>get_maxoverlap()</slot>
+    <slot>update_colordirpath()</slot>
+</slots>
+<functions>
+    <function access="private" specifier="non virtual">init()</function>
+</functions>
+<pixmapinproject/>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>

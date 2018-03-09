@@ -1,0 +1,192 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+
+void usage(int i)
+{
+  if (i == 0) {
+      fprintf(stderr,"\n");
+      fprintf(stderr,"Select images bracketing another image in time.\n");
+      fprintf(stderr,"Date: 2013-04-05, Author: Mischa Schirmer\n\n");
+      fprintf(stderr,"Usage: dynamic_background \n");
+      fprintf(stderr,"       -i reference MJD\n");
+      fprintf(stderr,"       -f file with images (containing two columns with name and the MJD)\n");
+      fprintf(stderr,"       -w window size (default: 2)\n\n");
+  }
+
+  exit (0);
+}
+
+
+//********************************************************  
+int main(int argc, char *argv[])
+{
+  FILE *science_file;
+  int win = 2;
+  double ref_mjd = -1.0, ref_pos;
+  long i, j, n_sky;
+  char science_filename[1000], dummy[1000];
+
+  typedef struct {
+    char name[1000];
+    double mjd;
+    double index;
+  } data;
+
+  // print usage if no arguments were given
+
+  if (argc==1) usage(0);
+
+  //  Read command line arguments
+  
+  for (i=1; i<argc; i++) {
+    if (argv[i][0] == '-') {
+      switch((int)argv[i][1]) {
+      case 'i': ref_mjd = atof(argv[++i]);
+	break;
+      case 'f': strcpy(science_filename,argv[++i]);
+	break;
+      case 'w': win = atoi(argv[++i]);
+	break;
+      }
+    }
+  }
+
+  // open the files
+  if ((science_file = fopen(science_filename, "r")) == NULL) {
+    fprintf(stderr, "ERROR: Cannot open %s\n", science_filename);
+    exit (1);
+  }
+
+  if (ref_mjd < 0.) {
+    fprintf(stderr, "ERROR: Reference MJD was not defined.\n");
+    exit (1);
+  }
+
+  // how many elements are there
+  i = 0;
+  while(fgets(dummy,1000,science_file) != NULL) {
+    i++;
+  }
+  n_sky = i;
+  rewind(science_file);
+
+  data skydata[n_sky];
+  int test = 0;
+
+  j = 0;
+  for (i=0; i<n_sky; i++) {
+    if (fscanf(science_file, "%s %lf", &skydata[j].name[0], &skydata[j].mjd) == 0) {
+      fprintf(stderr, "ERROR: Could not read from %s\n", science_filename);
+      exit (1);
+    }
+    // delete the entry if the reference MJD is equal to the sky MJD
+    // Can happen maximally once.
+    if (ref_mjd == skydata[j].mjd) {
+      j--;
+      test++;
+    }
+    j++;
+  }
+  
+  n_sky -= test;
+
+  if (test > 1) {
+    fprintf(stderr, "ERROR: Identical MJD entries found!\n");
+    exit (1);
+  }
+  
+  // Step through the lists and find the neighbouring images;
+  // !!! We assume that images are ordered with respect to increasing MJD !!!
+  
+  ref_pos = -1.e9;
+
+  // Find the position of the reference science image in the list of sky images
+  test = 0;
+  double sci_min, sci_max;
+  sci_min = skydata[0].mjd;
+  sci_max = skydata[0].mjd;
+  for (i=0; i<n_sky; i++) {
+    if (skydata[i].mjd < sci_min) sci_min = skydata[i].mjd;
+    if (skydata[i].mjd > sci_max) sci_max = skydata[i].mjd;
+  }
+
+  for (i=0; i<=n_sky; i++) {
+    if (skydata[i].mjd > ref_mjd) {
+  	ref_pos = (double) i - 0.5;
+  	test = 1;
+  	break;
+    }
+  }
+  // If the sequence of sky exposures stopped before the science exposures
+  if (sci_max < ref_mjd && test == 0) {
+    ref_pos = n_sky - 0.5;
+    test = 1;
+  }
+  // If the sequence of sky exposures started after the science exposures
+  if (sci_min > ref_mjd && test == 0) {
+    ref_pos = -0.5;
+    test = 1;
+  }
+
+  if (ref_pos == -1.e9) {
+    fprintf(stderr, "ERROR: SKY data could not be associated with SCIENCE data!\n");
+    exit (1);
+  }
+
+  double ii;
+  for (i=0; i<n_sky; i++) {
+    ii = (double) i;
+    skydata[i].index = ii - ref_pos;
+  }
+
+  double comp = 0.;
+  if (skydata[n_sky-1].index < win) comp = (double) floor(win - skydata[n_sky-1].index);
+  else if (skydata[0].index > -win + 1.) comp = -(double) floor(win + skydata[0].index);
+  for (i=0; i<n_sky; i++) {
+    skydata[i].index += comp;
+  }
+
+  for (i=0; i<n_sky; i++) {
+    if (fabs(skydata[i].index) < win ) printf("%s\n", skydata[i].name);
+  }
+
+
+  fclose(science_file);
+  
+  exit (0);
+  
+}
+
+
+//*****************************************************************
+double maxarr(double *data, long dim)
+{
+  long i;
+  double max;
+  
+  max = data[0];
+  
+  for (i = 0; i < dim; i++)  {
+    if (data[i] > max) max = data[i];
+  }
+  
+  return (max);
+}
+
+
+//*****************************************************************
+double minarr(double *data, long dim)
+{
+  long i;
+  double min;
+  
+  min = data[0];
+  
+  for (i = 0; i < dim; i++)  {
+    if (data[i] < min) min = data[i];
+  }
+  
+  return (min);
+}

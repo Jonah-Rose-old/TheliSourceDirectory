@@ -1,0 +1,43 @@
+
+------------------------------------------------------------
+             QUICK THELI INSTALLATION GUIDE
+------------------------------------------------------------
+
+Complete installation instructions, including software pre-requisites,
+can be found on the THELI homepage:
+
+http://www.astro.uni-bonn.de/~theli/gui
+
+============================================================
+
+Installation is straight forward and simple, assuming that 
+all pre-requisites are met. The distribution comes with 
+
+theli-<version>.tgz            (the pipeline core)
+gui-<version>.tgz              (the graphical user interface)
+
+Move them into one and the same directory, e.g.
+
+/home/<user>/THELI/
+
+Install the pipeline core:
+
+tar xvfz theli-<version>.tgz
+cd theli-<version>/pipesetup
+./install.sh -m "ALL"
+
+Install the GUI:
+
+tar xvfz gui-<version>.tgz
+cd gui-<version>
+./install.sh
+
+This will create soft-links to the installation directories:
+
+THELI/gui   -> THELI/gui-<version>
+THELI/theli -> THELI/theli-<version>
+
+In this way you can maintain an older installation without problems.
+
+Include the THELI/gui directory in your PATH variable, so that you can 
+launch 'theli' from anywhere.

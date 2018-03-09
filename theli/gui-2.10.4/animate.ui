@@ -1,0 +1,801 @@
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>animate</class>
+<widget class="QDialog">
+    <property name="name">
+        <cstring>animate</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>591</width>
+            <height>555</height>
+        </rect>
+    </property>
+    <property name="paletteBackgroundPixmap">
+        <pixmap>guiback.png</pixmap>
+    </property>
+    <property name="caption">
+        <string>Animate resampled images</string>
+    </property>
+    <grid>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <widget class="QGroupBox" row="1" column="0">
+            <property name="name">
+                <cstring>groupBox5_3</cstring>
+            </property>
+            <property name="sizePolicy">
+                <sizepolicy>
+                    <hsizetype>5</hsizetype>
+                    <vsizetype>1</vsizetype>
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                </sizepolicy>
+            </property>
+            <property name="paletteBackgroundPixmap">
+                <pixmap>guiback_blue.png</pixmap>
+            </property>
+            <property name="title">
+                <string></string>
+            </property>
+            <grid>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QSpinBox" row="4" column="2">
+                    <property name="name">
+                        <cstring>animate_overlapSpinBox</cstring>
+                    </property>
+                    <property name="minimumSize">
+                        <size>
+                            <width>60</width>
+                            <height>0</height>
+                        </size>
+                    </property>
+                    <property name="maximumSize">
+                        <size>
+                            <width>60</width>
+                            <height>32767</height>
+                        </size>
+                    </property>
+                    <property name="focusPolicy">
+                        <enum>NoFocus</enum>
+                    </property>
+                    <property name="maxValue">
+                        <number>1000</number>
+                    </property>
+                    <property name="lineStep">
+                        <number>50</number>
+                    </property>
+                    <property name="value">
+                        <number>50</number>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>Adjust the overlap between divisions</string>
+                    </property>
+                </widget>
+                <widget class="QLabel" row="4" column="0" rowspan="1" colspan="2">
+                    <property name="name">
+                        <cstring>textLabel11</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Field overlap [pixel]</string>
+                    </property>
+                </widget>
+                <widget class="QSpinBox" row="3" column="2">
+                    <property name="name">
+                        <cstring>animate_divySpinBox</cstring>
+                    </property>
+                    <property name="minimumSize">
+                        <size>
+                            <width>60</width>
+                            <height>0</height>
+                        </size>
+                    </property>
+                    <property name="maximumSize">
+                        <size>
+                            <width>60</width>
+                            <height>32767</height>
+                        </size>
+                    </property>
+                    <property name="focusPolicy">
+                        <enum>NoFocus</enum>
+                    </property>
+                    <property name="maxValue">
+                        <number>9</number>
+                    </property>
+                    <property name="minValue">
+                        <number>1</number>
+                    </property>
+                </widget>
+                <widget class="QLabel" row="5" column="0">
+                    <property name="name">
+                        <cstring>textLabel10_2</cstring>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>3</hsizetype>
+                            <vsizetype>5</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                    <property name="text">
+                        <string>&lt;b&gt;Select field(s)&lt;/b&gt;</string>
+                    </property>
+                </widget>
+                <widget class="QListBox" row="1" column="0" rowspan="1" colspan="3">
+                    <property name="name">
+                        <cstring>animate_coaddListBox</cstring>
+                    </property>
+                    <property name="minimumSize">
+                        <size>
+                            <width>0</width>
+                            <height>140</height>
+                        </size>
+                    </property>
+                    <property name="maximumSize">
+                        <size>
+                            <width>32767</width>
+                            <height>140</height>
+                        </size>
+                    </property>
+                    <property name="focusPolicy">
+                        <enum>ClickFocus</enum>
+                    </property>
+                    <property name="selectionMode">
+                        <enum>Extended</enum>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>Select the coadditions from which you want to make a movie</string>
+                    </property>
+                </widget>
+                <widget class="QLabel" row="0" column="0" rowspan="1" colspan="2">
+                    <property name="name">
+                        <cstring>textLabel1_7</cstring>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>5</hsizetype>
+                            <vsizetype>5</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                    <property name="text">
+                        <string>&lt;b&gt;Select coaddition(s)&lt;/b&gt;</string>
+                    </property>
+                </widget>
+                <widget class="QSpinBox" row="2" column="2">
+                    <property name="name">
+                        <cstring>animate_divxSpinBox</cstring>
+                    </property>
+                    <property name="minimumSize">
+                        <size>
+                            <width>60</width>
+                            <height>0</height>
+                        </size>
+                    </property>
+                    <property name="maximumSize">
+                        <size>
+                            <width>60</width>
+                            <height>32767</height>
+                        </size>
+                    </property>
+                    <property name="focusPolicy">
+                        <enum>NoFocus</enum>
+                    </property>
+                    <property name="maxValue">
+                        <number>9</number>
+                    </property>
+                    <property name="minValue">
+                        <number>1</number>
+                    </property>
+                </widget>
+                <widget class="QLabel" row="2" column="0" rowspan="1" colspan="2">
+                    <property name="name">
+                        <cstring>textLabel2_3</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Number of fields along x</string>
+                    </property>
+                </widget>
+                <widget class="QLabel" row="3" column="0" rowspan="1" colspan="2">
+                    <property name="name">
+                        <cstring>textLabel3_2</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Number of fields along y</string>
+                    </property>
+                </widget>
+                <widget class="QListBox" row="5" column="1" rowspan="1" colspan="2">
+                    <property name="name">
+                        <cstring>animate_divListBox</cstring>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>7</hsizetype>
+                            <vsizetype>7</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                    <property name="minimumSize">
+                        <size>
+                            <width>100</width>
+                            <height>140</height>
+                        </size>
+                    </property>
+                    <property name="focusPolicy">
+                        <enum>ClickFocus</enum>
+                    </property>
+                    <property name="selectionMode">
+                        <enum>Extended</enum>
+                    </property>
+                </widget>
+            </grid>
+        </widget>
+        <widget class="QGroupBox" row="1" column="1" rowspan="1" colspan="2">
+            <property name="name">
+                <cstring>groupBox3</cstring>
+            </property>
+            <property name="paletteBackgroundPixmap">
+                <pixmap>guiback_blue.png</pixmap>
+            </property>
+            <property name="title">
+                <string></string>
+            </property>
+            <grid>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <spacer row="2" column="1">
+                    <property name="name">
+                        <cstring>spacer12_2</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Vertical</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Fixed</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>20</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                </spacer>
+                <widget class="QLabel" row="0" column="0">
+                    <property name="name">
+                        <cstring>animate_chipTextLabel</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Select chip</string>
+                    </property>
+                </widget>
+                <widget class="QComboBox" row="1" column="0">
+                    <property name="name">
+                        <cstring>animate_chipComboBox</cstring>
+                    </property>
+                    <property name="focusPolicy">
+                        <enum>NoFocus</enum>
+                    </property>
+                </widget>
+                <spacer row="1" column="1">
+                    <property name="name">
+                        <cstring>spacer28_2</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Expanding</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>152</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                </spacer>
+                <widget class="QPushButton" row="6" column="1">
+                    <property name="name">
+                        <cstring>animate_animatePushButton</cstring>
+                    </property>
+                    <property name="focusPolicy">
+                        <enum>NoFocus</enum>
+                    </property>
+                    <property name="text">
+                        <string>Animate division</string>
+                    </property>
+                </widget>
+                <widget class="QPushButton" row="5" column="1">
+                    <property name="name">
+                        <cstring>animate_createPushButton</cstring>
+                    </property>
+                    <property name="focusPolicy">
+                        <enum>NoFocus</enum>
+                    </property>
+                    <property name="text">
+                        <string>Create animation(s)</string>
+                    </property>
+                </widget>
+                <spacer row="5" column="0">
+                    <property name="name">
+                        <cstring>spacer14</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Expanding</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>76</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                </spacer>
+                <spacer row="4" column="1">
+                    <property name="name">
+                        <cstring>spacer11</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Vertical</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Expanding</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>20</width>
+                            <height>40</height>
+                        </size>
+                    </property>
+                </spacer>
+                <widget class="QLayoutWidget" row="3" column="0" rowspan="1" colspan="2">
+                    <property name="name">
+                        <cstring>layout1</cstring>
+                    </property>
+                    <grid>
+                        <property name="name">
+                            <cstring>unnamed</cstring>
+                        </property>
+                        <spacer row="5" column="2">
+                            <property name="name">
+                                <cstring>spacer19</cstring>
+                            </property>
+                            <property name="orientation">
+                                <enum>Horizontal</enum>
+                            </property>
+                            <property name="sizeType">
+                                <enum>MinimumExpanding</enum>
+                            </property>
+                            <property name="sizeHint">
+                                <size>
+                                    <width>82</width>
+                                    <height>20</height>
+                                </size>
+                            </property>
+                        </spacer>
+                        <widget class="QSpinBox" row="5" column="1">
+                            <property name="name">
+                                <cstring>animate_delaySpinBox</cstring>
+                            </property>
+                            <property name="focusPolicy">
+                                <enum>NoFocus</enum>
+                            </property>
+                            <property name="maxValue">
+                                <number>9</number>
+                            </property>
+                            <property name="toolTip" stdset="0">
+                                <string>The delay of the images in the animated GIF in units of 1/10th seconds.</string>
+                            </property>
+                        </widget>
+                        <widget class="QComboBox" row="0" column="1" rowspan="1" colspan="2">
+                            <item>
+                                <property name="text">
+                                    <string>Manual</string>
+                                </property>
+                            </item>
+                            <item>
+                                <property name="text">
+                                    <string>Automatic</string>
+                                </property>
+                            </item>
+                            <property name="name">
+                                <cstring>animate_rangeComboBox</cstring>
+                            </property>
+                            <property name="sizePolicy">
+                                <sizepolicy>
+                                    <hsizetype>1</hsizetype>
+                                    <vsizetype>0</vsizetype>
+                                    <horstretch>0</horstretch>
+                                    <verstretch>0</verstretch>
+                                </sizepolicy>
+                            </property>
+                            <property name="minimumSize">
+                                <size>
+                                    <width>166</width>
+                                    <height>0</height>
+                                </size>
+                            </property>
+                            <property name="maximumSize">
+                                <size>
+                                    <width>166</width>
+                                    <height>32767</height>
+                                </size>
+                            </property>
+                            <property name="focusPolicy">
+                                <enum>NoFocus</enum>
+                            </property>
+                            <property name="toolTip" stdset="0">
+                                <string>Manual or automatic (z-scale style) scaling</string>
+                            </property>
+                        </widget>
+                        <widget class="QSpinBox" row="2" column="1">
+                            <property name="name">
+                                <cstring>animate_contrastSpinBox</cstring>
+                            </property>
+                            <property name="maxValue">
+                                <number>9</number>
+                            </property>
+                            <property name="minValue">
+                                <number>-9</number>
+                            </property>
+                            <property name="toolTip" stdset="0">
+                                <string>Contrast range: -9 ... 9. default: 0</string>
+                            </property>
+                        </widget>
+                        <widget class="QLineEdit" row="1" column="1">
+                            <property name="name">
+                                <cstring>animate_TIFFminLineEdit</cstring>
+                            </property>
+                            <property name="minimumSize">
+                                <size>
+                                    <width>80</width>
+                                    <height>0</height>
+                                </size>
+                            </property>
+                            <property name="maximumSize">
+                                <size>
+                                    <width>80</width>
+                                    <height>32767</height>
+                                </size>
+                            </property>
+                            <property name="alignment">
+                                <set>AlignRight</set>
+                            </property>
+                        </widget>
+                        <widget class="QCheckBox" row="4" column="0" rowspan="1" colspan="3">
+                            <property name="name">
+                                <cstring>animate_maskCheckBox</cstring>
+                            </property>
+                            <property name="focusPolicy">
+                                <enum>NoFocus</enum>
+                            </property>
+                            <property name="text">
+                                <string>Mask pixels with weight zero</string>
+                            </property>
+                            <property name="toolTip" stdset="0">
+                                <string>If activated, pixel with zero weight will be set to zero in the movie</string>
+                            </property>
+                        </widget>
+                        <widget class="QLabel" row="2" column="0">
+                            <property name="name">
+                                <cstring>animate_contrastTextLabel</cstring>
+                            </property>
+                            <property name="text">
+                                <string>Contrast</string>
+                            </property>
+                        </widget>
+                        <spacer row="3" column="2">
+                            <property name="name">
+                                <cstring>spacer12</cstring>
+                            </property>
+                            <property name="orientation">
+                                <enum>Vertical</enum>
+                            </property>
+                            <property name="sizeType">
+                                <enum>Fixed</enum>
+                            </property>
+                            <property name="sizeHint">
+                                <size>
+                                    <width>20</width>
+                                    <height>20</height>
+                                </size>
+                            </property>
+                        </spacer>
+                        <spacer row="2" column="2">
+                            <property name="name">
+                                <cstring>spacer15</cstring>
+                            </property>
+                            <property name="orientation">
+                                <enum>Horizontal</enum>
+                            </property>
+                            <property name="sizeType">
+                                <enum>Expanding</enum>
+                            </property>
+                            <property name="sizeHint">
+                                <size>
+                                    <width>82</width>
+                                    <height>20</height>
+                                </size>
+                            </property>
+                        </spacer>
+                        <widget class="QLabel" row="1" column="0">
+                            <property name="name">
+                                <cstring>animate_minmaxTextLabel</cstring>
+                            </property>
+                            <property name="text">
+                                <string>min | max</string>
+                            </property>
+                        </widget>
+                        <widget class="QLineEdit" row="1" column="2">
+                            <property name="name">
+                                <cstring>animate_TIFFmaxLineEdit</cstring>
+                            </property>
+                            <property name="minimumSize">
+                                <size>
+                                    <width>80</width>
+                                    <height>0</height>
+                                </size>
+                            </property>
+                            <property name="maximumSize">
+                                <size>
+                                    <width>80</width>
+                                    <height>32767</height>
+                                </size>
+                            </property>
+                            <property name="alignment">
+                                <set>AlignRight</set>
+                            </property>
+                        </widget>
+                        <widget class="QLabel" row="5" column="0">
+                            <property name="name">
+                                <cstring>textLabel1_8</cstring>
+                            </property>
+                            <property name="sizePolicy">
+                                <sizepolicy>
+                                    <hsizetype>0</hsizetype>
+                                    <vsizetype>5</vsizetype>
+                                    <horstretch>0</horstretch>
+                                    <verstretch>0</verstretch>
+                                </sizepolicy>
+                            </property>
+                            <property name="focusPolicy">
+                                <enum>NoFocus</enum>
+                            </property>
+                            <property name="text">
+                                <string>Frame delay:</string>
+                            </property>
+                        </widget>
+                        <widget class="QLabel" row="0" column="0">
+                            <property name="name">
+                                <cstring>textLabel4</cstring>
+                            </property>
+                            <property name="text">
+                                <string>Dynamic range</string>
+                            </property>
+                        </widget>
+                    </grid>
+                </widget>
+            </grid>
+        </widget>
+        <widget class="QGroupBox" row="0" column="0" rowspan="1" colspan="3">
+            <property name="name">
+                <cstring>groupBox9</cstring>
+            </property>
+            <property name="paletteBackgroundPixmap">
+                <pixmap>guiback_green.png</pixmap>
+            </property>
+            <property name="title">
+                <string></string>
+            </property>
+            <grid>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QPushButton" row="0" column="2">
+                    <property name="name">
+                        <cstring>animate_selectdirPushButton</cstring>
+                    </property>
+                    <property name="minimumSize">
+                        <size>
+                            <width>160</width>
+                            <height>0</height>
+                        </size>
+                    </property>
+                    <property name="text">
+                        <string>Select dir ...</string>
+                    </property>
+                </widget>
+                <spacer row="0" column="1">
+                    <property name="name">
+                        <cstring>spacer42</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Minimum</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>174</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                </spacer>
+                <widget class="QLabel" row="0" column="0">
+                    <property name="name">
+                        <cstring>textLabel1</cstring>
+                    </property>
+                    <property name="text">
+                        <string>&lt;b&gt;SCIENCE dir:&lt;/b&gt;</string>
+                    </property>
+                </widget>
+                <widget class="QLineEdit" row="1" column="0" rowspan="1" colspan="3">
+                    <property name="name">
+                        <cstring>animate_dirLineEdit</cstring>
+                    </property>
+                    <property name="minimumSize">
+                        <size>
+                            <width>0</width>
+                            <height>0</height>
+                        </size>
+                    </property>
+                    <property name="alignment">
+                        <set>AlignRight</set>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>The science directory with individual coadd directories.</string>
+                    </property>
+                </widget>
+            </grid>
+        </widget>
+        <spacer row="2" column="0" rowspan="1" colspan="2">
+            <property name="name">
+                <cstring>spacer42_2</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Horizontal</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Expanding</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>450</width>
+                    <height>20</height>
+                </size>
+            </property>
+        </spacer>
+        <widget class="QPushButton" row="2" column="2">
+            <property name="name">
+                <cstring>closePushButton</cstring>
+            </property>
+            <property name="minimumSize">
+                <size>
+                    <width>80</width>
+                    <height>0</height>
+                </size>
+            </property>
+            <property name="maximumSize">
+                <size>
+                    <width>80</width>
+                    <height>32767</height>
+                </size>
+            </property>
+            <property name="text">
+                <string>Close</string>
+            </property>
+        </widget>
+    </grid>
+</widget>
+<connections>
+    <connection>
+        <sender>animate_selectdirPushButton</sender>
+        <signal>clicked()</signal>
+        <receiver>animate</receiver>
+        <slot>select_dir()</slot>
+    </connection>
+    <connection>
+        <sender>animate_dirLineEdit</sender>
+        <signal>textChanged(const QString&amp;)</signal>
+        <receiver>animate</receiver>
+        <slot>validator_main()</slot>
+    </connection>
+    <connection>
+        <sender>animate_divxSpinBox</sender>
+        <signal>valueChanged(const QString&amp;)</signal>
+        <receiver>animate</receiver>
+        <slot>fill_in_moviedivisions()</slot>
+    </connection>
+    <connection>
+        <sender>animate_divListBox</sender>
+        <signal>clicked(QListBoxItem*)</signal>
+        <receiver>animate</receiver>
+        <slot>update_animatebuttontext()</slot>
+    </connection>
+    <connection>
+        <sender>animate_divySpinBox</sender>
+        <signal>valueChanged(const QString&amp;)</signal>
+        <receiver>animate</receiver>
+        <slot>fill_in_moviedivisions()</slot>
+    </connection>
+    <connection>
+        <sender>animate_TIFFmaxLineEdit</sender>
+        <signal>textChanged(const QString&amp;)</signal>
+        <receiver>animate</receiver>
+        <slot>validator_sec()</slot>
+    </connection>
+    <connection>
+        <sender>animate_TIFFminLineEdit</sender>
+        <signal>textChanged(const QString&amp;)</signal>
+        <receiver>animate</receiver>
+        <slot>validator_sec()</slot>
+    </connection>
+    <connection>
+        <sender>animate_rangeComboBox</sender>
+        <signal>activated(const QString&amp;)</signal>
+        <receiver>animate</receiver>
+        <slot>setstate_manualthresholds()</slot>
+    </connection>
+    <connection>
+        <sender>animate_createPushButton</sender>
+        <signal>clicked()</signal>
+        <receiver>animate</receiver>
+        <slot>make_movie_step1()</slot>
+    </connection>
+    <connection>
+        <sender>animate_animatePushButton</sender>
+        <signal>clicked()</signal>
+        <receiver>animate</receiver>
+        <slot>animate_division()</slot>
+    </connection>
+    <connection>
+        <sender>closePushButton</sender>
+        <signal>clicked()</signal>
+        <receiver>animate</receiver>
+        <slot>quit()</slot>
+    </connection>
+</connections>
+<tabstops>
+    <tabstop>animate_coaddListBox</tabstop>
+    <tabstop>animate_TIFFminLineEdit</tabstop>
+    <tabstop>animate_TIFFmaxLineEdit</tabstop>
+    <tabstop>animate_delaySpinBox</tabstop>
+    <tabstop>animate_divListBox</tabstop>
+</tabstops>
+<includes>
+    <include location="local" impldecl="in implementation">animate.ui.h</include>
+</includes>
+<slots>
+    <slot>select_dir()</slot>
+    <slot>update_chipnum()</slot>
+    <slot>fill_in_moviedivisions()</slot>
+    <slot>setstate_manualthresholds()</slot>
+    <slot>make_movie_step1()</slot>
+    <slot>make_movie_step2()</slot>
+    <slot>animate_division()</slot>
+    <slot>update_animatebuttontext()</slot>
+    <slot>get_coadddirs()</slot>
+    <slot>validator_main()</slot>
+    <slot>validator_sec()</slot>
+    <slot>write_superscriptbody_step1( QString superscript, QString command)</slot>
+    <slot>write_superscriptbody_step2( QString superscript, QString command)</slot>
+    <slot>update_movieText()</slot>
+    <slot>kill_process()</slot>
+    <slot>quit()</slot>
+</slots>
+<functions>
+    <function access="private" specifier="non virtual">init()</function>
+</functions>
+<pixmapinproject/>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>

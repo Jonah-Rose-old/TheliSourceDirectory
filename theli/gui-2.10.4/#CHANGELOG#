@@ -1,0 +1,3072 @@
+Changelog THELI GUI
+===================
+
+v2.10.4 (2016-09-06)
+
+-- Updated to fitstools-1.3.7
+-- Added xxxx and yyyy quadrant-independent collapse correction
+   for LCOGT cameras
+-- Made the background_exclusion file working again
+-- Removed the dependency on file extension in id_bright_objects.sh (always OFC)
+-- create_illumfringe.sh: smoothed background model was constant because of
+   prepare_sex_for_region; commented out background string
+-- enforcing constant background in masked areas of illumination correction
+   and fringe model (would break collapse correction otherwise)
+-- fixed a typo in get_refcat_geometry.sh; handling the border crossing from
+   RA>0 to RA<0 was broken.
+-- Changed the variable STDCAT_u'g'r'i'z' to STDCAT_ugriz_prime to avoid
+   problems when parsing the parameter files
+-- Included Smith+ 2007 ugriz southern standard star catalog
+-- Fixing the PIXSCALE for GMOS-S-HAM_1x1
+
+
+v2.10.3 (2016-05-18)
+
+-- Included KTMC@CTIO, FL03_LCOGT@CTIO, FL04_LCOGT@CTIO
+-- Updated to fitstools-1.3.6
+-- Included a switch between MAG_AUTO and MAG_APER for the module that
+   determines the absolute photometric zeropoint of a coadded image
+-- Removed all STATSALLIM entries in the instrument configuration files;
+   not needed by anything anymore
+
+
+v2.10.2 (2016-03-28)
+
+-- Included ISPI@CTIO, SWOPE@LCO
+-- Preventing two warnings from newer scamp versions to trigger the
+   error scanner
+
+
+v2.10.1 (2016-03-04)
+
+-- Updated the NIRI splitting script and detector mask
+-- Fixed bugs in sort_data.sh
+-- Updated to wcstools v3.9.2
+-- Included 4 configurations for GSAOI that select 1 chip, only (for
+   astrometry using crosscorrelation)
+-- Updated to fitstools-1.3.4
+-- Updated to astrometry.net v0.67
+-- Updated dcraw to v9.26
+-- Deleting old global weight and flag maps before recreating them.
+   There could be a conflict if the same files exist already, but were
+   created for a different instrument
+
+
+v2.10.0 (2015-12-28)
+
+-- Storing collapse correction mask catalogs in MASK_IMAGES
+-- Included the WASHINGTON photometric standard star catalog
+-- Creating the background_exclusion file automatically based on bright
+   star catalogs and user defined mag limits
+-- Automatic measurement of optimal astro refcat search radius (this
+   time it actually works)
+-- Updated background_static.c (did not exit immediately if no matching sky
+   found) which would break an 'if' condition in process_background_para.sh;
+   would still exit with an error though, so no problem.
+-- If gapsize left empty, then the default is set to a very large time span
+   instead of 1h, to effectively exclude any gap size to be applied
+-- Fixing some lines in the tooltips that didn't wrap properly
+-- Added an option to switch off automatic weight rescaling during coaddition
+   in case of large galaxies / nebula
+-- Upated the MOSAIC_II_15@CTIO splitting script
+-- myFITS.cc, split_gmosmultiport.cc, split_grond.cc, paste_dualchannel.cc
+   Added readDoubleExtKey() to read double precision keywords (MJD-OBS,
+   CRVAL, CD matrix) correctly.
+-- install.sh uses parallel build if more than 2 CPUs are available
+-- Updated cdsclient to v3.79
+-- Included the IGSL, SPM4, URAT1 astrometric reference catalogs
+-- Better cleanup of temporary files at the end of create_astromcats_para.sh
+-- Using upper maglimit for scamp when doing std star astrometric solution
+-- Using STABILITY_TYPE and MOSAIC_TYPE when doing std star astrometry with
+   scamp (previously fixed to EXPOSURE and LOOSE)
+-- Updated process_split_MOSAIC_II-15@CTIO.sh
+-- Added a scamp error message if not enough memory is available (e.g. if
+   too many CPUs are being used)
+-- Rewrote the DECam splitting script, eliminating two dead CCDs
+-- Added region file for DECam chip #31
+-- Rewrote DECam album files and DECam inst config
+-- Calculating image statistics for binned tiffs from central 60% for
+   cameras with circular field (so far: DECam, F2)
+-- Including FILTER keyword in the master flat
+-- Removed double CTYPE2 keyword from GMOS data (inserted twice during splitting)
+-- Added pre-processed ACS@HST images
+-- Checking for the presence of .maxlevel when calibrating data; added
+   corresponding error message to theliform.ui.h
+-- Updated the SOFI splitting script
+-- Added GMOS-S_HAM_1x1, and the reg files for the 2x2 configuration
+-- Updated writecommhis() in bash_functions.include; it tried to write a temporary file
+   to the script directory, for which the user not necessarily has write permission.
+-- Deleted an obsolete line in create_abs_photo_info that could trigger the error scanner
+-- Updated the FourStar splitting script; bug in MJD-OBS keyword, = sign was not in the 9th column
+-- Merged PERSSON and PERSSON_RED JHKKs standard star catalogs
+-- Absphot ZPmin ZPmax have no defaults anymore and can be left empty
+-- Replaced all 'find' commands by ${P_FIND} (in a few scripts, only)
+-- Added the WCS uncertainty (indirect absphot) to the stdstar catalog instead of to the
+   observations (was mistakenly the scaling factor, which ended up in the same order of magnitude
+   but did not always work). Further advantage: has to be done only once and not for each exposure.
+-- Changed g.mag to f.mag for the UCAC4 catalog
+-- Included PAUCam@WHT and SAMI@SOAR
+-- replaced ${homedir} by ~ in anet.backend.cfg (otherwise problems with write
+   permissions if installed by root)
+-- Fixed a bug in create_abs_photo_info.sh (nightcalib would replace the "m"
+   in the stdcolor with a dash, overwriting the variable instead of
+   using a new one. In nightcal mode, an earlier ldactoasc call would
+   then fail)
+-- Copying input data for the photometric fit to STD/calib/night_xxx.dat
+-- parameters.ui.h: Fixed the V_ABSPHOT_STDCOLOR variable. Could have had a
+   "-" in it instead of a minus
+-- Added COLOR1-4 keywords to megaprime_elixir preprocessed data,
+   forcing them to zero
+-- Fixing a  bug in sky2xy_helper which would fail for cameras with more than
+   33 chips (incorrectly resetting an integer check)
+-- Updated to astrometry.net to v0.65
+-- Included SITe@TLS
+
+
+v2.9.9 (2015-04-20)
+
+-- Added FLI-PL16801@WISE and PICCD@WISE
+-- Implemented the CLIPPED stacking with SWarp 2.38.1. This is not yet
+   working though as it requires external PSF modelling and another task,
+   and I have temporarily deactivated it.
+-- Updated fitstools to 1.3.1
+-- Fitstools: expand_sexmask: do not expand if B_IMAGE < 1.0 (hotpix), and
+	reduced default convolution from 3x3 to 1x1 box filter
+-- Added SPARTAN@SOAR reg files
+-- Updated the SPARTAN splitting script to include the cass rotator angle for
+   distortion modelling with scamp
+-- Tooltips of the multipage parameter configuration dialog were broken;
+   accidentally had a tooltip for the toplevel dialog which shadowed all
+   other tooltips
+-- background modeling config: renamed "FILTER" to "CONVOLVE", to avoid
+   confusion (could be wrongly interpreted as filtering out hot pixels)
+-- Updated to astrometry.net v0.53
+-- Fixed a bug in the calculation of GABODSID in the GMOS-S-HAM splitting script
+-- Do not launch a second instance of theli if a first one is already running.
+   Not offering to 'parakill' the first instance anymore, as that did not
+   work in all cases.
+
+
+v2.9.8 (2015-02-26)
+
+-- Fixed a bug in bash.functions (STATXMIN instead of STATSXMIN).
+   Flamingos2, GMOS-N and GMOS-S configurations had STATXMIN instead of
+   STATSXMIN (and the corresponding YMIN, XMAX, YMAX) parameters written 
+   in their configuration file. Afaik, the effect has been negligible.
+-- progs.ini still linked to some old python scripts under 
+   THELI/theli/scripts/<OS> that used pyfits instead of astropy.io.fits.
+   Not a bug, but inconsistent.
+-- Updated install.sh
+-- create_stdphotom_prepare.sh: Updated to use XWIN_IMAGE, YWIN_IMAGE 
+   and THETAWIN_2000
+-- create_stdphotom_prepare.sh: Had to replace LANDOLT and STETSON with
+   LANDOLT_UBVRI and STETSON_UBVRI
+-- Added another tab to the astrometry configure menu, where the user
+   selects suitable absolute photometric solutions (if applicable).
+-- Updated create_abs_photo_info.sh, create_stats_table.sh, and
+   create_absphotom_coadd.sh to work with the new scheme
+-- Replaced photo_abs.py by zpabs.cc and zpabs.py; I did not like the
+   stability of the original python fit and replaced it with GSL; also, the
+   plotting has been improved, and the GUI has more options to fine-tune
+   the fit. Now propagating color terms as well. 4 fits are calculated
+   instead of 3.
+-- Code cleanup in parameters.ui.h, theliform.ui.h and functions.h
+-- Fixing the default color term for absphotometry from 0.1 to 0.0.
+-- Replaced DATE-OBS by MJD-OBS in prepare_coadd_swarp.sh
+
+
+v2.9.7 (2014-12-16)
+
+-- Fixed a bug in the normalized flats (would be blank, 
+   introduced in 2.9.6)
+-- "Spread sequence" task was not connected, and had the wrong
+   syntax (missing 'OFC'); looks like noone has reduced LIRIS
+   data forever :-)
+
+
+v2.9.6 (2014-11-04)
+
+-- Bug fix for GMOS: image statistics for flat normalization 
+   would not be calculated correctly (only relevant for detectors where
+   about half or more of the area is masked);
+   Affected create_flat_ratios.sh and process_science_para.sh
+   The get_statminsection bash function did not have the CHIP argument
+   passed into it in these cases
+-- Replaced IMAGEID keyword (phased out a long time ago with astrometrix)
+   in makemovie_step1.sh and constructing it on the fly
+-- Removed IMAGEID keyword from create_headerastrom.sh, 
+   create_xcorrastrom.sh and create_zeroorderastrom.sh
+   (was just passively passed along) and from several 
+   gui/reduction/make_ssc_xxx config files (commented out)
+-- Fixed a bug in process_split_INGRID@WHT, which noone has used in about 
+   a decade. I still had a 'ic' there instead of ${P_IC}. Found the same 
+   mistake in makemovie_step1.sh (animation of resampled images) and
+   process_split_SuprimeCam_200808_SDFRED@SUBARU.sh
+-- Added . bash.include to several scripts
+-- Fixed a bug in background_static (assigned blocks correctly, but
+   would print wrong image lists to the command line)
+-- imstats would not calculate statistics from statminsection if available
+-- Switched MAG_AUTO to aperture magnitudes for the indirect photometric 
+   calibration module. Added the aperture diameter as a user-defined parameter
+-- Included nonlinearity correction for GSAOI
+-- Adjusted MJD-OBS for GMOS-S_HAM
+
+
+v2.9.5 (2014-09-16)
+
+-- Updated dcraw to v9.22
+-- Fixed a bug in backgroundmodel_dynamic (would erroneously print an 
+   error message)
+-- added "has flux scale = 0: I will take 1 instead" to the error scan list
+-- collapse correction would not read mask expansion parameter
+-- deleting dummy weights (region masking) upon start of background
+   and collapse scripts
+-- fitscopyhead was exiting early (return statement in wrong place)
+-- excluding spurious detections in expand_sexmask and subsky 
+   (sextractor detections may appear just outside the image boundary for 
+   very low detection thresholds)
+-- subsky optimized the mask expansion loop (drastic speed improvement if
+   lots of objects are to be masked); not expansing object masks if no
+   expansion parameter is provided
+-- Updated GROND configuration
+-- Added 'split_grond' to the fitstools
+-- Updated to fitstools v1.2
+-- Using windowed sextractor parameters instead of unwindowed ones
+
+
+v2.9.4 (2014-07-25)
+
+-- Added support for GMOS-N data taken with 2 readouts
+-- Added support for GMOS-S Hamamatsu detector array
+-- Updated to fitstools v1.1
+-- Added ApogeeAlta@PROMPT4
+-- Fixed minor bugs in the splitting scripts of FORS2_2CCD and 
+   ApogeeAlta@PROMPT5
+-- Fixed a bug in the background modelling: if the gap size was
+   left empty, it was not reset to its default value of 1h, and an
+   empty argument was passed to the script, resulting in an error
+-- Updated astrometry.net to v0.50
+-- Updated gifsicle to v1.84
+-- Replacing blank spaces in OBJECT keyword with underscores
+
+
+v2.9.3 (2014-06-13)
+
+-- Added WFC_IPHAS@INT
+-- Adapted F2 splitting script to catch pathologic F2 headers (very rare)
+
+
+v2.9.2 (2014-05-22)
+
+-- Regression: aplastrom_scamp.py was using pyfits instead of 
+   astropython.io.fits. No problem if pyfits is installed.
+   Introduced in 2.9.1 when switching from theli-1.7.6 to theli-1.9.5.
+
+
+v2.9.1 (2014-05-17)
+
+-- Enforces theli-1.9.5!
+-- Minimum changes possible to update to theli-1.9.5.tgz; copied
+   photo_abs.py, aplastrom_scamp.py, bash_functions.include;
+   the latter was slightly modified to suppress theli jumping upon the
+   "error" strings
+-- Removed Sextractor 2.5 from the gui package as it is now contained
+   in the pipeline core
+-- Added automatic mask expansion based on sextractor catalogs to
+   the background modeling, collapse correction and sky subtraction
+   modules, with greatly improved results
+-- Fixed regression in skysubscript, introduced in 2.9.0
+-- Updated fitstools package (compatibility with newest gcc versions,
+   i.e. v4.8.3)
+-- Suppressing an unrelevant error message created when trying to 
+   measure the seeing in an image with an insufficient number of objects
+-- Added missing FWHM_[IMAGE|WORLD] keyword to FIELDS tables in
+   case no stars were identified (keywords required for compatibility 
+   reasons)
+-- Fixed a bug in the new fitstools concerning stripping whitespace
+   in strings
+-- Fixed a bug in the new fitstools concerning mask creation based on
+   ds9 files
+-- Updated the GSAOI chip ds9 masks (covering the chip borders and some 
+   bad clusters)
+-- Limiting the number lines simultaneously read by swarpfilter.
+   Could get >>>1000 on machines with lots of memory, leading to an allocation
+   problem with the CCfits library
+-- FITS header in tiff2fits.cc was not properly created and had keywords 
+   missing.
+-- Color calibration would not calculate "average white" correction factors 
+   if no photometric reference sources were found
+-- Enforcing a max string length of 37 characters for the coadd ID string,
+   otherwise 'ldacfilter' will segfault.
+-- fitstools did not compile with gcc v4.7 or later, as (1) <unistd.h> is no
+   longer included implicitly, and (2) functions used in template functions
+   must be declared before the template functions.
+
+
+v2.9.0 (2014-05-09)
+
+-- Updated the SuprimeCam2008 album confoguration file to display the
+   relative chip positions correctly in the binned mosaic previews
+-- Fixed regression in the defect mapping 
+-- Updated T-ReCS splitting script (skipping over bad single exposures 
+   with lots of NaNs)
+-- Check for existing skybackground.use file if manual sky sub defined
+   (fails if user manually copied data around)
+-- Remove double occurrence of the script calculating the flat ratios if
+   a dark flat is present
+-- Updated the GSAOI splitting script (reference pixel has changed)
+-- Updated the Apogee@PROMPT5 splitting script (correcting for image flip)
+-- made create_astromcats_para.sh more stable against exposures with very 
+   few sources
+-- added support in the splitting script for DSLR cameras without Bayer 
+   matrix
+-- Abs. photometric ZP module would not display ZP values 
+   (didn't filter out a false error message from the logfile); regression
+-- Included the new prime focus imager at the WHT, PFC_new@WHT
+-- Added a "match WCS" switch to scamp
+-- Updated sort_rawdata.sh (checking that files are FITS, and not moving 
+   them anywhere otherwise); leaves files where they are if accidentally 
+   run on a wrong directory
+-- Updated the WIRCAM@CFHT splitting script (did not reflect MJD-OBS 
+   correctly)
+-- Updated to missfits-2.8.0, stiff-2.4.0, astrometry.net-0.46
+-- Replaced pyfits with astropy.io.fits; astrometry.net still needs 
+   pyfits (v3.1 or newer), though
+-- Changed the color calibration method (calculates all options and lets
+   the user switch; also automatically expands search range if no sources 
+   are found, up to a factor of 2)
+-- Replaced the VISIR splitting program with a python script (preliminary)
+-- Replaced the 'fitstools' by a much cleaner C++ version, depending on
+   CCfits (new installation dependency) and fftw++ (distributed with Theli)
+
+
+v2.8.3 (2013-11-01)
+
+-- Fixed a small bug introduced in 2.8.2 (swarpfilter script)
+
+
+v2.8.2 (2013-10-29)
+
+-- Updated gifsicle to v1.71
+-- Included ApogeeAlta@PROMPT5
+-- If FLAT/.maxlevel.dat does not exist when calibrating the data
+   (e.g. an old or external master flat was loaded), then it is 
+   created on the fly
+
+
+v2.8.1 (2013-09-06)
+
+-- Fixed a memory bug that could lead to a segfault at start-up
+   when compiled with gcc versions > 4.8. Introduced in 2.7.0.
+
+
+v2.8.0 (2013-08-24)
+
+-- Compatible only with theli-v1.7.6
+-- Introduced RUNCALIB and NIGHTCALIB modes for indirect absolute 
+   photometric calibration
+-- Drastic speed improvement during the "calibrate data" step for 
+   multi-chip cameras; finally got rid of a really narrow bottleneck
+-- Fixed a bug occurring when dividing by an unsmoothed superflat
+   (regression)
+
+
+v2.7.2 (2013-08-06)
+
+-- Using the SATURATION level from create source cat when creating catalogs
+   for photometric standards
+-- Providing the option to NOT do astrometry for photometric standard star 
+   fields; useful if e.g. source density is generally too low for a scamp 
+   solution, e.g. with near-IR cameras such as SPARTAN
+-- Updated photo_abs.py with that from theli-1.7.6 (temp. release)
+-- Updated VIMOS album configuration
+-- Limiting the astrometry.net scale to a maximum value of 19 (some fish-eye 
+   lenses yielded values higher than that, which are not recognized by a.net).
+-- Fixed a bug that occured sometimes when a larger number of external swarp 
+   threads were launched with large multi-chip cameras (CCDs got misplaced 
+   in the output image).
+-- Updated astrometry.net to v0.43
+-- Added 'nano' as a minimal editor; should be default if no other editor is 
+   present on the system
+-- Disabling deblooming task when NIR/MIR cameras are loaded
+-- Updated the gain values for Flamingos, GMOS-S, and GSAOI
+
+
+v2.7.1 (2013-07-21)
+
+-- Updated the GMOS-S/N splitting script (MJD-OBS was not always correctly read,
+   and shortening the FILTER keyword)
+-- Updated the OMEGACAM splitting script
+-- Enforcing the upper limit of 1000 for NFRAMES
+-- Fixed a bug in the manual sky configuration and the prepare colour dialog 
+   in which the sky box might not have been read correctly under certain 
+   circumstances (was comparing strings and not integers).
+-- Updated some tool-tips
+-- The HIERARCH ESO FILT1 NAME keyword was incorrect for OMEGACAM
+-- Modified the constant sky background script (if estimate is taken from one
+   chip only, or from an area), so that processes don't repeat steps for 
+   mosaic cameras. Faster execution. 
+-- Cleanup of skysub command-line syntax (removing fixed arguments that 
+   never changed)
+-- Removed the seeing convolution code from the source (prepare colour picture 
+   dialog). It was too simple and never worked properly. Replaced it with a 
+   module that allows broad- and narrow-band image combination preserving 
+   stellar colors.
+-- Disabling NIR/MIR functions when optical cameras are loaded, and vice versa
+-- MID-IR cameras (TRECS) can optionally have the cube split or stacked upon 
+   splitting
+
+
+v2.7.0 (2013-05-17)
+
+-- Measured the .ahead file for MOIRCS@SUBARU, and added the polygon masks
+-- Fixed the long-standing problem of missing weights during superflat
+   creation/collapse correction when polygon masks were present; 
+   creating dummy weights on the fly
+-- global flag maps were not in integer format if polygon masks were present.
+   Modified 'fitspolygon' accordingly.
+-- Supporting dark FLAT operations for near-IR data
+-- Renamed OFFTARGET to SKY
+-- Added WFI_2x2@MPGESO, Tek2K@CTIO
+-- Updated to astrometry.net v0.40
+-- Updated EMMI_RILD splitting script
+-- Added global .ahead file for EMMI_RILD
+-- Scamp script for photometric zeropoints did not work anymore.
+   Merged with normal scamp script
+-- Photometric zeropoints did not work if Scamp was calculated with
+   distort_degrees=1 (aplastrom_scamp.py expect PVi_j terms, so I added
+   PV1_0, PV1_1, PV2_0, PV2_1, set to 0 and 1, respectively)
+-- Constant sky subtraction did not support polynomials; now does.
+-- Updated GMOS-N/S configurations
+-- Corrected 'nightid' call in splitting scripts (defaulted to UTC+4 for Chile)
+-- Automatically increasing POSANGLE_MAXERR for multi-chip cameras if using
+   the default focal plane (and if POSANGLE_MAXERR chosen too small)
+-- Updated the OSIRIS_F3/7@SOAR splitting scripts
+-- reduction/imred.conf had an upper limit for the values to be combined.
+   Could compromise NIR exposures with larger NDITs
+-- Added MJD-OBS to the splitting script of to all professional cameras
+-- DRASTIC simplifications of all background modelling tasks.
+   Superflatting, defringing, mask creation, subtraction etc is now
+   all handled by one script. Dynamic sky modelling finally working.
+   Restructured calibration and superflatting (now: background)
+   sections accordingly.
+-- Improved the imalyzer
+-- Updated the splitting script for NICS@TNG
+-- Introduced magnitude limit for GSC-2.3 refcat, downloading only red	
+   magnitudes instead of BVRI; removed GSC-1.2 (made obsolete by these 
+   changes)
+-- Fixed some memory leaks occuring when closing the GUI. Still segfaults, though.
+-- Fixed the port accessed by scamp in the photometry module to 1660 (is 80
+   in newer versions of scamp); could lead to no reference sources downloaded.
+
+
+v2.6.2 (2012-11-19)
+
+-- Fixed the astrometry.net installation (catalogs and indices had to be
+   sorted with respect to magnitude in order to work properly), and a few
+   other details. Still, it is not as reliable as I expected, some fields 
+   just won't solve even though they should.
+-- Introduced a time-out of 3s when retrieving the current GUI server version
+   (wget would take very long before returning if the server can't be 
+   contacted). This would make the GUI stall at the splash screen
+-- Fixed the automatic determination of the reference catalog radius.
+   For multi-chip cameras with varying chip orientations the radius would
+   be significantly under-estimated. Correctly estimating the dither
+   radius as well.
+
+
+v2.6.1 (2012-11-13)
+
+-- Added "did not solve" to the error scanner
+-- Forcing globalflag to have 8 bit. In case of polygon masks they were 
+   floating point.
+-- create_illumfringe_para.sh would not work properly if ds9 detector 
+   masks were present
+-- Fixed a typo in create_superflat_para.sh introduced in 2.6.0, which 
+   affected datasets with ds9 detector masks
+-- Replaced SDSS-DR8 with SDSS-DR9 (improved astrometry for DEC > +41 deg)
+-- Scamp distortion order would not be read from logfile (broken in 2.6.0
+   introducing a.net) when opening configuration dialog
+-- Updated dcraw to v9.16
+-- Saturation value (create source cat config) would not be restored 
+   properly
+-- Included MEGACAM_2x2@LCO
+-- Added missing / corrected wrong tool tips in the GUI, slight reformatting
+   of some dialogs, giving some buttons and fields a clearer name
+   (e.g. sky sub: FWHM -> kernel width)
+-- Ask whether running sub-dialogs should be destroyed when their processes
+   are still running. If yes, processes will be aborted.
+-- Renamed the LOG file into Project; mirroring the Project name in the 
+   main window title and the header of the coadded image
+-- Timeout a.net if an exposure isn't solved after 10s (before: 300s)
+-- Checking the Qt version in the installation script
+
+
+v2.6.0 (2012-10-08)
+
+-- Offering astrometry.net as an alternative astrometric solver.
+   Ignoring distortion terms, as SIP polynomials are not yet supported by SWarp.
+   Should not be used with mosaic cameras, or if distortion has to be corrected.
+   Photometric zeropoints are still calculated with scamp. Absolute photometry
+   is still based on scamp, only.
+-- updated pmonitor to v0.35
+-- Included an optional saturation value for the source cat creation
+
+
+v2.5.4 (2012-09-30)
+
+-- Improved usage of individual and global detector region ds9 masks
+   for weight and flag creation, superflatting, sky subtraction and 
+   collapse correction. In some cases statistics would not be calculated 
+   correctly, or superflats had excessive masking
+-- Included DECam@CTIO
+-- Restructured collapse correction configuration
+-- Optionally, no source detection for object masking takes place
+   for the collapse correction (leave detection thresholds empty)
+-- Support for UCAC4
+-- Included OSIRIS_F7@SOAR (OSIRIS_F3@SOAR was already present)
+
+
+v2.5.3 (2012-08-17)
+
+-- Splitting script creation tool would not predict syntax correctly 
+   if RA DEC keywords have format HH MM SS or DD MM SS (compared to
+   HH:MM:SS).
+-- Create superflat would complain if no globalweights are present;
+   this happens now only if global region files are present (i.e. I 
+   still have to find a better solution).
+-- Included FourStar@LCO, MMIRS@LCO, and IMACS_F2/4@LCO (the latter based 
+   on the new detectors) and AltaU42_HIGH/LOWRES@ASV
+-- Statistics module: filter was not set to "*.fits" if left empty
+-- Switching off defect detection as default
+-- automatically downloaded standard star astrometric reference catalog	
+   has now a different name than the refcat for the science exposures.
+-- Hiding the seeing convolution task from "prepare colour picture";
+   This does not work properly without reasonable PSF modelling
+-- updated cdsclient to v3.71
+
+
+v2.5.2 (2012-07-12)
+
+-- Fixed the ACAM@WHT splitting script once more.
+-- Create color picture and manual sky: if empty sky regions have
+   min and max values inverted, swap them internally.
+-- Checking online for newer versions when showing an error message;
+   reminding the user to update.
+-- Deactivated defect detection for cameras with colour chip
+-- Included SDSS as an instrument
+-- Fixed a bug in create_superflat_script that did not write SKYVALUE
+   correctly into the fits header for the 'subtract' method
+-- Updated create_stats_table.sh such that bad images that were moved to a
+   parking directory after catalog creation are ignored
+-- Updates to spectroscopic programs in fitstools
+-- Updated SOFI@NTT splitting script (creating CD matrix correctly if 
+   PC matrix is present; better reconstruction of FILTER keyword)
+-- create_superflat_para.sh: The 'rescale' flag was always set to "Y"
+   when subtracting a dynamic superflat on the fly, i.e. the setting
+   in the superflatting section was ignored
+-- Updated to cdsclient-3.7
+-- Fixed create_astromcats_[phot]_para.sh; if "lownum" images were encountered,
+   the scripts did not switch back to ${SCRIPTDIR}, resulting in an error.
+-- SCRIPTDIR was undefined in create_globalweights_para.sh
+   (without consequences)
+-- distribute target sets would predict wrong file name extension if
+   individual chip zeropoint adjustment was done previously ("P").
+
+
+v2.5.1 (2012-03-05)
+
+-- Updated getkey.c, such that it optionally replaces blanks by ":" instead of
+   an "_"
+-- Updated creation splitting script, to better cope with non-standard
+   "HH MM SS" coordinate formats
+-- Added DATE-OBS keyword to WFC_2x2
+-- Added Y4KCam@CTIO
+
+
+v2.5.0 (2012-02-03)
+
+-- This version is only compatible with theli-1.6.1 (long-standing bug 
+   fixes in ldactools; will now also run under latest linux flavours);
+   I increased the number of max pointers in xmemory.c from 32771 to 200000
+   in theli-1.6.1
+-- Added "Operation not supported" to the error scanner
+-- Fixed a bug in the get_wcs function (introduced in 2.4.0)
+-- Included OMEGACAM@VST
+-- Updated WFI@MPGESO splitting script
+-- Added "buffer overflow detected" to the error scanner
+-- Added "Not enough memory" to the error scanner
+-- Updated the FLAMINGOS2 pixelscale from 0.18 to 0.1807 pixel
+-- Removed Sextractor sky background modelling from the GUI
+-- Parallelised fitsgauss.c
+-- Drastic speed improvement for fitsfill.c
+-- Merged fitsfill.c and fitsgauss.c into subsky.c; this will 
+   form the new general purpose sky background modelling tool;
+   further multi-threading in former fitsfill code (now in subsky.c)
+-- Making statistics section variable and more commonly used;
+   helps cameras with strongly vignetted areas
+-- Removed Sextractor SIZE parameter from superflatting. Never used
+   in years.
+-- Removed WIFIX; haven't been using it in years.
+-- Updates in the GUI-internal help dialogs and tool-tips
+-- Introducing ds9 region files in several places to support reduction
+   of strongly vignetted cameras (e.g. those with circular data fields)
+-- Removed a lot of unused variables in the GUI and from fitstools
+-- Several (not pipeline-related) additions to fitstools
+-- Do not rotate global .ahead file if rotation would be smaller than 
+   1.5 degrees
+-- Included a global region file for ACAM
+-- Added "Cannot decode file" to the error scanner
+-- Exiting create_scamp.sh if no source catalogs are present
+-- Included MKO, HUNT, PERSSON, 2MASSfaint JAC JHK+LM NIR phot std catalogs
+-- Included SDSS Stripe82 ugriz and u'g'r'i'z' photometric std catalog
+-- Added a missing ". bash.include" to 'create_astromcats_phot_para.sh'
+-- Aborting superflat creation if less than 2 images contribute
+   (due to high nhigh parameters)
+-- Additional filtering of the source catalog for instruments with a global 
+   region file (to reject sources lying just outside the edge of the real 
+   data field)
+-- Fixed a bug in theliform.ui.h concerning absolute photometry.
+   I think it didn't have an effect so far, but it would have become 
+   serious with the introduction of the near-IR phot std catalogs
+-- Speeding up fitsmedian, adding masking capabilities to fitscollapse.
+-- Absphotom fixes in theliform.ui.h
+-- Increased MEMORY_PIXSTACK in image-object.sex, detection buffer filled 
+   up, leading to only partially filled segmentation maps
+-- Included SDSS-DR8 (accessing the SDSS database directly through a SQL query)
+-- Suppressing two erroneously shown error messages (if more than one cpu
+   was used for a multi-chip camera data set); error scanner stumbling over
+   chopped up 'error' strings in these scripts
+-- Fixed missing ERRA/B/THETA_WORLD keywords (scamp must have used internal 
+   defaults, which so far worked fine, but failed for extremely high-res
+   MCAO data)
+-- Added real ERRA/B/THETA_WORLD values (instead of generic values) if 
+   reference catalogue is created from an image; again, the generic ones 
+   failed for high-res MCAO images
+-- Removed unneeded parameters from the source catalogs (were needed for
+   astrometrix, only)
+-- Added GSAOI@GEMINI-SOUTH
+-- Generally more support for polygon masks in different places
+-- Optionally saving the sky background model
+-- Fixed a bug in resample_coadd_swarp_para.sh (DATE-OBS keyword was 
+   overwriting IMAGEID); now using COPY_KEYWORDS option in swarp.
+   Only affected movie-making
+-- Deactivated the rotation of global .ahead files. The transformation is
+   invalid if the CD matrix is not purely rotational (these terms do not
+   rotate, e.g. differential atmospheric refraction)
+-- Added the option to resolve target names with Simbad, NED and VizieR
+-- Automatic determination of the optimal refcat search radius,
+   taking into account detector geometry and dither pattern (the latter only
+   if reflected in the CRVAL1/2 keywords)
+-- Significant code simplifications in several places
+-- global weights: in case of a constant weight the flag map was set to 1 
+   instead of 0.
+-- added polygon support for flag maps
+-- color_correction_photcat|avgwhite.sh: introduced a 0.85*maxval cutoff to
+   explicitly avoid saturated stars
+-- color_correction_photcat|avgwhite.sh: adjusted DT and DMIN to larger values
+   (5 instead of 2); crashed on extremely crowded fields
+-- removed refra, refdec, rad, maglim from command line arguments; passing them
+   through a parameter file instead (more code consistency, and cleaner data
+   flow)
+-- Reset tolerances from 1.0 to 10.0 in stdphotom_prepare_associate.conf,
+   to accomodate large proper motions
+-- reading RA DEC keywords in hex format with blanks instead of ":" was broken
+   in automatically created splitting scripts (got confused with standalone
+   'getkey' c-programme, and get_key bash function)
+-- introduced DATE-OBS keyword and applied rotation correction to CD matrix
+   in LIRIS splitting script
+-- taking the mode of the image instead of the mode of the background value
+   to estimate SKYVALUE keyword when subtracting superflat; better, and
+   no need anymore to explicitly take into account rescaling factors
+-- SKYVALUE keyword was not properly propagated when subtracting the superflat
+-- Subtract superflat and merge sequence: automatic mechanism was broken
+   (erroneously printing a STOP message)
+-- Added 'try a different download server' to the list of suggestions if the
+   reference catalog comes back empty
+-- Changed an error message in create_superflat_para.sh ("Only 1 or less images
+   contribute to the superflat")
+-- Removed further file order randomisations from scamp scripts
+-- Updated create_stats_table.sh script (total rewrite by thomas, 
+   much more efficient in case of large surveys or huge catalogs); updated
+   update_coadd_header.sh accordingly
+-- Updated dcraw to version 9.12 (switched off jpeg, jasper and cms dependency)
+-- Forcing scamp to use distort=1 in case of single-chip cameras and standard 
+   star fields
+-- Fixed a bug in the filter order of stdphotom_prepare_make_ssc_UBVRI.conf
+-- Fixed the problem that the coadd_<filter> was not identified if the user did
+   not click on 'configure'
+-- Improved GMOS-SOUTH splitting script drastically (much better WCS in the 
+   header)
+-- DSLR RAW splitting scripts don't have the option to rename the image to some
+   FITS header keyword
+
+
+v2.4.1 (2011-10-17)
+
+-- Improved the prediction of the size of the output coadded image
+   for rotated images. However, it's not perfect. To this end I would 
+   need to rotate the headers of the input files to zero degree 
+   position angle, which, in case of mixed input rotation angles, would
+   totally corrupt the result. Hence I think we have to live with large
+   empty borders around stacked images.
+
+
+v2.4.0 (2011-10-13)
+
+-- Updated the splitting script for VIMOS
+-- Introduced a bash 'get_key' function. The C-routine turned out to have
+   an excessively large overhead.
+-- Included FLAMINGOS2@GEMINI-SOUTH
+-- Tiny layout change in the splitting script dialogue
+-- Added 'cleanstring.c'
+-- Replaced all calls to P_GETKEY by get_key, piping them through 'cleanstring'
+   if necessary. This should speed up in particular the splitting step 
+   significantly; modified cni_form.ui.h and color_form.ui.h. accordingly
+-- Rewrote fitscollapse.c, including a mode for HAWAII-2 detectors with
+   four "crossed" readout quadrants; updated parameters.ui.h accordingly
+-- Create new instrument: checking if cut-on x|y values are larger than zero
+-- Updated the splitting script for GMOS@GEMINI-NORTH/SOUTH
+-- Fixed a bug in create_astrorefcat_fromIMAGE.sh (catalog for overlay
+   would not be saved in SCIENCE/cat/[ds9|sky]cat
+-- Some cleanup in fitstools, and small additions
+-- Moderate speed-up of the collapse correction (absorbing/avoiding some 
+   I/O in fitscollapse.c)
+-- (probably) fixing the occasional "du: cannot access ds9..." 
+   in the konsole (file deleted while disk space is evaluated)
+-- Included SPARTAN@SOAR.ahead; calibrated against VISTA data
+-- Changed collapse correction default rejection threshold from 2.5 to 1.5
+-- Storing dynamic background models in a separate BACKGROUND directory
+-- Fixed a tooltip in the scamp configure dialogue (showed FIX_FOCALPLANE
+   instead of SAME_CRVAL)
+-- Added a header explanation line to the collapse parameter dialogue
+-- Fixed the pixel scale for SPARTAN@SOAR (was 0.15 instead of 0.069)
+-- Blanking bad pixels (weight=0) in coadd.fits; improves data with 
+   strong vignetting significantly.
+-- Adding SWARP combine-type CHI2, and SUPERGALACTIC coordinate system.
+-- Keeping only CRPIX1/2 and the CD-matrix in newly created scamp 
+   global header files (could cause problems for large dither patterns).
+-- Removed coordinate-specific data from WFC_2x2@INT.ahead, which caused this
+   configuration to fail
+-- Speeding up near-IR double-pass skybackground significantly:
+   creating masked OFC files directly from 'fitscollapse'.
+-- Linking *.scamp.cat files to astrom_photom_scamp instead of copying 
+   them. In case of e.g. large VISTA data sets this saves a lot of time 
+   and disk space.
+-- Parallelised resample_coadd_swarp (each chip gets an optimal number of 
+   threads assigned, depending how many chips the camera has, and how many
+   threads/CPUs the user wants to use); should be a gain of 2-4 in speed
+   depending on image size
+-- Determining the number of cores/cpus available, and setting an according
+   limit to the CPU spinbox in the initialise section
+-- Cleaning up tmp-dir upon startup
+-- Renaming SUBCOLL_IMAGES and SUB_IMAGES to MASK_IMAGES
+-- Collapse correction does now accept a box to be masked, instead of
+   defining good rows or columns only; much more flexible.
+-- Added a parameter to 'collapse correction', stating what to do with 
+   the mask file (delete; mask input image; mask OFC image for 2-pass sky 
+   subtraction)
+-- Re-measured VIRCAM@VISTA.ahead
+-- Mask overlapping polygon areas as well (create_weights_para.sh)
+-- Replaced sextractor 2.2.2 with sextractor 2.5.0 (because it is multithreaded)
+-- Parallelised all sextractor calls (doesn't really gain much)
+-- Added get_pixscale.c and numcpu.c to 'stuff'
+-- Fixed inconsistent use of $PIXSCALE (for cameras with exchangable 
+   fore-optics such as SPARTAN or FORS); could result in wrong seeing 
+   measurements
+-- Fixed a bug in create_absphotom_coadd.sh (would not exit properly if some 
+   data is absent)
+-- Deleting temporary data created by create_stats_table.sh
+   (intermediate files can become HUGE, e.g. for VISTA data)
+-- Included non-linearity correction for SPARTAN@SOAR
+-- I switched off the file order randomisation in scamp
+-- Fixed bugs in get_posangle.c, get_cdmatrix.c and sky2xy_helper.c
+-- Code cleanup in various stuff/ tools
+-- Keeping only files in fitstools package that actually require qfits library;
+   moved the rest to stuff/
+-- Collected stuff/*.c under a Makefile
+-- Added rotate_cdmatrix.c and fitscdinfo.c to fitstools
+-- Pre-defined default scamp global.ahead files now get rotated such that
+   they match the position angle of the input exposures. No need anymore to
+   set POSANGLE_MAXERR to 180 for pre-defined multi-chip cameras. This should
+   help in particular small fields of view and near-IR cameras.
+-- Fixed a bug in get_coadd_zp.sh (FITS header card was too long, keyword 
+   not written)
+-- Added "keyword unknown" to the error scanner
+-- Rewrote swarpfilter.c; significant gain in speed (~30% lower execution 
+   time for large mosaic data sets); qfits is not threadsafe, hence I cannot
+   parallelise swarpfilter.
+-- Updated SOI@SOAR.ahead and IMACS_F2@LCO.ahead
+-- Fixed a rare problem with getting the reference catalog.
+   If the median ref RA/DEC was integer, the CDS scripts don't return results.
+
+
+v2.3.10 (2011-08-22)
+
+-- The parameter configuration dialog extended too much in
+   vertical direction. On systems with low screen resolution
+   in y (around 768 pixels) the dialog was truncated, hiding the
+   'ok' button.
+-- Removed the (already hidden) 'use header' option with scamp.
+-- fitsblockedit: added the option to negate the selection, and
+   added circular patterns as well.
+
+
+v2.3.9 (2011-08-19)
+
+-- Added 'cannot execute binary file' to the error scanner
+-- Added 'Not enough memory' to the error scanner
+-- The const-sky estimate from RA/DEC would not write the correct 
+   values into the table when 'get estimates' was clicked. This has never 
+   been implemented and only worked for x/y. However, if 'get estimates'
+   was not clicked, the correct values would be applied. This is now fixed.
+-- Included the DATE-OBS keyword in resampled images
+-- SOI@SOAR renames raw files to SOI.${DATEOBS}.fits
+-- Changed the default setting for scaling the fringe model from false to true
+-- Included a configuration for SuprimeCam_200808 using SDFRED preprocessed images
+-- Explicitly setting WEIGHT_TYPE to MAP_WEIGHT for swarp
+-- Setting cross_id radius to 10.0*pixscale if pixelscale is less than 0.2"
+-- Iterating the mode estimation in create_norm_para.sh once, such that large 
+   vignetted areas are excluded from the statistics (threshold = 0.25*mode_initial)
+-- renamed IMACS2@LCO to IMACS_F4@LCO
+-- introduced IMACS_F2@LCO
+
+
+v2.3.8 (2011-07-18)
+
+-- Expanded get_wcs() in bash.include: if no cd-matrix is present and
+   CDELTi/j is set to a value equal or larger than 1, then use the
+   native pixel scale in order to reconstruct the cd-matrix (some old
+   EFOSC data require this)
+-- Added a 2x2 binned version for the old EFOSC camera
+-- Renamed EFOSC2@3.6m to EFOSC2@ESO3.6m
+-- The Stetson catalog does not contain u-band magnitudes.
+   Absphotom module adjusted correspondingly.
+-- Added a MEGAPRIME_ELIXIR configuration
+
+
+v2.3.7 (2011-07-03)
+
+-- Removed the tiff and fftw source packages from the distribution.
+   They might as well be considered as prerequisites.
+-- small layout fixes in the 'create splitting script' section
+-- changed the default from 'astrometrix' to 'scamp' when the
+   gui is launched the first time
+-- set MOSAIC_TYPE to SAME_CRVAL if a multi-chip camera is selected
+   and the scamp parameter configuration opened the first time for
+   a new log file
+-- Updated the splitting script for the MOSAIC-II configurations
+   (could crash if RA keyword was non-existent)
+-- Added a 2x2 binning configuration for MOSAIC-II@CTIO (8 ports)
+-- Updated the default orientation of PISCES@LBT
+-- The 'animation' dialogue would not work with multi-chip camera data. Fixed.
+-- Moved a scamp warning to the 'ignore' list
+-- Fixed a bug in astromphotom: coordinates would not be copied into
+   fits headers if requested (introduced in 2.3.6).
+-- The reset button next to the logfile name now also resets all values
+   in the parameter dialogue to their default values
+
+
+v2.3.6 (2011-06-22)
+
+-- This version of theli-gui is only compatible with theli-1.5.1
+-- Print warning in colour dialogue if no reference sources for 
+   photometric colour calibration were downloaded
+-- Another stabilisation of guessing the filter when coadd is called
+   without explicit configuration
+-- Upon launch, check if ${HOME}/.qt is owned by root. If yes,
+   print a warning and leave.
+-- Added ° and ^ to the list of "bad characters" in section_pre.h
+-- Fixed a bug in the splitting script (removal of bad characters 
+   in EQUINOX keyword)
+-- Added ": not found" to the error scanner
+-- Added "too many arguments" to the error scanner
+-- Added "null or negative global weighting factor" to the error scanner
+-- Updated dcraw to v9.08
+-- Updated libtiff to v3.9.5
+-- Updated wcstools to v3.8.3
+-- Fixed a mean bug in the 'scamp' scripts. If images were called
+   e.g. "image.fits" and "ximage.fits", then searching catalog lists
+   would not return unambiguous results as 'image.fits' also matches
+   'ximage.fits' as a search string. This is probably the cause for
+   the 'not all science images have headers' error during coaddition.
+-- Fixed a bug in splitsuprimecam.c (overscan correction was not 
+   performed correctly; some improvements to avoid dark banding 
+   through bright stars near the readout edges)
+-- Showing error log: emacs and nedit jump directly to the error line
+-- Distort value could be set to zero (invalid). Limited range to [1...9]
+-- Misc: Absolute zeropoint: do not show error log if no ref sources found
+   but display a message box instead.
+-- Fixed a small bug in create_stats_table.sh; script would not exit
+   if an internal error occured.
+-- Small speed-up in create_stats_table.sh by explicitly exiting 
+   nested loop once match is found
+-- The user can add two comma-separated FILTER keywords for the splitting 
+   script. The resulting FILTER keyword will be written as 
+   FILTER1+FILTER2
+-- Splitting script: if the values are given as DIT,NDIT, images will be 
+   rescaled accordingly and the exposure time keyword written as DIT*NDIT
+-- Fixed a (rare) bug in update_coadd_header.sh (gawk would not recognise
+   a FS string if a '+' sign was embedded; gawk replaced by sed)
+-- "Stabilised" the function check_fileexistence() (it only tested chip #1
+   and would not jump to the next chip if the first chip was missing, e.g.
+   if the user moved them into a parking directory). I'm now sequentially 
+   testing for all chips
+-- The native pixel scale in the coadd config is always displayed,
+   to avoid confusion with instruments for which the pixel scale is
+   interchangable.
+-- If the 'same weight for all pixels' checkbox was checked, the parameter 
+   fields below were not disabled upon reopening the dialog.
+-- When creating a reference catalogue from an image, a ds9 and skycat copy
+   would not be saved into the corresponding cat/ds9cat and cat/skycat
+   directories (for convenience only, as scamp takes the catalog from 
+   ~/.theli/scripts/)
+-- Fixed a rare bug in create_stats_table.sh and create_scampcats.sh, which 
+   would cause a truncation of catalog names if the string "fits" was present 
+   within the name of the exposure, e.g. image_xxxfitsyyy.fits
+-- Suppressed a warning message in latest gcc compilers (checkbox array
+   could actually have been used uninitialised; explains why sometimes
+   the absolute-path-warning did not kick in)
+-- The user cannot enter a NFRAMES value higher than the one determined
+   automatically.
+-- Print a warning if the coadd outlier threshold is lower than 3.0
+-- Replaced extimg[] by ext_img[]; could explain some very rare hickups
+   with the processing status
+-- Fixed some potentially failing link creations if multi-chip camera data
+   is spread over several harddisks
+-- Made the blocksize for swarpfilter variable from within 
+   resample_filtercosmics.sh. The scaling factor is purely based on empirics.
+-- When coordinates are entered in astrom/photom, then the user has the
+   option of choosing whether CRVALi only, or CRVALi and CDi_j are overwritten,
+   or if nothing gets overwritten. The 'cancel' option has been removed. 
+-- Added global mask for the 4 HAWKI@VLT detectors
+-- Expanded the message box in zp.ui.h if no overlap is found
+-- zp.ui.h points to the previously opened directory if several images
+   are calibrated in a row 
+-- Splitting script for HAWKI inserts filter name into file name
+-- Added GMOS-S .ahead file (possibly 90 degrees rotated from default PA)
+-- Redefined GMOS-S detectors (overscan and trimming regions were wrong)
+-- Changed the way how the ACAM filter keyword is constructed. Turned out 
+   the ACAMFILT keyword was unreliable (who would have thought...)
+-- Updated the SOFI splitting script
+-- Included NICI@GEMINI_SOUTH
+-- Included SOI@SOAR
+-- Included SPARTAN@SOAR
+-- Included GOODMAN@SOAR 1x1 and 2x2 binned versions
+-- Included PISCES@LBT
+
+
+v2.3.5 (2011-03-23)
+
+-- Included WFI@SSO_40inch
+-- Expanded fitscollapse such that x and y collapse correction can be
+   done in one go; corresponding change in the GUI
+
+
+v2.3.4 (2011-03-14)
+
+-- Added 'Operation not permitted' to the error scanner
+   (occurs when creating links on an external disk which doesn't have
+   its permissions set correctly)
+-- Included Carsten's process monitor; needs some more work and better 
+   integration, but at least the main bolts are in place.
+-- Selecting bin=1 in the preview task would result in empty tiff files
+-- The fitsbin programme would return an empty image if binsize=1;
+   exiting in this case with an error
+-- Expanding the error messages
+-- Making the automatic filter guess (if coaddition is started without 
+   configuration) more stable
+-- Replaced ':' by '-' in the color_theli_backup_<date> folder such that
+   it can be read by windows
+-- Updated fitsdemosaicbayer (edge interpolation).
+-- Catching an error during splitting if an RA/DEC keyword is not present
+   AND if decimal conversion has been requested
+-- "Restore ORIG:" preserving ds9 region masks in the progress, either
+   individual files or those already processed and stored in a separate 
+   .reg directory.
+-- Extended error checking in create_stdphotom.sh and create_abs_photo_info.sh
+-- Included a 2x2 binned version of WFC@INT
+
+
+v2.3.3 (2011-01-27)
+
+-- Fixed an issue with the splitting script generation caused
+   in 2.3.2.
+
+
+v2.3.2 (2011-01-25)
+
+-- Included LORRI@NewHorizons
+-- Copying the (incomplete) WCS information from WFI@MPGESO raw data
+   was broken in the splitting script (when introducing support for 
+   arbitrary rotation angles)
+-- Fixed an issue with renaming images to a certain FITS keyword
+   (the script syntax did not work)
+-- The function that renames images to the value of an arbitrarily 
+   chosen FITS keyword was corrupted
+-- Checking if the number of characters of a raw FITS file name is larger 
+   than 60. In this case a STOP message is printed upon attempting to split 
+   the images. Long file names are truncated in FITS table headers leading to
+   incompletely propagated information.
+-- The 'distribute target sets' was also separating standard star fields.
+   This is not wanted, as the absolute photometry module runs on all
+   standard star fields sequentially.
+-- Parameter configuration: The automated skyposition angle estimation
+   and the astrometry mosaic_type readme buttons were deactivated
+   (happened in 2.3.0)
+-- Replacing swarp1 with swarp2 in the preparation of the coaddition
+   broke the optional choice of selecting a different sky position angle 
+   (as the CDELT1/2 keywords are no longer present in the output header)
+-- Sometimes the 'use dark' checkbox would not be shown upon startup; fixed.
+
+
+
+v2.3.1 (2011-01-21)
+
+-- added 'keyword out of range' to the error scanner
+-- set NTHREADS from 0 to 1 in create_coadd_swarp2.conf
+   (NTHREADS=0 (automatic) would not be understood, even though
+   the keyword is reset in the resampling/coaddition script)
+-- The archive of v 2.3.0 was corrupted (contained two backup versions
+   of  scripts instead of the current version).
+-- theli.cpp was not yet compatible with /bin/dash (previously running
+   instance would not be closed upon launching a second instance)
+
+
+v2.3.0 (2011-01-18)
+
+-- This version is only compatible with theli-1.4.1
+-- Removed old documentation PDFs from the distribution and the 
+   internal help section; documentation.h was merged with theliform.h
+-- Removed swarp-2.19 from the gui package as it is contained in theli-1.4
+-- The preparation of the coaddition is done with swarp2
+-- Changed the routine that reads the filter keyword. It starts with chip
+   1, and if no such images are found, proceeds to the next chip, including
+   sky subtracted images if no unsubtracted images are found. This reduces
+   the waiting time significantly for large multi-chip cameras.
+-- Added a check for file existence in all fitstools programmes
+-- Updated dcraw to v9.05
+-- If no reference RA and DEC coordinates are specified, the median of the 
+   image centers is used instead of CRVAL1 CRVAL2 of the first image in the
+   list. If only certain chips of a mosaic were stacked, the coadded image
+   often was empty as RA DEC were significantly offset.
+-- Separated the absolute photometry module into two independent tasks
+-- If only one filter is present, theli does not automatically load the
+   coadd config dialog but determines the filter string in the background.
+-- Removed old unused code from the source
+-- Appending the character 'P' to the processing status string was done
+   independent of the chosen absolute photometry method; fixed.
+-- Added optional coadd image size parameters (for very wide angle
+   projections, the automatically determined size is often badly matched)
+-- Replaced MEGAPRIME@CFHT.ahead. In the old one, the CRPIX2 values were
+   reversed (origin unknown).
+-- Found out that system() sends its arguments to "/bin/sh -c", therefore
+   creating problems on Linuxes which have /bin/sh linked to /bin/dash.
+   Reason for 'sh: syntax error: bad fd number' is that dash does not 
+   understand the ">&" redirection, however it does understand " > file 2>&1", 
+   which is equivalent.
+-- Suppress an error message if the NEXTDUMMY keyword is not written into
+   resampled images (happens sporadically, reason unknown, uncritical)
+-- Fixed a small bug in statistics.sh, which could prevent the creation of 
+   the checkplots in rare cases
+-- Flat fields with colour chips are 'normequalised', i.e. all pixels 
+   belonging to the same colour are brought to a mean level of one.
+   In this way we avoid artificially increased values of one colour
+   channel if it is significantly underrepresented in the flat field,
+   e.g. the red channel in a blue twilight flat. If the background level
+   was close to saturation values, object detection could fail.
+-- For colour cameras the normequalised flat is used for the global weight 
+   instead of the debayered green channel
+-- Debiased and flat-fielded, but undebayered colour images are not stored
+   anymore.
+
+
+v2.2.5 (2010-12-01)
+
+-- Included MOSAIC-I_old@KPNO_0.9m   (old=config before Aug 2010)
+-- Included MOSAIC-I_old@KPNO_4.0m   (old=config before Aug 2010)
+-- Included NEWFIRM@CTIO
+-- Fixed a bug in the automatic guess routine for camera configuration
+   (affected multi-chip cameras only)
+-- Fixed a bug introduced with the HH MM SS format in the splitting script
+   in v2.2.4
+
+
+v2.2.4 (2010-11-28)
+
+-- Using 'statvfs' to determine available disk space.
+-- Coadd: The minimum size of a cluster of bad pixels was always
+   smaller by 1 than the value specified. Fixed.
+-- Small changes to the photometric colour calibration script.
+-- Changed all /bin/sh to /bin/bash in cdsclient
+-- Removed warning if /bin/sh is linked to /bin/dash;
+   Not sure if this problem is finally solved. Time will show.
+-- Automatic renaming of 'scamp.exe' to 'scamp' upon startup. Some 
+   browsers automatically append the .exe suffix if the file is 
+   recognised as executable.
+-- Replaced all statistics sections by the actual image size of each
+   chip. Thus different chip geometries can be handled without making the
+   instrument config unnecessarily complicated.
+-- The splitting script will now handle RA and DEC in formats
+   HH MM SS and DD MM SS in addition to HH:MM:SS and DD:MM:SS
+-- Changed some red information text to green colour 
+   (if splitted data were found)
+-- Added the get_statminsection() function to bash.include
+-- Added 'list has not enough members' to the error scanner (preprocess)
+-- Removed an old and invalid configuration for MOSAIC-I@KPNO
+-- Added MOSAIC-II@CTIO (3 configurations)
+-- Added GMOS@GEMINI-NORTH
+-- Added NIRI@GEMINI-NORTH
+-- Added GMOS@GEMINI-SOUTH
+
+
+v2.2.3 (2010-10-27)
+
+-- Fixed a bug in calculating the reference coordinates for
+   the download catalog if the input images crossed the RA = 360...0
+   border.
+-- Updated getstats.c such that the median would (optionally) not be 
+   averaged if the number of input data points is even. Needed for
+   the RA=360...0 crossing.
+-- Modified 'lst' such that it accepts DATE-OBS as input
+-- Catching an coadd init error which appears when the user launches
+   the coaddition without checking the configuration first (in this
+   case the filter list would be empty, and hence theli does not know
+   which filter should be stacked). Theli will load the config dialog
+   for the user in this case after displaying an info panel.
+-- Download of the reference catalog at specified coordinates would not 
+   work if the main and/or science directory were empty.
+-- Smoothing overlap regions during coaddition was not working if data
+   from different cameras (and different image sizes) was combined.
+-- Replaced the check_rawfilename.sh script by an internal C-routine;
+   the script did not catch things such as leading or trailing empty 
+   characters.
+-- Removing metacharacters from FITS keyword values if 'getkey' is called
+   with 'clean' as the last argument.
+
+
+v2.2.2 (2010-10-18)
+
+-- Added the option to use header information only for astrometry
+-- Modified create_stats_table such that it doesn't produce an
+   error message if no catalogs are encountered (if the fits header
+   is used as an astrometrical header)
+-- Added 'command not found' to the error scanner. Most likely caused
+   if the bindir is not included in the PATH variable.
+-- The 'close' and 'abort' button in the animate respectively statistics
+   dialogs were not connected.
+-- The seeing units in the statistics table were not updated if the
+   table was empty
+-- Renamed all 'Quit' buttons to 'Close', for homogeneity
+-- Included OSIRIS@GTC
+-- Including the removal of non-numeric characters from the equinox 
+   keyword when creating splitting scripts on the fly.
+-- Exit splitting script for DSLR RAW data if TIFF images could not be 
+   created (probably due to a missing link to libtiff.so.3). Print
+   an error message with according instructions.
+-- Load the filter list for coadd-config only if the param dialog is brought
+   up during coaddition, or if the user switches from inside to the
+   coaddition param page (avoiding unnecessary long loading times).
+-- Aborting the installer script if python version is older than 2.4, 
+   or 3.0 or later.
+-- Generalised installer script; some stabilisations
+-- Updated tab order in parameter dialog
+-- Updated pyfits from v2.2.2 to v2.3.1
+
+
+v2.2.1 (2010-10-09)
+
+-- Forcing DCRAW to not rotate images by 90 degrees if gravity sensor
+   in the DSLR is switched on.
+-- Suppressing warning messages in install.sh if WIFIX was not installed
+-- The overscan area estimate could become negative. 
+-- An overscan will only be recognised if it is broader than 5 pixels.
+-- Removing non-numeric characters from equinox keyword in existing 
+   raw data splitting scripts
+
+
+v2.2.0 (2010-10-05)
+
+-- This version is compatible with theli-1.3.0
+-- Changed the message text displayed when splitting is attempted and
+   master calibration files are already present.
+-- In some awk constructs comparisons between 'numeric' strings and 
+   integers were made, which works for integers, but it could
+   fail in rare cases for floats. Seven scripts were affected;
+   now doing purely numeric comparisons in these cases.
+-- Seeing determination: preanisotropy can fail catastrophically
+   in some cases, returning inverted lower and upper limits. In this
+   case the seeing is determined from all objects. This did not lead to
+   errors with earlier versions as it was caught by another 'if' condition, 
+   however now I check earlier for such a failure.
+-- Splitting script: reading EXPOSURE keyword if EXPTIME is not found
+   (only for instruments created with gui-2.2.0 or later, pre-defined
+   splitting scripts are NOT changed), and the other way round
+-- Print a warning if the instrument for the splitting script dialog
+   could not be identified automatically.
+-- Added an internal check to see if the INSTRUMENT variable in the
+   instrument.ini file has the same value as the name of the instrument.ini
+   file (without the suffix). If configuration files are manually renamed,
+   then this could result in inconsistencies. INSTRUMENT is forced to
+   have the same name as the file if a difference is encountered.
+-- Changed the horizontal alignment of the radius and magnitude lineedits
+   for the reference catalog
+-- Removed all traces from 'transform images' from the code.
+-- Direct photometric calibration for individual chips got the file 
+   extension "P"
+-- Small cosmetic adjustments in install.sh
+-- Expanded the absolute photometry STOP messages a bit
+-- Running sextractor+eye for identifications of cosmics, the 
+   CHECKIMAGE_TYPE was set to SEGMENTATION instead of OBJECTS. With an
+   excessive amount of hot pixels (about 100000+), this resulted in negative
+   values which were not filtered out, hence partial masking was the outcome.
+   I set it to OBJECTS.
+-- Redirecting stderr of 'du' and 'df' to /dev/null to avoid
+   irritating runtime warnings when a lot of temporary files are being 
+   deleted.
+-- Added "Illegal instruction" to the list of error messages.
+   It is (probably) caused by running an AMD scamp executable on an
+   Intel architecture, or the other way round.
+-- Several modifications in the creation of the splitting script:
+   * changed the FITS keyword processing for colour CCDs from RAW scheme
+     to FITS scheme how it should have been in first place
+   * removed checks for "KEY_N/A" for non-existent keys (empty string 
+     returned by 'getkey')
+   * some code cleaning
+-- Automatic cross-id estimation was performed upon re-opening the parameter
+   dialogue, and the previous user setting was lost. The user-entered value
+   is now kept unless all parameters are 'reset'.
+-- Default value for crossid_radius was always "2" instead of the 
+   automatically estimated value
+-- Updated cdsclient to version 3.6
+-- Added the PPMXL reference catalogue
+-- Added 'segmentation fault' to the error scanner (was already there, but 
+   only with an uppercase 'S')
+-- Introduced additional distortion-groups, -degrees and -keys for scamp
+-- Dumping a copy of the scamp output to plots/scamp.log
+-- Added the option to automatically estimate the sky position angle
+-- Replaced a few strndup() calls in the fitstools by standard code.
+   strndup() is a GNU C extension and didn't compile under MacOs.
+-- Checking that CRVAL1 and CRVAL2 are identical in the coadded images
+   if they are run through the "crop maximum overlap" step of the colour
+   dialogue.
+-- Removed the 'crop maximum overlap' button in the colour dialog.
+   This has to be done anyway, therefore this task can already be 
+   done while fetching the coadded images. The latter are not copied
+   anymore but just linked, the links are deleted after cropping took 
+   place. Significant speed improvment if files are very large.
+-- Removed some deprecated information from the online help ('what's this')
+   in the splitting script dialogue.
+-- Some code cleanup concerning parameter configuration files
+-- Removed from the 'edit' menu the actions to edit progs.ini and
+   configuration files in gui/reduction. These should be left unchanged.
+-- progs.ini contained a copy of the NPARA variable that wasn't used 
+   anymore. I deleted it to avoid confusion.
+-- Copies of param_set1 and param_set2 still existed in the 'scripts'
+   directory. Deleted to avoid confusion.
+-- Updated WIFIX to v2.3.1
+-- The Help section accidentally loaded an old version of the documentation.
+-- Checking the format of reference coordinates only when 'get catalog'
+   or 'start' is pressed
+-- Changed the status of the message box shown for wrong coordinate formats
+   from 'critical' to 'warning', and updated its text.
+-- Superflatting, weighting, astromphotom, coaddition:
+   Checking if the image extension does not start with "OFC".
+   In rare cases (reason unknown) it can happen that information about it 
+   is lost, and then the extension is an empty string, corrupting the 
+   script syntax. The user is asked to update the reduction status.
+   Also makes the GUI more foolproof for newbies.
+-- Replaced the 'update fits header with zeroorder astrometric solution'
+   checkbox with a push button in the main dialog. Hence astrometry doesn't 
+   need to be run twice, and it also works for wifix. The original header 
+   is saved and can be restored.
+-- Added QHY9, EOS450D
+-- Calling 'preprocess' with default configuration file to suppress
+   a warning message
+-- zp.ui.h and combineimages.ui.h were using 'emacs' statically
+   as an editor to display error logs. Changed to the editor currently
+   selected in the main dialog window.
+-- Erasing the checkbox of 'create source cat' when the configure button
+   is pressed.
+-- Added "Cannot map " to the error triggering list
+-- create_stats_table.sh: a gawk command would return incomplete results
+   if metacharacters were present in the directory path
+-- Dark rescaling: remove mode of the dark as zero-order bias correction
+   (direct subtraction of a bias would result in increased noise)
+-- Modified the statistics section significantly. Creates some basic
+   plots showing background, seeing, RZP and airmass trends.
+-- Added an image analyser to 'miscellaneous'
+-- If the coadd ref coordinates are empty, and those for astrom/photom
+   are not, then copy the latter into the coadd configuration
+-- Running a small script before the splitting script that replaces
+   blanks and certain metacharacters in file names with underscores
+-- Checking if files that run through the image splitter are already
+   present when image splitting is attempted. If yes, a red warning
+   message is printed.
+-- Printing a STOP message if files with extension XXX are not
+   present before processing starts.
+-- Updating the command list after a redo button was pressed
+-- Pressing a redo button did not remove the corresponding entry form
+   the processing status array; fixed.
+-- correct_crval_para.sh: CD12 and CD21 were not forced to be zero.
+   normally no problem, unless a cd matrix with non-zero rotation 
+   angle was already present.
+   also, it was only checked if the signs of CD11 and CD12 were consistent
+   with north up east left, but not their consistency with the pixelscale.
+   If a wrong header was inserted at some point, these values would not be
+   reset to their correct ones. Doing it from scratch starting with the 
+   native pixel scale.
+-- Worked around a bizarre globbing problem in bash in the statistics 
+   and image analysis module. The '*' in a command line argument would be 
+   expanded (or not) depending on whether the result exists or not.
+   Writing the name filter into a exported string variable that is then read
+   from within the scripts.
+-- Removed all traces of the 'process all' and 'kill all' processing schemes   
+-- Removed about a dozen actions contained in the .ui file but not
+   implemented anywhere in the GUI (bad 'designer' code handling)
+-- The syntax of 'getkey' in the get_wcs function was wrong (used for
+   splitting images). Affected only images with non-zero rotation matrix.
+   Replaced 'getkey' with 'dfits' a this part has to access fits extensions.
+-- Fixed a bug with correct_crval.sh. If coordinates were entered and the
+   user answered 'no' (does not want coords to be copied to fits headers)
+   it could happen that they were nevertheless written to the header depending
+   whether the parameter file has been written at that time or not.
+   Workaround: the correct_crval script is deleted internally from the
+   command list if the user answers 'no'.
+-- Added automatic estimate of camera chip geometries to the instrument
+   creation dialogue.
+-- Wrote a python version of 'preanisotropy' that estimates the stellar
+   locus and its width based on a gaussian fitted to the rh diagramme.
+-- Changed the 'album' syntax to reflect changes in theli-1.3.0
+-- Updated get_coadd_zp.sh, which was relying on the presence of the
+   CDELT keywords in the header. It now also works with CDij, and uses 
+   a default radius if neither can be found (in which case the header is 
+   most likely corrupt and the matching will fail anyway).
+-- Removed the 'numarray' package from the distribution. Python scripts
+   are entirely based on 'numpy' (and 'scipy').
+-- Writing the colour calibration factors into a COLORFAC keyword in the
+   *_2tiff.fits images
+-- Made a scamp parameter configuration warning more explicit.
+-- Updated tool tip texts in parameters.ui
+-- The binned preview checkbox was accidentally painted green when the
+   globalweight task was executed.
+-- Killed several bugs in get_wcs from bash.include that became 'alive'
+   with this gui version.
+-- Fixed the syntax of the globalweight script (was wrong if the science
+   directory was left empty)
+-- Create_norm_para.sh: set pixels to zero if they are below the threshold,
+   instead of setting them to the threshold.
+-- Updated swarp to 2.19.6
+-- Updated dcraw to 9.04
+-- Leave automatic sky modelling active when constant sky is selected
+   (the detection thresholds are still used, unless the sky is modified
+   individually)
+-- Separated the master dark processing from the master bias processing.
+   It has its own task now, and avoids certain lock-ups of GUI, e.g. if
+   a master bias is copied from elsewhere but a dark should still be
+   calculated.
+-- The nlow/nhigh rejection can be adjusted for dark frames separately.
+-- Renamed "Debiasing + flatfielding data" to "Calibrating data". More 
+   consistent with what is actually happening.
+-- Forcing a "_stiff.tif" suffix if luminance channels are converted
+   to TIFF using stiff. So far, this was only done for RGB images.
+-- Extracted the 'movie' section from the colour dialogue and made it
+   a separate 'miscellaneous' action.
+-- Made a dirty hack for WFC@INT headers, moving the reference pixel 
+   and coordinates onto the optical axis, assuming standard orientation.
+   That resolves a problem with scamp requiring much larger search
+   radii han necessary. However, data with non-standard orientations
+   (i.e. taken before 2005) will have headers messed up probably even 
+   more.
+-- Removed the online catalog filtering for PPXML since not all magnitudes
+   are present for different fields, which would result in an empty catalog
+   being returned. Filtering is done after the catalog was downloaded.
+-- Introduced the possibility to smoothly blend the edges of overlapping 
+   areas in a mosaic. To this end the edges of the weight maps are multiplied
+   with a cosine profile.
+-- Iterative seeing convolution. It still does not deliver as accurate
+   results as desired, but it's definitely better than previously.
+-- Replaced the Gaussian filter for the smoothing of a fringe frame
+   by a median filter, which is insensitive with respect to hot or cold
+   pixels.
+-- Limited the fgroup radius to its maximum of 180 degrees
+-- Included an allsky version of the GSC limited to mag=10; This avoids
+   problems with downloading extremely wide fields from CDS, which often
+   yielded incomplete sky coverage.
+-- Stripping possible 'B' and 'J' strings from the EQUINOX keyword
+   in the splitting scripts, as 'mefsplit' wants a purely numeric value.
+-- Made the origin of the diskspace warnings more clear. The popup window
+   did not say it originated from THELI.
+-- Added the possibility to create a superflat without object detection.
+   Useful for the first pass near-IR background estimation. Simply leave
+   one of the detection threshold fields empty.
+-- Replaced FORS2_2CCD@VLT.ahead; the old one had a significant non-zero
+   rotation angle
+-- Added two exit conditions to create_absphotom_coadd.sh and 
+   create_stats_table.sh
+-- No DARK rescaling attempted if the DARK does not contain a EXPTIME keyword
+-- Backuping current processing status images in a separate directory
+   if a 'Redo'-button is pressed (in previous versions they were left 
+   were they were)
+-- Doing a 'redo' task now erases all previously done steps from the
+   status string and clears the corresponding check boxes. This was not
+   handled very cleanly previously.
+-- Added a 'Select dir' button to the color dialogue
+-- The status string and the GUI status were not set correct when using
+   a dynamic superflat. Introduced when separating the calibration
+   step into two independent flatfielding and superflatting scripts.
+-- Added 'integer expression expected' to the error scanner
+-- Create_astromcats_para.sh and update_coadd_header.sh: replaced an
+   invalid float comparison introduced recently by a string comparison
+-- Fixed four huge bugs in the near-IR dynamic superflatting process.
+   Some of them introduced recently, others might have been there much 
+   longer. Anyway, sky subtraction with this mode is very significantly 
+   improved now.
+-- Forcing at least 6 sources for seeing determination with preanisotropy
+   after size and magnitude filtering.
+-- Avoiding a rounding issue with ldacfilter and the seeing determination if
+   only very few sources are left. If they are closer than 1e-4 to one of 
+   the limits, then they are not recognised by ldacfilter anymore. Adding
+   a 0.01 margin as a work-around.
+-- create_stats_table.sh would crash if a SEEING keyword was already
+   present in the header because the splitting script copied it from the
+   raw data. Skipping this step if this happens (affected: HAWKI, VIRCAM, 
+   LBC_RED, LBC_BLUE)
+-- The astrometric reference catalog can now also be retrieved if
+   the science dir does not exist, or no images are present, provided that
+   coordinates have been entered for ra and dec instead of requesting them
+   from FITS headers ("from header" or empty string)
+-- Renamed 'processinggroup_xx.h' to 'section_xx.h'
+-- STOP if the splitting script cannot be found.
+-- Stripping possible white space or carriage returns etc from the reference 
+   coordinates. Even though the validator does not allow these characters to 
+   be entered manually, they can slip in through copy&paste actions and then
+   break the syntax.
+-- Fixed a bug in fitscubeslicer
+-- Update and small bugfixing in install.sh
+-- Removed 'NATIVE' from the celestial type combo box as the input data is
+   always equatorial in THELI
+-- Updating the reference coordinate text label depending on which celestial
+   type is chosen, such that the input coordinate system becomes clear
+-- If no flag images are present (due to data reduced with older theli 
+   versions), adding (N)IMAFLAGS_ISO keywords to the source catalogs for
+   compatibility reasons (OBJECTS table would not be copied by ldacconv).
+
+
+v2.1.8 (2010-07-07)
+
+-- Fixed a harmless bug in create_scamp.sh (led to a warning but without
+   further consequences)
+-- Introduced an optional minimum number of objects to be kept for an 
+   image/catalog in order for that image to make it into astrometry.
+-- Small change in create_astromcats_para.sh to suppress 'no such file 
+   or directory' warning by 'du' (triggered by deleted temporary files)
+-- The resampling script has a 'error' string in a comment line which
+   triggered the error scanner (introduced in 2.1.7)
+-- Rewrote fitscut.c using qfits_loadpix_window() which is much faster
+-- Increased the maximum of the minimum number of masked pixels in 
+   swarpfilter.c from 5 to 9.
+-- Resampling a subset of chips from multi-chip cameras on a multi-core 
+   CPU resulted in an exit from the script (introduced in 2.1.7).
+-- Printing the GUI version into the logfiles (GUIVERSION parameter)
+-- Included gpcfitsmask in fitstools.c
+-- Homogeneised the internal storage of background pixmaps.
+   Like that different skin can be developed by 3rd parties
+-- Fixed the automatic guessing of the angle required to rotate an image
+   such that it appears 'unrotated' after coaddition (for skyposangle != 0);
+   If the CD matrix is sufficiently non-orthogonal such that the RA and DEC
+   axes fall in only two cartesian quadrants, then no value is estimated.
+
+
+v2.1.7 (2010-07-01)
+
+-- Fixed a syntax error in update_coadd_header.sh; it wouldn't exit
+   if chips.cat5 didn't exist
+-- Checking if catalogs actually contain objects after filtering,
+   otherwise seeing calculation will produce an error
+   (update_coadd_header.sh, create_astromcats_para.sh)
+-- Fixed the splitting script for GPC1 (cosmics were not detected due to
+   presence of NANed pixels)
+-- Added ASTREF_WEIGHT to the list of parameters configurable for scamp
+-- Fixed resample_coadd_swarp.sh; if a subset of chips was selected for
+   the stacking, and more than one processor used, then too many threads
+   were launched processing identical data sets.
+-- Automatically adjusted crossid radius; if the pixel scale is less than 
+   0.7, crossid is fixed to 2.0 arcsec; if the pixel scale is larger than 
+   0.7, then crossid = 2.5 * pixscale
+-- Made the 'Transform images task' invisible for the time being; I think
+   it is not needed anymore.
+-- Added SPLIT_IMAGES to the 'delete' menu
+-- Scanning all chips instead of just CCD #1 for filter names (coadd config)
+-- Removed a mmep runtime error from resample_coadd_swarp.sh (if the user
+   has removed some chips from a mosaic camera entirely)
+
+
+
+v2.1.6 (2010-06-28)
+
+-- Added error, rms and number of objects to zp.ui.h, and err and rms to
+   create_photillcorr_getzp.sh; modified fitspic.c accordingly.
+-- Removed a warning in get_coadd_zp (empty line in makessc config)
+-- Removed a runtime warning printed by 'du' to the command line while
+   creating source catalogs (could not find ds9 catalog constituents
+   because they were deleted already)
+-- Added an optional argument 'clean' to getkey which deletes metacharacters
+   in a keyword
+-- Added a new parallelised pan-starrs splitting script (gpc1_para_start.sh);
+   It runs the weighting process at the same time;
+-- Added the 'clean' argument to all splitting scripts when the FILTER
+   keyword is probed. Modified cni_form.ui.h accordingly.
+-- Cleaned up warning messages from the coaddition scripts
+-- Exit from update_coadd_header.sh if chips.cat5 does not exist
+-- Fixed a bug in processinggroup_ap.h: A decimal ".0" would be appended
+   to reference coordinates even if a decimal point was already present
+   (introduced in 2.0.0)
+-- Check if after preanisotropy sources are left before running ldacfilter
+   to avoid unnecessary error messages (create_astromcats_para.sh and
+   update_coadd_header.sh)
+-- Replaced 'awk' by ${P_GAWK} in several reduction scripts
+-- Modified create_scampcats.sh such that it creates scamp catalogs only
+   for those images that are currently present in the SCIENCE directory
+-- Removed the calculation of the reference pixel from 'getmaxoverlap.sh'
+   as this is done already internally in 'fitscut'.
+-- Included EOS1000D and Apogee U9000 in the list of commercial instruments
+-- Fixed a typo in create_wifix.sh (maxdepth -1 instead of maxdepth 1)
+
+
+
+v2.1.5 (2010-06-10)
+
+-- Merged the astrometrix and wifix scripts into create_wifix.sh
+-- Updated create_wifix.sh to theli-1.1.1 standards (replaced perl call)
+-- Fixed several bugs with offtarget processing in the superflatting 
+   and astrometry sections (a STOP message was printed without need,
+   and at one place the science directory was used instead of offtarget)
+-- Moved the download of the reference catalog to the astrometry call
+-- Theli checks before the gui launch if scamp exists; 
+   if yes, it checks if the binary is executable; 
+   if not, it tries to make it executable;
+   if that fails, a message is printed and exit
+-- Rewrote the part in theli.cpp that checks for the presence of 
+   /bin/sh -> /bin/dash
+   There were a few syntax errors in the message that could confuse
+   users (missing / in path names)
+-- Significant code simplifications in all processinggroup_xx.h
+-- Removed 3 unneeded functions from functions.h
+-- update_coadd_header.sh: FILTER keyword was not always written as a 
+   string (enclosed in ' ')
+-- Deleting a series of metacharacters in the FILTER keyword without
+   replacement. They could lead to confusion in prepare_coadd.sh and 
+   update_coadd_header.sh as they where expanded by the shell
+-- Adding an additional filter to create_astromcats (filter out everything 
+   with flux_radius smaller than 0.5*min_fwhm)
+-- If preanisotropy fails for the seeing measurement, the value 0.0
+   is written (for FWHM_IMAGE, FLUX_RADIUS), both in create_astromcats_para.sh 
+   and update_coadd_header.sh
+-- Updated the pixel scale for Omega2000@CAHA to 0.449"/pixel
+-- Fixed process_split_ALFOSC@NOT.sh
+
+
+
+v2.1.4 (2010-06-07)
+
+-- the colour calibration dialog was corrupted in several places
+-- Fixed album_GPC1@PS1 (chips where misplaced)
+-- fitsbin.c: if more than half of the pixels entering a binned
+   pixel are NaN, then the output pixel is NaN, too.
+-- Inverting GPC1 science images into weight maps for splitting
+-- Included fitsnanmask.c in fitstools (for pan-starrs)
+-- direct ZP comparison with 2mass or sdss would result in a correction
+   factor of zero in case of no overlap. In this case the correction
+   is not performed.
+-- Sorting the input catalog list for create_photillcorr_getZP.sh
+-- Removed a warning triggered by an empty line in PIC_makessc.conf
+-- Modified absolute direct photometric calibration with mosaic cameras
+   such that it would also run if some chips are not covered by the
+   reference catalogue
+-- Updated the pre-defined splitting script for the EOS400D
+-- The update_coadd_header.sh script would produce an error if the
+   FILTER string starts with a numeric character. Prepending PREFIX_
+   fixes this. Probably not the final solution, but fine for the 
+   moment.
+-- create_scamp.sh looks explicitly for OFCx catalogs matching the extension
+   of the images (for single-chip cameras). Previously, it took all
+   catalogs which could result in confusion if catalogs were created for
+   different processing statuses.
+-- update_coadd_header.sh would not correctly identify the FILTER keyword
+   if different filters were present in SCIENCE
+-- Suppress an "error occurred in the calling script" message, triggered if
+   the directory from which theli was started has been deleted in the 
+   meantime;
+
+
+
+v2.1.3 (2010-05-27)
+
+-- Replace "/" by "_" in the FILTER keyword (coadd_ID);
+   Modified prepare_coadd_swarp.sh accordingly;
+-- Absorb some error messages in the absolute photometry module
+-- Coadd filter: only appended to ident string if more than one
+   filter is present
+-- Fixed a small bug in the parameter configuration. The coadd filter
+   string would be written as (null) if this part hadn't been configured
+   yet, which was choked upon by other parts of the code. Replaced it
+   with an empty string.
+-- Fixed a 'while' construct that could possibly run forever (in reality:
+   core dump) in fitsbloomdetect.c
+-- The seeing [arcsec] in the header of coadd.fits was wrong if the image
+   was resampled to a different pixel scale
+-- Included superflat in the defect detection (analoguous to normalised flats)
+-- Removed some warnings from create_globalweights_para.sh
+-- Obtain COADDZP from chips_phot.cat5
+-- Modified create_scamp.sh such that for standard star fields scamp
+   would download its reference catalogues instead of using locally defined
+   ones (the latter would not work if different standard star fields were 
+   provided (-> average coordinates))
+-- Small changes in the output format of fitspic.c
+-- Fixed a bug in absphotom mode when comparing fluxes directly to SDSS
+   or 2MASS: the wrong filter was downloaded (the corresponding parameter was
+   unintentionally reset to the first in the combobox)
+-- Fixed the Subaru splitting scripts once more
+-- Suppressing error in update_coadd_header if no absphotom info available
+-- Fixed the number of lines read in one go by swarpfilter to 100 until
+   memory consumption is better understood.
+-- Removed the '-static' compiler option (swarpfilter), as it would not
+   compile under fedora
+-- The compilation of 'stiff' did not look for a local libtiff installation
+-- Fixed two wrongly names variables in create_astromcats, which could
+   result in slightly underestimated seeing values
+-- Fixed the sextractor configuration for get_variables.sh. I deactivated
+   the creation of a catalog in the corresponding conf.sex to speed up
+   some other processes.
+-- Bug fixing in create_scamp.sh, create_abs_photo_info.sh and 
+   update_coadd_header.sh concerning absolute photometry
+-- Removed the FLAT_SCALEIMAGE parameter from process_science_para.sh 
+   (it was present twice, without any adverse effect)
+-- Removed the AUTOMATIC setting for abs. photometry. It isn't suitable
+   for GUI data reduction, as the user still has to make a choice at some 
+   point later on. Hence we go with interactive mode right away.
+-- Using vizquery instead of findnomad1 and findsdss7 in the colour	
+   calibration; there were inconsistencies with the latter programmes
+-- Added a server list for the download to color_form.ui.h and zp.ui.h
+-- Small layout changes to the zp gui
+-- Direct photometric zp determination was reading from non-existent FITS 
+   keyword
+-- The 'abort' button in zp.ui.h wasn't linked correctly
+-- Absorbing an 'out of range' runtime message (coc_filterComboBox)
+   (conflict when loading from an old configuration file)
+-- Found out why the libtiff package creates so much trouble during 
+   installation. The shared libraries where contained in a hidden directory.
+   Modified install.sh accordingly.
+
+
+
+v2.1.2 (2010-05-16)
+
+-- Reduced the statistics section for MEGAPRIME@CFHT, it was too large.
+-- Explicitly exiting 'start' if processes are running already.
+   Some code simplifications in this respect. Was done before too, but 
+   in a less obvious manner.
+-- Renamed V_ABSPHOT_MAXPHOTERROR to V_ABSPHOT_MAXPHOTERR in order to avoid
+   an unintended rarely trigger of the error scanner when running with
+   several CPUs (the string could be chopped up into smaller bits
+   which could be cought by the scanner)
+-- Removed a warning message that was printed into the log if
+   non-existent files were about to be deleted 
+   (process_bias_para.sh, process_flat_para.sh)
+-- Fixed a bug in parallel_manager.sh that could call a script more
+   often than needed, and without the string containing the chip IDs 
+   as an argument for the additional scripts.
+   In most cases this goes without problems, but it could critically fail
+   in others.
+-- Supporting data from Omega2000@CAHA
+
+
+
+v2.1.1 (2010-05-15)
+
+-- photometrix and make_checkplot scripts where not properly
+   identified in the message window
+-- catching astrometrix's "no match with reference catalog" error
+-- removed the make_checkplot script called for astrometrix
+-- Image extension was not correctly set anymore for some tasks
+   when the 'transform images' script was set together with other
+   scripts (introduced in 2.1.0 while simplyfying the code)
+-- Enforcing 8bit output for flag images if transformed
+   (modified fitsflip and transform_images.sh)
+-- Prepended the full path to calls to "dfits" and "fitsort" in *.h
+-- The coadd filter would not be loaded properly under certain 
+   conditions after a restart.
+
+
+
+v2.1.0 (2010-05-12)
+
+-- Made the distort and binning spin boxes in the parameter dialogue
+   clickable.
+-- Offering again to kill theli if another job is found
+-- Removed the ds9 button; it would not necessarily invoke ds9
+   depending on some user settings outside theli
+-- The defringing would not work without previous superflatting
+-- Moved the location of the superflat_exclusion file from $MAIN to 
+   $MAIN/$SCIENCE/
+-- Removed the option of plotting a chip boundary in the binned mosaics.
+   It is now always plotted.
+-- Fixed several bugs in the create_scamp.sh script; e.g., it would load
+   the wrong ahead file under certain conditions.
+-- Added an explanatory dialogue to the MOSAIC_TYPE parameter.
+-- DATE-OBS and BAYERPAT keys were corrupted in fits headers
+-- Create flag images even if no cosmic detection was activated
+-- Link global flag images if a linked file system is used
+-- Updated the tool-tip and the online help for the abs-photom task
+-- Adjusted the STOP message shown if no flag images are found.
+-- Added to the error scan list:
+   "Permission denied"
+   "fatal: cannot open file" 
+   " 0 astrometric references loaded from theli_mystd_scamp.cat"
+-- Fixed a bug in create_stdphotom_prepare.sh; a configuration file
+   was spelled incorrectly.
+-- Fixed a warning in create_astromcats_para.sh
+-- The imaflags[iso] parameter could be appended several times to 
+   singleastrom.param.sex (without consequences)
+-- Fixed a loose end in the median function in fitstools.h. Not sure
+   median would have been calculated correctly if only one data point
+   was available.
+-- Added support for direct absolute photometric calibration against
+   2MASS and SDSS
+-- Restructured the parameters dialogue and assigned the right page 
+   of the widget stack to the corresponding "defaults" button (got mixed
+   up after introducing absolute photometric correction)
+-- Added ldacputxy to progs.ini
+-- Added fitspic.c to fitstools
+-- Redirecting the process IDs of aborted processes to /dev/null
+-- Significant code simplifications in processinggroup_ap.h
+-- Fixed a small bug concerning offtarget data in processinggroup_ap.h
+-- Reduced memory consumption of swarpfilter for multi-chip cameras
+-- Stabilised the installation of the TIFF library; header files could
+   end up in the wrong place and a link to a shared library could point
+   to nowhere.
+-- Fixed a bug in create_bias/dark.sh; it could happen that the keyword
+   carrying the DARK exposure time was not identified/set correctly.
+-- Included a script to update the header of coadd.fits
+-- Fixed the seeing value entry provided by the statistics module;
+   It was broken by introducing another set of catalogues for absolute
+   photometry.
+-- Replaced a few 'ls -1' calls with P_FIND in critical places
+-- Updated to missfits-2.4.0
+-- Updated to fftw-3.2.2 (for users who haven't installed the 
+   precompiled version for their OS)
+-- Fixed a bug in the install script, resulting in omitted optional
+   packages if more than one argument was given to the install script
+-- Significantly reworked install.sh; replaced relative paths with
+   absolute paths for better clarity and stability
+-- Removed qfits-6.2.0 from the distribution; the needed 
+   functionality is now included in the theli pipeline core;
+   updated fitstools Makefile accordingly
+-- Major restructing of the installation. The gui package is kept in
+   its own directory including version number, same for the pipeline core.
+   Only a linked 'theli/gui/' directory is created. Eventually this should
+   lead to easier updates.
+-- Removed a dozen unnecessary sextractor parameters (create source cat),
+   resulting in about 20% speed improvement
+-- Replaced all seeing measurements by consistent calls to 'preansitropy'
+   based on FWHM_IMAGE and FLUX_RADIUS
+-- Reworked and simplified the statistics dialogue significantly.
+   The measurement process is now QProcess(ed), i.e. it doesn't freeze
+   the GUI while running
+-- Removed the 'local reference catalog' option
+-- Removed the (already hidden) 'interpolate badpix' option
+-- Removed the option to stack with swarp1
+-- Fixed a small bug: if data from an earlier version (without seeing and RZP
+   filtering for the coaddition) was reprocessed (stacked), an invalid 
+   string for these parameters could be written into the database.
+-- If images taken with different filters are located in the same directory, 
+   then the user can select which ones to stack without moving files around.
+-- The coadd FILTER string is appended to the coadd identifier. The latter
+   can therefore be left empty as default.
+-- The colour coding of the absphotom checkbox background wasn't implemented
+-- Added to 'Miscellaneous' a dialogue that allows the user to determine the
+   ZP of an image trough a direct comparison with 2MASS or SDSS.
+-- The change processing status actions were inversly linked with the
+   command window. Don't know when this happened.
+-- More automatic deleting of large temporary files
+
+
+
+v2.0.8 (2010-04-27)
+
+-- Fixed the NFRAMES setting (corrupted in 2.0.7)
+-- Modified the getkey function (would not strip whitespace from keywords)
+-- Stabilised the splitting script for WFC@INT
+
+
+
+v2.0.7 (2010-04-26)
+
+-- Renamed fits images from .fits2tiff to _tiff.fits in 
+   the TIFF conversion
+-- I removed the memory progress bar as it is totally 
+   meaningless under Linux.
+-- Swarpfilter: auto memory determination unreliable.
+   Hardcoded to 50% of physical RAM.
+
+
+
+v2.0.6 (2010-04-26)
+
+-- Further speed optimisation for swarpfilter.c; memory consumption 
+   significantly reduced; automatic determination of optimal
+   memory usage;
+-- Bug fix in the transformation script. It aborted if flag
+   images weren't present
+-- Fixed the tooltip of the 'standard' dir line edit
+-- Forcing the geometry of the dummy flag image to be identical to the
+   flat. Turned out that if data from different instruments were combined
+   that this could cause problems.
+-- Aborting the GUI install.sh script if the fitstools compilation fails
+-- theli.cpp would not necessarily catch and effectively kill other
+   instances of theli if this was requested upon startup. If theli is
+   already running, the PID is printed and we exit.
+-- Replaced the determination of memory usage by much more accurate
+   calls to sysconf(). No more 'green' misleading indications of swapping
+   when actually no swapping is taking place. The progress bar text becomes 
+   red if 95% or more are used.
+-- Updated tabfocus order of color and parameter dialogs
+-- Updated the WFI@MPGESO splitting script
+-- Included ALTAU16M@VYSOS06 and Apogee_Alta_U16M
+-- Simplified resample_filtercosmics.sh (faster initialisation)
+-- Force SuprimeCam 2001-2008 images to be renamed to FRAMEID. If the user
+   renamed the files then it could be difficult to identify unique exposure 
+   names. 
+-- Images from cameras with Bayer matrix are kept in one directory;
+   color channels are processed in one go; the coaddition must still be
+   done separately for each colour channel
+-- Fixed a small bug in the coadd preparation script introduced when 
+   implementing seeing and RZP filtering. Could lead to warning or errors
+   if not all images listed in cat/chips.cat5 were present in the SCIENCE dir.
+-- Forcing a link libtiff.so to libtiff.so.x if libtiff.so does not exist
+   after installing the TIFF library
+-- Removed a hardcoded path to swarp.xsl
+
+
+
+v2.0.5 (2010-04-21)
+
+-- Added optional minimum cluster size to coadd outlier rejection;
+   corresponding changes in swarpfilter.c
+-- Added optional mask expanding for bad pixels to the coadd 
+   outlier rejection; corresponding changes in swarpfilter.c
+-- Fixed a bug in process_science_para.sh: the script tried to rescale
+   a (potentially non-existing) dark frame if the user does not want
+   a bias/dark correction
+-- Fixed a bug in create_globalweights_para.sh: the globalflag image
+   was not created if a constant weight was requested.
+-- Error messages for the globalweight expanded.
+-- If a floating point value of 0.0 or a integer value of 0 is entered 
+   for the cosmics threshold, then it is replaced by a blank value
+   equivalent to no cosmics detection.
+-- Added STOP messages to the coaddition, if an image does not
+   have a corresponding WEIGHT or astrometric header file.
+-- Removed a "/bin/bash: bad interpreter: permission denied" error
+   if theli was started from within a directory in which the user
+   did not have write/execute permission
+
+
+
+v2.0.4 (2010-04-19)
+
+-- Write the sky background value of each individual image into
+   a SKYVALUE keyword
+-- Removed some warning messages from the transform_images script
+-- Significantly improved outlier rejection during coaddition:
+   2-3 times gain in speed, and works also for stacks of only 3 or 2
+   images
+-- Several small changes to functionality of the colour dialogue
+-- Fixed a warning in create_stats_table.sh
+-- Hiding the interpolate bad pixel checkbox in the coadd configuration.
+   This feature doesn't seem to work, or I don't know how to get it working.
+-- Fixed the header of coadd.fits if stacked with swarp1 and using
+   a position angle.
+-- Print a warning if the images in the colour calib dialog are identical
+   and if a RGB image is going to be created
+-- Switched to FLUX_RADIUS for seeing convolution measurement (more stable)
+
+
+
+v2.0.3 (2010-04-12)
+
+-- Found a bug that would return few or no reference stars for colour 
+   calibration if the coadded image was rotated (picking CDELT1 only to 
+   determine the field of view leads to wrong results).
+-- Prepended "LUM: " in the fits2tiff conversion with STIFF if the RGB option 
+   is not chosen, to make clear that a b&w image is being created.
+-- Found the reason why fitsgauss did not result in a convolved image if
+   the kernel was too small. Added an automatic adaptive procedure.
+-- Multi-threading for all lengthy tasks in the color dialogue.
+-- Catalogs are not recreated for the colour calibration if they
+   were already present. Significant gain in speed.
+-- Optimised download of photometric reference sources for the colour
+   calibration. The downloaded area was way too oversized. Cut the download 
+   time more than half.
+-- Changed the stiff maxval default from 10 to 2.
+-- Removed focus from a few PushButtons.
+
+
+
+v2.0.2 (2010-04-10)
+
+-- The flag images were not transformed if transformation was requested.
+-- I made the create_astromcat script more flexible. It checks for each
+   image if a weight/flag is present and adjusts the configuration 
+   accordingly. If cosmics detection is switched off, then no flag
+   images are created.
+-- Replace the DATAMD5 keyword with EXPTIME for a master BIAS/DARK.
+   If the key does not exist, an EXPTIME key is added to the header
+-- Switched off the flipping (-t 2) in dcraw to avoid confusion with bayer 
+   matrix chips
+-- Updated WFI@AAT (previously WFI@SSO) and added a splitting script
+-- Fixed a small bug in create_scamp.sh introduced recently when deleting
+   backup files
+-- Changed the default for hot pixel filtering to false in create_astromcats
+-- Added 'segmentation fault' to the error scan list
+-- Expanded the error messages in swarpfilter.c somewhat.
+-- Fixed a bug in the coaddition outlier rejection that could occur when
+   a rotation angle was given.
+-- Deleting coadd.fits after the first coaddition step. It is not needed.
+-- Forcing 6 decimal digits for imstats
+
+
+
+
+v2.0.1 (2010-04-07)
+
+-- Changed the colour calibration script such that it does not
+   divide by zero if only one reference source is found. In this
+   case the rms value returned is now set to 0.0
+
+
+
+v2.0.0 (2010-04-01)
+
+Versions 1.7.x are collected under 2.0.0
+
+-- Updated to pipeline core theli-1.0.0
+-- Included tiff2fits in the fitstools
+-- Replaced pnmtofits with tiff2fits (pnmtofits would segfault with some glibc)
+-- Completed splitting script update for RAW files
+-- Fixed a bug in the coaddition, which prevented the coaddition to start
+   if no sky subtracted images were present. It should start, but the gawk
+   command returned a 0 instead of an empty string.
+-- If a master bias/dark/flat is found in the splitting directories,
+   then no warning is printed but a message box shown. The data in the
+   corresponding directories is left untouched.
+-- Changed the focus policy of the #CCD spinbox in the create instrument dialog.
+   The number could not be entered by hand but had to be selected with the 
+   handles.
+-- Included VIRCAM@VISTA
+-- Create instrument: removed the 'force north up east left' checkbox
+-- Create instrument: CD matrix and reference pixel can optionally be
+   copied from the raw data; this is also the default setting
+-- The OBJECT keyword would not be correctly set in the splitting script
+   in more recent versions. Fixed it, and those of 4 affected cameras
+   (affected cameras: commercial only)
+-- Removed the VIMOS_2004@VLT configuration/splitting.
+   Turned out to be unnecessary with the new splitting script defintion
+-- Updated splitting scripts (for which it was necessary) to the new definition
+-- Changed the default string for MJD to MJD-OBS in the splitting script 
+   dialogue
+-- The transformation code will automatically be filled with 'nccd' zeroes
+   when switching to the splitting script creation dialogue
+-- Updated fitsdemosaicbayer.c
+-- Fixed a bug in the colour image seeing measurement script that would
+   create the 'seeing' directory in the scripts directory (where I can't
+   assume write permission anymore in a multi-user environment)
+-- Removed the 'target seeing' column in the colour calibration dialogue.
+   It did not carry any relevant information.
+-- Included the absolute photometry module
+-- Include the 'create_stats_table.sh' script, executed automatically after
+   running astrometry
+-- Suppress the reduction command if a STOP message is printed in the
+   BIAS, FLAT, globalweight creation
+-- Changed to max number of items displayed in the astref cat ComboBox
+   from 10 to 11 items such that all CDS servers are displayed without 
+   scroll bars  
+-- Some large temporary files are deleted after the scripts finished,
+   to slow down the accumulation of waste data in the tmp directory
+-- The correct_crval script is only invoked if coordinates are
+   entered into the RA and DEC fields
+-- Put the 'Get catalog' button for the astrometric reference catalog
+   back, and connected it with a QProcess such that the GUI remains
+   interactive.
+-- Added a home disk space warning
+-- Small format changes in the Initialise section
+-- Updated wcstools from version 3.7.6 to 3.8.1
+-- Updated dcraw from version 8.95 to 8.99
+-- Updated stiff from version 1.12 to 2.1.2
+-- Updated libtiff to version 3.9.2 (no BIGtiff support yet)
+-- Full CD matrix support for all Suprime-Cam configs; included a fix for
+   the wrong sign in CD1_1 in early 2001 data
+-- Included global .ahead files for all SuprimeCam configurations
+-- Retrieving the reference catalog would not work if a integer number
+   is entered for RA and DEC. Forcing floating point in that case.
+-- Included fitshisto.c in the fitstools
+-- Included getkey.c in the fitstools. 
+   'gethead' from the wcstools would segfault with ESO HIERARCH keywords.
+-- Included a bash.include file with a function that extracts
+   WCS information from a FITS header
+-- Major restructuring, rewriting, homogeneisation and cleaning of all 
+   splitting scripts; 
+   Replaced many dfits+fitsort commands by 'getkey'
+   as it allows to return key values containing blanks (replaced by 
+   underscores). the previous combination truncated the key which led
+   to problems with OBJECT and FILTER keywords;
+   Generalised EQUINOX (was hardcoded to 2000.0);
+   General support for CD matrices whereever possible 
+   (exception: e.g. instruments at WHT and INT);
+   If several filters are in the beam in one instrument, then they are
+   combined, e.g. FILTER=F1+F2; implemented where known;
+   Bug fixes in some scripts for instruments which I rarely/never used;
+-- Increased the size of the instrument LineEdit to accomodate longer
+   instrument names
+-- Replaced DFITS calls in cni_form.ui.h with GETKEY
+-- Splitting script: calls 'get_wcs' from bash.include in order to
+   preserve the CD matrix
+-- Inserted another script after create_astromcats_para.sh that is only
+   invoked for multi-chip cameras and merges the individual catalogs
+   for later scamp processing. Like that this step is only done once if
+   scamp is run several times, and it disentangles the scamp script
+   significantly.
+-- Deactivated the 'use header' option with scamp. This never worked as 
+   intended, and I haven't really understood how to make it working.
+-- The create_scamp.sh script was largely rewritten. I introduced random
+   exposure shuffling as that seems to lead to slightly improved results.
+-- Forcing floating point presentation in create_stdcat_fromWEB.sh, as 
+   'aclient' would not handle integer coordinates properly. I had one case 
+   where the average RA value was so close to an integer that awk returned
+   an integer, resulting in no return from aclient.
+-- Small layout change in the movie dialogue
+-- Added a "-maxdepth 1" option to all 'find' commands
+-- Activated different coaddition sky systems and projections
+-- Set the minimum number of connected pixels for cosmics from 3 to 1
+   (default)
+-- Added DT and DMIN parameters for better fine-tuning towards hot pixels
+   and cosmics
+-- Figured out why swarp2 would write inconsistent CDELT / CDmatrix
+   (reason: pixscale_type manual must also be set in the two last coaddition 
+   scripts). Swarp2 is now the default for resampling and coaddition.
+   I offer swarp1 for backwards compatibility. There are tiny differences in
+   the fluxes (on the order of 0.0001). Swarp1 is still used for the creation
+   of the coaddition header. Coaddition is a lot faster now.
+-- Repaint default paths in Initialise when switching from a different 
+   section into Initialise. If a directory or path name has changed outside 
+   theli, then this is now reflected in a change of background colour of the 
+   corresponding field.  
+-- Global weights recreate normalised flat field if it isn't found
+-- Removed the explicit command line arguments from the create globalweight
+   section; parameters are passed in the background; the command window
+   does not get erased when the configure button is clicked.
+-- Create flag images
+-- Added alternative stiff support for FITS2TIFF conversion
+-- Added various green notification messages to the message TextEdit.
+   E.g., if no unprocessed images are found, but a superflat hasn't been 
+   calculated but is requested, then instead of a STOP message I just call
+   the superflatting script and print a note into the message window.
+-- Included pyfits-2.2.2 again as it has been removed in theli-1.0.0
+-- Removed the last two arguments from create_astromcats_para.sh.
+   They were the same all the time or can be reconstructed from the
+   other arguments
+-- Included optional seeing and rzp filtering for the coaddition
+-- Removed the explicit command line arguments from prepare_coadd_swarp.sh;
+   Cleaned up the script
+-- Removed the 4th argument from resample_coadd_swarp.sh, as it was
+   not needed anymore.
+-- Included crosstalk correction for HAWAII-2 detector arrays
+-- The execution of a crosstalk correction was not reflected in the
+   message window; fixed.
+-- Introduced the options to filter outliers and draw chip borders 
+   when creating binned mosaics. Modified album.c and make_album scripts
+   accordingly.
+-- Parallelised check_files.sh; in addition, only individual chips are
+   moved to BADMODE, not entire exposures
+-- Fixed a possible bug in check_files; it could be that the empty string ""
+   was not properly understood by some bash interpreters
+-- An additional object catalog filtering can be switched on 
+   if the data are plagued with hot pixels (e.g. VIRCAM@VISTA)
+-- Added the file extension keyword as a third argument, in case
+   catalogs from different processing statuses are present.
+-- Write the exposure time of the first bias/dark exposure into the
+   header of the master bias/dark.
+-- Automatic rescaling of the dark frame if the exposure times between the
+   dark and the science deviate by equal or more than 1%. Images in the
+   science directory must still have the same exposure time, though.
+-- Full support for CCD and CMOS chips with bayer colour matrix;
+   demosaicing is done after preprocessing.
+-- Limited the max pixscale error to 2.0, the scamp internal upper limit
+-- Removed the choice for the bayer demosaicing method. We are using the
+   PPG method as it yields the best results.
+-- Removed the 'is bayer' checkbox from the create new instrument dialog.
+   Not necessesary anymore.
+
+
+
+v1.7.6 (2010-02-09)
+
+-- Included the STL-6303 camera
+-- Modified the output format of 'getstats' from 'printf %f' to 'printf %g'
+-- Added GPC1@PS1
+-- If the superflatting window size is left empty, then it is reset
+   to zero.
+-- Updated the very old FORS2_1CCD splitting script (did not work)
+
+
+
+v1.7.5 (2009-12-27)
+
+-- The warning message complaining about a too small number of
+   files (bias, dark, flat) did not work reliably. Fixed.
+-- Replaced all numeric equality comparisons by string comparisons
+   and homogenised the bash syntax in such comparisons.
+-- Catching a "too long to connect" error returned by 'aclient'
+-- Adjusted default settings in the parameters dialog
+-- Added the option of forcing the sky background to a certain value
+   in the object detection. Necessary for pan-starrs chip-stage images
+   with lots of NAN-ed pixels which would totally distort the background
+   estimate
+-- Offering various servers for downloading reference catalogues
+-- Replaced cdsclient findxxxx commands with 'vizquery'
+-- Online magnitude filtering for TYC and GSC1.2 before download
+   (not for the other catalogues as not all magnitudes are present
+   every time)
+-- Removed the 'get catalog' button; the number of objects retrieved is
+   displayed directly in the message window. If zero objects are returned, 
+   then a red warning is printed.
+-- Mention in the tool tips of the instrument configuration that
+   cut-on x/y must be larger than zero
+-- The 'configure' buttons in the weighting section erase the command
+   window only if necessary
+-- Reduced the minimum area to which the GUI can be resized; 
+   should fit rather low screen resolutions now
+-- The GUI launches with the same geometric size it had when it was 
+   closed last time 
+-- Moved the 'view processing log' actions into the main 'view' menu.
+   Removed the 'view private std catalog log' option (did not exist
+   anymore)
+-- A STOP message is printed if a master bias/dark/flat is present
+   in a directory where raw data is being split.
+-- Master calibration files are deleted if encountered in the
+   bias/dark/flat/science directories before they are recreated.
+-- Added fitsblend.c to the fitstools
+
+
+
+v1.7.4 (2009-12-07)
+
+-- Fixed the CFH12K99 configuration
+-- Made the binned TIFF creation more stable
+-- Colour dialogue: images that go into the fits2tiff conversion
+   are not deleted anymore (suffix: .fits2tiff)
+-- Included the fitsblend routine in fitstools
+
+
+
+v1.7.3 (2009-11-03)
+
+-- Included fitsgrad, fitsdemosaicbayer and fits3max in the fitstools
+-- The bad pixel masking based on flatfields is now activated by 
+   default
+-- Expanded some tooltips
+-- The distribute set task now creates SCIENCE_set_n directories instead
+   of set_n directories to avoid accidental overwriting if called from
+   different SCIENCE directories in the same mainpath. The SCIENCE field
+   in the Initialise section will be set to SCIENCE_set_1 when this task
+   is executed.
+-- Removed RadioButtons from the tab stop sequences, made SpinBoxes 
+   accept focus upon mouse-click
+-- Updated the splitting script for PFC@WHT
+-- Rearranged the order of the reference catalogs
+-- Support for SDSS-DR7 and UCAC3
+-- Changing the web reference catalog will update the command list
+-- CCDs with Bayer matrix are processed including bias, dark and flat,
+   and then interpolated and separated into SCIENCE_[R,G,B] directories
+-- Made make_scampcat.py readable for other users than the owner.
+   It would not execute on multi-user systems if no read permission
+   was given.
+-- Binned mosaic task now produces TIFFs as well, also for 
+   single chip cameras (easier to eyeball)
+-- Removed some warnings from the process_science script
+-- Removed "step 1/2/3" from the coaddition message window
+-- Font size of the FITS header preview linked to the GUI font size
+-- If no cosmic detection should be made then the corresponding parameter 
+   field should simply be left empty or set to zero
+-- Split the creation of a superflat into a separate script, more transparent
+-- No more superflatting normalisation is done as no use is made of that image
+-- Updated the inline help and tool tip sections
+-- Replaced calls to missfits for slicing fits cubes by fitscubeslice
+-- FITS2TIFF conversion: tiff min from 2 times rms to 6 times rms
+-- Added a disk space warning message!
+-- Removed the 'use offtarget' checkbox from the global weights.
+   Unnecessary with the new bad pixel recognition method.
+-- Creating ds9 catalogs for overlay. Skycat- and ds9-catalogs are saved in
+   cat/skycat and cat/ds9cat subdirectories
+-- Merged single- and multi-chip scripts for scamp
+-- A 'plots' directory is now always created in SCIENCE
+-- Supporting XML output for scamp. To view the xml file with firefox, you must 
+   enter about:config in the address field and change 
+   security.fileuri.strict_origin_policy to 'false'
+-- A ds9 reference catalog is saved under cat/ds9cat/
+-- Changed an ERROR message to STOP in order to prevent execution.
+
+
+
+v1.7.2 (2009-09-30)
+
+-- Support flipped matching for scamp
+-- Changed the creation of the global weight images a bit, such that
+   the detection of bad columns and rows is not affected by globally
+   masked regions anymore (neglecting all pixels with values below
+   FLAT_MIN)
+-- The new instrument path variables were not yet read by the colour 
+   image dialogue; fixed.
+-- Checking for duplicate instrument names. If a duplicate instrument is 
+   found, then a warning message is printed
+-- Fixed the instrument path in the colour dialogue. Was broken after
+   introducing different instrument directories
+-- Some graphical reformatting and simplifications in the GUI
+-- Replaced the one transformation ComboBox with two, one for flipping
+   and one for rotation. Doesn't offer more functionality but probably
+   makes life a bit easier.
+-- Removed the 'File' menu from the menu bar. it didn't contain anything
+   one couldn't do through the GUI anyway. And the GUI can simply be closed
+   by closing the window.
+-- Removed the "processing all" and "abort all" functionality from the
+   pull down menu. It was not (and probably never) fully consistently 
+   supported. I kept the corresponding code in the source though, should
+   demand arise for such a functionality.
+-- The Reduction pull down menu was renamed to 'Status', as nothing else
+   is contained in it anymore.
+
+
+
+v1.7.1 (2009-09-24)
+
+-- Print a STOP message if scamp is going to be executed but not found in
+   the bin/Linux directory
+-- Removed the normalised superflat from the option for creating bad pixel
+   masks while creating the global weight
+-- Scamp will only run on the images present in the SCIENCE directory,
+   but not on the catalogs present in the cat directory
+-- Included ACAM@WHT and the new 2008 configuration for SuprimeCam
+-- The first step of the coaddition takes its reference coordinates now
+   from the first .head file, and not from the header of the first image
+   in the list (which, depending on the users actions, can happen to not
+   contain astrometric information)
+-- Generalised the nonlinearity correction. The user can add his own 
+   file with polynomial coefficients for any instrument
+-- The scripts creating the BIAS/DARK/FLAT master images do not check
+   for the existence of these files anymore. The master images will
+   always be recreated. The previous behaviour led to confusion and thus
+   I removed it again.
+-- More multi-user environment adjustments in the installation script
+
+
+
+v1.7.0 (2009-09-10)
+
+-- Changes throughout the code to make THELI run in a
+   multi-user environment. essentially, all configuration files,
+   scripts, temporrary files etc created during runtime are now 
+   created under ~/.theli/ and not anymore in the installation path
+   which might not be writable for the user. This was done to
+   make THELI scisoft-compatible.
+-- Expanded the superflat warning messages
+-- Removed the SCIENCE / OFFTARGET override line edits
+-- changed the coaddition ID default from 'DEFA' to 'default'
+-- Divided the instruments into "professional", "commercial" and "user-defined"
+-- Replaced missfits by fitscubeslice when it comes to slicing fits cubes
+-- Split script dialog loads the recently created instrument, otherwise
+   the currently displayed instrument in the main window
+-- Fixed a bug that would read the wrong smoothing scale for the
+   fringing model, and would smooth the fringe model without request.
+   This bug was introduced in 1.6.0.
+-- Fixed another small bug that would write a parameter incorrectly
+   into the logfile. Introduced in 1.6.0.
+-- Fixed a series of bugs in scripts that would start mixing exposures
+   of different chips if the camera had more than 10 CCDs. Thanks to Stefan
+   and Michael for identifying this one. Apparently, nobody has used theli
+   for cameras with more than 10 CCDs for at least a year, otherwise that 
+   would have cropped up much sooner.
+
+
+
+v1.6.3 and v1.6.4
+
+-- two minor bug fixes
+
+
+
+v1.6.2 (2009-08-21)
+
+-- Fixed an inconsistency in the astrometric/scamp catalogues
+   which was introduced in the last version
+-- Changed the install script (FFTW, TIFF, SWARP and NUMARRAY
+   are optional)
+-- Cleaned up the distribution directory
+
+
+
+v1.6.1 (2009-08-08)
+
+-- Fixed a bug in the nonlinearity correction of WFC@INT.
+   The programme would crash on some machines.
+-- dcraw 8.95
+-- Included the LBC blue and red arm cameras on the LBT
+-- Fixed a bug in fitscut, which would offset the reference pixel 
+   by 1 in both dimensions 
+-- Increased and homogeneised the length of files and path names 
+   to 4096 in fitstools
+-- Removed a lot of compiler warnings from the fitstools package
+-- Added fitsmaskexpand to fitstools
+-- Cleaned up the scamp and astrometrix scripts a little
+-- Updated getstats.c
+-- Fixed a bug in the statistics module (cat suffix was wrong after
+   the previous update)
+-- fitsbin maintains the CD matrix and updates the CRPIXi
+-- added tifflabel to the fitstools
+
+
+
+v1.6.0 (2009-06-22)
+
+-- Added SDSS support for the colour calibration
+-- Recentred the kernel in fitsgauss by half a pixel
+-- Included PIXSCALE_MAXERR in the scamp parameters
+-- Added the possibility to convolve the RGB channels of a
+   colour image to the same seeing
+-- Supporting dynamic superflats with offtarget fields
+-- Support for smoothing of the fringe correction image
+-- Included sextractor 2.8.6 to overcome a strange bug 
+   with the reported RA/DEC of rotated images
+-- No error message is printed if the superflat is based on the
+   OFFTARGET field and no superflat is present in the SCIENCE dir
+-- Fixed a bug in create_scamp_mc.sh that could crash the photometry
+   (division by zero)
+-- Made the colour dialogue more robust (didn't behave when re-launched)
+-- Restructured the B-V colour dialogue and its functionality
+-- Removed a bug that would make the 'use offtarget' checkbox
+   invisible if no offtarget data was present, but if the box was
+   checked beforehand a STOP message would still be printed, hence
+   catching the user in a situation which was difficult to break out of.
+-- Data directories in external dialogs display the current paths even
+   if they were changed just before the launch of the dialog (the DB
+   was not updated soon enough)
+-- changed the default behaviour of combine_images. If no name filter is
+   given, all images are taken (i had to default 
+   FILTER=* in combine_images_para.sh) for that
+-- Included fitscopyhead in the fitstools
+-- Included the 'average white' option in the colour dialogue
+-- Made the colour calibration more robust; only objects with a max error
+   of 15% are allowed in the process
+-- Fixed a bug in the B-V calibration. The red weight was wrong and always
+   very close to the green weight.
+-- Updated the internal colordir science path variable when the path was
+   changed (wasn't the case previously)
+-- Contrast scaling for the RGB preview available
+-- Smaller layout changes to the colour dialogue
+-- Determine the seeing from the first sex catalog, don't run sex
+   twice to get class_star right. not needed for astrometry.
+   Should run twice as fast now, write SEEING_IMAGE and SEEING_WORLD
+   into the FIELDS table. I keep only two catalogs: .cat and .skycat
+-- Create source cat now runs also if no WEIGHT images are present;
+   Renamed create_astromcats_weights_para.sh to create_astromcats_para.sh
+-- Increased the sextractor MEMORY params to reduce stack overflows
+
+
+v1.5.1 (2009-03-10)
+
+-- Included the distortion SpinBox in the tab order, can have focus
+-- Fixed a small bug in the sky position angle function of the coaddition
+-- Included the EOS20
+-- Possibly fixed the bug that unexpectantly changes the instrument
+-- The clear button in the manual sky config only clears the statistics table
+-- consistency check layer did not work with spread sequence task
+-- Removed the libtiff and fftw libraries from the compilation.
+   They should better be installed system wide.
+-- Made xmemory.c and qfits_memory.c compatible with gccv4.3 
+   (adding 0666 as a third argument to the open() call)
+-- updated dcraw, gifsicle, missfits, swarp2 and stiff
+-- missfits does not compile properly under gcc 4.3.3; included a
+   fitscubeslicer as an alternative
+-- removed some compiler warnings in the fitstools
+
+
+v1.5.0 (2009-02-17)
+
+-- This version is compatible only with theli-0.12.0.4
+-- Added the possibility to switch off fringe scaling in preprocess.c;
+   corresponding changes in the GUI
+-- Added the option to make an additive scaling instead of a
+   multiplicative scaling for the fringes in preprocess.c
+-- Increased the COMBINE_MAXVAL parameter for preprocess to 1e8
+   (it was set to 1e5 which is way too low for some data)
+-- Fixed a few small bugs overlooked in the last release
+-- Removed pyfits from the gui distribution. It is included
+   in theli.tar.gz
+-- Expanded the error messages a bit
+-- Updated the create_stdcat_fromWEB.sh script as there was a small
+   format change in the downloaded catalogs
+-- Check that the main path is absolute
+-- Extensive layer of new STOP messages if the user does not enter
+   enough information
+-- Changed the collapse correction, using the cleaner OBJECTS image and
+   invert it rather than using the somewhat spurious -OBJECTS image
+-- fixed a bug in the globalweight script (existing old temporary files
+   could influence the result)
+-- removed the override directories for BIAS and FLAT in the
+   calibration section
+-- Theli now remembers which reference catalog was chosen, and loads/shows
+   the correct one after a tab change or reload
+-- Theli now remembers the path to the reference image and the associated
+   DT and DMIN
+-- Print a big warning upon startup if /bin/sh -> /bin/dash
+-- Removed some Default buttons which became useless
+-- I removed the option of "no sky subtraction", as this was very
+   confusing. If no sky subtraction was done, then the .sub images
+   are missing, and the coaddition scripts will automatically take
+   the unskysubtracted images.
+-- The sky config dialog has been simplified
+-- Fixed the numarray installation which would fail if on a 64-bit
+   system a 32-bit version of 'scisoft' was installed
+-- Build a switch into INITIALISE that allows the user to switch off/on
+   the automatic processing of OFFTARGET data (default: off)
+-- Made the superflatting section a bit clearer (association between scripts
+   and 4 optional switches)
+-- Fixed a bug that would print the 'scamp' command twice for the OFFTARGET 
+   field
+-- The image extensions are set to zero when the SCIENCE directory has the
+   originals restored. The Change processing status menu is updated
+   accordingly.
+-- Removed the focus of a lot of GUI elements. The tab stops should work
+   better now when cycling though the LineEdits
+-- Added a series of "Redo" buttons for various tasks.
+-- All pixels in the globalweight can optionally be set to 1
+-- Fixed a long-standing bug in swarpfilter. Now it runs on mosaic 
+   data as well, and it is significantly faster. I had to use the
+   latest qfits library (6.2.0) for that, though.
+-- Included a check that tests the network connection before downloading
+   a catalog.
+-- Change the internal sign of the sky position angle in the coadd  
+   configuration. If an image is taken with PA=x degrees, then entering
+   'x' for the sky position angle will make the image appear 'unrotated'
+   in the coaddition.
+
+
+
+v1.4.0 (2009-01-26)
+
+-- Added the option in the astrometric configuration to add the
+   zero-order solution found directly to the FITS header
+-- Removed the 'rename' task from the preparation section. It is
+   available through the parameter configuration (splitting script).
+-- All splitting scripts were updated.
+-- Updated the help texts available from within the GUI
+-- Moved the parameters for the sorting script into the parameter
+   configuration.
+-- reference RA and DEC fields show "from header" when empty
+-- Removed the "create source cat" task from the coaddition section.
+   It was pretty much useless there.
+-- Renamed the "clear" log file button into "reset"
+-- Reorganised some smaller programmes in the installation process
+-- An old 'plots' directory created by a single-chip scamp process
+   is deleted once scamp runs again, to avoid left-over plots from the
+   previous, potentially faulty, solution
+-- Scamp now has the option to use the header files from a previous
+   run as an initial starting point
+-- Added support for arbitrary sky position angles in the coddition;
+   The output image sizes are not yet determined in a smart way, images
+   can have lots of empty space around them
+-- In the skysub configuration, the "empty region" can now also be
+   given in sky coordinates. For mosaic cameras, THELI will identify 
+   the chip containing that region.
+-- Added the possibility to switch the sextractor source filtering
+   on/off in the creation of the superflat. In case of numerous hot
+   pixels (near-IR cameras) the filtering would increase the masked
+   area by a factor of 8, as the surrounding (good) 8 pixels were
+   flagged as well.
+-- Removed the Start/Abort sections from the menu
+-- Shortened the GUI manual significanty
+-- Added the WCS tools (needed some functions from it)
+-- Improved the installation script a bit
+-- The coaddition supports a proper motion vector
+-- The 'size' parameter in the outlier filtering has disappeared.
+   Turned out its value could be fixed.
+-- Included LDSS3@LCO; splitting script needs to be verified
+-- Added a softlink to libtiff.so.3 if libtiff.so.4 exists
+
+
+v1.3.1 (2009-01-20)
+
+-- Included advanced detection of bad pixel groups and rows/columns in the
+   global weighting process.
+-- launch job checks if theli is already running (by the same user), and 
+   will close the running version if requested before launching a new 
+   instance.
+-- Added EXPTIME = 1.0 to the header of the coadded image
+-- Included a SuprimeCam_200101 configuration
+-- Optional masking of blooming spikes (so that rotated images can recover
+   the information lost)
+-- Added -p -32 to the P_IC call in the create_norm.sh script if
+   externally processed flatfields in integer format are given
+-- Small layout changes
+-- Catching some error messages which would otherwise be sent to the console
+-- Included a read-only backup copy of all *.ini files (in case they are set 
+   to zero file length if no disk space is left)
+-- 'fitswrap' corrects for the reference pixel
+-- included the GSC1.2 catalog as a low-density supply for extreme
+   wide field images
+-- The Bayer matrix in DSLR RAW files is interpolated using DCRAW when
+   splitting the images
+-- Split the weighting section in the configure dialogue into two sections.
+   Now there are two corresponding 'configure' buttons.
+-- Moved the use_bias and use_offtarget checkboxes for the creation of the
+   global weights from the main window into the configure dialogue.
+-- Swapped the order of tasks in the weighting processing group
+-- Fixed a small bug in the manual sky section which would prevent one
+   of the combo boxes to come up highlighted in the same state as it was 
+   left.
+-- Small layout changes in the manual sky dialog
+-- included the 'rename' command from the util-linux package because it was
+   missing on Debian-based linuxes
+
+
+v1.3.0 (2008-10-26)
+
+-- to run this version properly, theli-0.12.0.3 is needed!
+-- the colour image dialogue has seen very significant extensions;
+   most of the process is now automatised or accessible through the GUI,
+   including selection of coadded images and the creation of chi-square
+   images
+-- included movie creation of resampled images
+-- printing statistics in the colour dialog with full precision, to avoid
+   truncation of numbers in exponential format
+-- reformatting the 'timestamp' in RAW format images into DATE-OBS format
+-- Fixed a huge bug in the sky subtraction (the mode was estimated wrongly
+   if a very significant fraction of pixels had been masked)
+-- Included a SBIG ST2000XM camera in the instrument list
+-- stabilised the seeing measurement
+-- stabilised the output of the seeing value in the statistics dialog
+-- modified the mjd programme so that it accepts the DATE-OBS format
+   from FITS headers
+-- Fixed a bug in the B-V dialogue which occured for 3 or less reference 
+   stars
+-- Ds9 masks are now taken into account in the weighting process even if
+   cosmics detection (individual weighting) is switched off
+-- Created scamp .ahead files for MOSCA, VIMOS, WFC, HAWK-I and PFC@WHT
+-- Fixed a small bug in the combine_images script that would not move
+   temporary files to their correct destination
+
+
+v1.2.4 (2008-08-15)
+
+-- Added two critical scamp errors to the list of critical errors that are
+   caught by THELI. These errors are characterised as WARNING only in the 
+   scamp output
+-- Streamlined the scamp calling syntax
+-- Full support for MEF images for scamp; activated pyfits and numarray 
+   compilation
+-- Updated to cdsclient-v3.01; much cleaner catalog handling is possible 
+-- When downloading a web catalogue or a local copy, the ddd.ddd->hhmmss.ss 
+   conversion is no longer performed with imcat which was painfully slow 
+   for large catalogues. I wrote decsexconv.c for this purpose, and also
+   use the 'astrometrix format' option in get_pmm_objects
+-- made theli ignore some "false" error messages in the log files, e.g.
+   strings containing an "error" substring (for example, the name of some 
+   scamp checkplots triggered theli to report an error)
+-- using scamp one can now choose to use existing focal plane information,
+   or to create a new FP based on the current data set
+-- Added the SDSS-R6 as a possible astrometric reference source, even though 
+   it is not an all-sky catalogue.
+-- Implemented a standard B-V calibration for true colour images
+-- Replaced FLUX_RADIUS by FWHM_IMAGE in the catalog creation filtering
+-- filtering out another error message that would accidentally be cought by 
+   THELI
+-- fixed a bug in the web-catalog script
+-- modified the output of imstats so it would always give full floating
+   point precision
+-- expanded the colour image dialogue to accomodate the B-V calibration
+-- updated the astrometric reference catalog from GSC 2.2 to GSC 2.3
+-- when RA and DEC are entered in astrom/photom, the user can now choose
+   if these coordinates are transferred into the fits header or not.
+
+
+v1.2.3 (2008-05-29)
+
+-- Introduced an optional, automatic revision of the DT parameter
+   for the collapse correction.
+-- Dropped the maximum length of the coaddition identifier.
+   The default is still set to "DEFA"
+-- Fixed a bug in the script that sorts the raw data into
+   biases, flats etc.
+-- The script that renames the raw data files into a name given by
+   a FITS keyword now assumes that the raw data is in the main
+   directory. The corresponding LineEdit in the GUI has been removed.
+-- The scripts that calculate the master BIAS/DARK/FLAT now exit
+   without further processing if a master BIAS/DARK/FLAT is being found.
+-- Included the optical and near-IR imagers of GROND@MPGESO
+-- Included a Canon EOS 350 DSLR color CMOS chip
+-- Changed some of the parameter default values
+-- Removed the "number of exposure" fields in the Initialise PG.
+   This was more confusing than helpful and did not always work
+   as intended.
+-- Removed the gain LineEdit from the instrumentation config dialog. 
+   It was unused and is very unlikely to be used in the future. The
+   field remains in the config files for consistency, though, 
+   defaulted to 1.0.
+-- Removed the CDELT1/2 LineEdits from the instrumentation config dialog. 
+   They were redundant and are now directly calculated PIXSCALE.
+-- Many updates and a lot of code cleaning in the fitstools package
+   which now also has its own Makefile. The installation script has
+   been updated.
+-- Set the max pointers in xmemory to a value larger than 32000
+   to avoid problems with the fitscollapse task on large images
+-- Removed any hidden elements for standard star processing from 
+   the GUI. There was never the need for using them.
+-- Fixed a bug that would not show the cross-talk icons when theli
+   has not been launched from the installation directory.
+-- Included the QHY8 CCD camera (chip has bayer matrix)
+-- Changed the LIRIS splitting scripts such that it also works on the
+   diff_pre store mode which has two FITS extensions. The second extension
+   containing the pre-read is discared.
+-- Fixed a bug that would not restore the ORIGINAL images if the restoration
+   has taken place before on the same directory
+-- Set the default RA value in the splitting script to 180 degrees instead
+   of zero if no RA key is present in the data. swarp v1.38 seems to not like
+   images that have exactly RA=0
+-- Changed from the SEGMENTATION image back to the -OBJECTS image in
+   combine_images_para.sh; the first version did not run stable on all
+   kinds of data
+-- Fixed a bug in the gaussian sky subtraction. it could happen that the
+   remaining sky was flattened, but not zero on average.
+-- Made some instrument config files more homogeneous
+-- Dropped the "_eclipse" in the file names of the scripts
+-- Updated the fitstools Makefile which was leading to problems with the
+   TIFF library on some systems
+-- Supporting the 'RAW' format of DSLR cameras (transformed into FITS) 
+-- Supporting Bayer matrix FITS data (gets splitted into individual FITS) 
+-- Fixed the tab order as far as Qt would allow (seems to be buggy, the
+   result is not what it should be)
+-- Colour dialogue: images removed from the list now get physically
+   moved to a "unused" subdirectory to avoid interferences.
+-- Removed some compiler warnings.
+-- Restructured and simplified the instrument configuration and splitting
+   script dialogs.
+-- Implemented a new algorithm for the swarp filter that allows for a 
+   more intelligent recognition and rejection of bad pixels (has been 
+   trained on numeric simulations). The reason is that in a small
+   series of images statistical outliers are difficult to recognise due
+   to the small sampling size.
+-- supporting swarps INTERPOLATE keyword
+-- Forced the PIXSCX keyword to be negative in all instrument configs
+-- Merged ALFOSC_old (old fits header) with the normal ALFOSC splitting 
+   script
+-- Fixed a bug in the Sextractor catalog script in the coaddition section
+-- The reference pixel is now updated when running fitsflip and fitscut
+-- Added a programme to fitstools that adds a key to a FITS image
+
+
+v1.2.2 (2007-12-18)
+Many bug fixes, most of them were introduced in v1.2.0 when 
+I switched to the new parameter handling scheme; 
+Quite some functional changes, too
+
+-- The user does not have to provide a file suffix anymore.
+   This just proved to be awkward and was unnecessary anyway.
+   The suffix is now determined automatically.
+-- When starting a new reduction with an empty logfile, the
+   crosstalk correction buttons showed the "active" thumbnails
+   instead of the "passive" thumbnails. Fixed.
+-- When the user entered a new log filename that did not exist 
+   yet, and then clicked on "clear log", the currently selected
+   instrument got deselected, and instead the first instrument 
+   in the list was chosen. This is probably an obsolete safety 
+   feature I implemented a long time ago when the gui was still 
+   in its infancy. I do not see any reason for this anymore and 
+   hence deactivated this switch (besides this behaviour was 
+   annoying).
+-- While debiasing and flatfielding the data, it could happen that
+   the "data has been superflatted"-switch was incorrectly set,
+   which would made THELI assume the file extension is OFCS instead 
+   of just OFC.
+-- The script that sorts a bunch of raw data into BIAS/FLAT/SCIENCE 
+   etc sub-directories was apparently lost from the latest releases.
+   Apparently noone is using it, otherwise I'd have received complaints.
+   Anyway, it is back now with simplified syntax.
+-- I updated the LIRIS, SOFI and ISAAC splitting scripts so that
+   they check for the number of readout averages (COAVE or NDIT),
+   set the EXPTIME keyword to EXPTIME*NDIT, and multiply the
+   image correspondingly with NDIT. The original EXPTIME keyword is
+   stored in EXPT_DIT for reference. Otherwise one will get into deep 
+   trouble with relative photometric zeropoints and/or weight scaling 
+   factors during the coaddition when mixing exposures taken with
+   different NDIT settings.
+-- There was a hickup when selecting "no sky subtraction", fixed.
+-- Fixed a bug in the astrometrix script that was introduced in the
+   previous version (forgot to comment a line out after testing)
+-- If a list of chips of a mosaic camera was given for coaddition, 
+   it would not be interpreted correctly.
+-- Fixed a bug in imstats.c that would not read the upper range
+   given with the -t option properly if in exponential format.
+-- Changed the "magic" values of +/-70000 to something like +/-1e9
+   to avoid conflicts with near-IR data and certain CCDs that can 
+   get such high ADUs.
+-- Fixed a bug in the calculation of the RZP with scamp if images
+   with different exposure times were used (thx thomas)
+-- The global weights task would not appear in some cases if the
+   configure button was not clicked beforehand.
+-- updated the script that filters outliers during the coaddition 
+   process.
+-- fixed the cross-talk correction
+-- I included the option of convolving the sky background with a Gaussian
+   for modelling. This seems to work a lot better than the SExtractor 
+   modelling in "difficult" cases (those with large residuals).
+-- Speeded up the swarpfilter programme by a factor of 2. It now works
+   on mosaic data as well.
+-- Included an optional integer pixel shift method in the astrometry 
+   section
+-- Updated the ESO near-IR splitting scripts. Old ISAAC and SOFI headers 
+   were misleading (EXPTIME=NDIT*DIT instead of EXPTIME=DIT)
+-- Replaced all calls to awk by ${G_AWK}
+-- Changed all astrometry scripts such that they would only take into account
+   images in the SCIENCE dir, and not just all catalogs in cat (hence unwanted
+   images can temporarily be moved away without repeating the same for the
+   catalogs) 
+-- Fixed a small bug in the 'statistics' section that occured for
+   cameras having more than 9 detectors
+-- Introduced a switch that allows to either include or exclude the centre
+   image in the dynamic window for near-IR skybackground modelling.
+-- Included HAWK-I@VLT, WIRCam@CFHT, SuprimeCam@SUBARU and MOIRCS@SUBARU
+-- THELI now uses MissFits for the slicing of FITS cubes 
+
+
+v1.2.1  (2007-08-05)
+This is mainly a bug fix release
+
+-- Removed the hardcoding of FGROUP_RADIUS=1.0 which was still present.
+   This Scamp parameter can now be modified.
+-- Fixed a small bug in fits_blockedit.c that placed the edited block
+   one pixel too high.
+-- fitsmask.c can now not only set pixels within a specified threshold 
+   range to zero, but all other pixels to 1 if the -n option is used.
+   However, this is not yet needed by any standard GUI operation.
+   Will be useful for mask creation though at some day.
+-- Removed the additive constant of 1000 that was added during the
+   subtraction of the superflat, during chop-nod and collapse correction.
+   Originally, this was introduced since the weighting process set the
+   weight of all image pixels to zero if they had values of zero or less.
+   However, that was witched off a long time ago and hence there is no need
+   to maintain this additive constant.
+-- I found that SEGMENTATION is a more stable sextractor checkimage than
+   -OBJECTS. With the latter option sometimes objects are masked out which 
+   should not be detected with the given thresholds. SEGMENTATION does
+   not suffer from this. Need to check back with emmanuel.
+
+
+v1.2.0  (2007-07-08)
+
+-- Many changes on the code that do not affect the handling or
+   appearance of THELI, e.g.
+     - removed lots of compiler warnings under gcc4
+     - makefile updated with LFLAGS linker options
+-- Fixed a bug that would not allow to enter any numbers in the
+   pixel scale and threshold fields of the coadd config dialog
+-- Fixed a bug when loading a log file (dunno where this came from)
+-- Updated scripts that divide images by a flatfield with a setting
+   so that flats with modes of less than 50 ADUs do not lead to a
+   halt.
+-- Updated to scamp v1.3.11. Scamp stores its checkplots in the 
+   SCIENCE/cat dir
+-- introduced a colour scheme for better visualisation of the
+   different gui elements
+-- Included NICS@TNG and ENZIAN_CAS@HOLI_1m as instruments
+-- Collected many parameter settings in a dedicated dialog.
+   The parameter tables are replaced by it. The parameter dialog
+   can now be called from various "Configure" PushButtons, that will
+   bring up the corresponding "page". The user can also switch to
+   the parameters of any other processing group once the dialog is 
+   opened.
+-- A first implementation of cross-talk correction is available.
+   It is accessible through the "configure" PushButton in the
+   preparation processing group, and still on an experiemntal basis.
+-- Moved the sky subtraction task into the "coaddition" processing
+   group to unclutter the astrom/photom group a bit more.
+-- The sky subtraction now has its own configure dialog that combines
+   all possible options.
+-- Additional scamp-compatible catalogs are created for mosaic imagers 
+   so that scamp can be exploited fully. However, this is still on a test 
+   basis and requires the installation of two python modules.
+
+
+v1.1.2  (2006-11-21)
+
+-- included the much improved WIFIX_1.2_theli version of WIFIX.
+   It basically fixes most of the installation problems.
+-- updated the pipeline core to version 0.12.0, which amongst others
+   fixes problems with sextractor compiled with gcc 4.1
+-- included NACO@VLT as an instrument
+-- simplified the installation a bit, fixed a small bug in the
+   GUI install script (some systems do not accept relative paths 
+   in the "prefix" option of configure scripts
+-- modified the collapse correction so that the sky background can 
+   be determined from one or two smaller image sections, to avoid
+   biasing by extended low surface brightness haloes. The GUI has 
+   been expanded by a corresponding configuration dialogue.
+-- The coaddition has its own config dialogue. One can specify
+   now a subset of chips from a mosaic that shall be coadded.
+   In addition, the combination type has been expanded.
+
+
+v1.1.1  (2006-07-13)
+
+-- replaced the ascii log file system by internal QSettings variables.
+   this fixed the extremely long startup times on fedora core 5 systems
+-- made scamp and astrometrix more configurable through a separate
+   dialogue
+-- code streamlining, small improvements concerning the functionality
+   of some GUI elements
+-- no "/" can be entered any more in the data subdirectories in the
+   "initialise" processing group. this could lead to errors since the
+   file names of e.g. the master flat then had a "/" inside and where
+   subsequently interpreted as directories.
+-- the line edit of the "distribute sets" task will reset the number to
+   the maximum allowed value of 1024 if a higher value has been entered
+-- the dialog for creating the splitting script has been merged with
+   the dialog for creating a new instrument.
+-- removed the "delete log file" push button in the initialise processing 
+   group
+-- replaced the mean/median RadioButtons for image combination with a
+   ComboBox
+-- updated the online help, introduced tool tips for each processing task
+-- improved FORS2, VIMOS, CFHT, MOSAIC1 scripts and configuration files
+-- included IMACS, NOTcam and Dolores
+-- updated cdsclient to version 2.85. Avoids problems with gcc4 compilers
+   and 64bit systems
+
+
+v1.1.0  (2006-05-31)
+
+-- fixed a small bug in logfile.h. Did not affect anything.
+-- Fixed a bug that would display the remaining disk space
+   wrongly if the file system string reported by the "df -m"
+   command is too long, leading to a line feed.
+-- included "xpdf" as a pdf file viewer
+-- included SOFI@NTT and ALFOSC@NOT
+-- fixed a small bug that would print a wrong default path in the
+   "manual sky" dialog if the main path entered in the Initialise
+   PG did not exist
+-- updated the cdsclient script and the GUI feedback (no ldac 
+   catalog format created any more)
+-- included support for SCAMP
+-- modified the debias+flatfield script such that it now
+   allows superflatting/defringing/subtraction based on a 
+   "moving window" of images, i.e. a 'dynamic' superflat
+-- merged the "process dark" with the "process bias" checkbox;
+   no real need for having them both
+-- fixed a bug in process_science_para.sh (the back size
+   parameter was invoked wrongly due to a double-$$ instead
+   of a single $ sign). Did not affect the object detection in a 
+   bad way.
+-- The path to theli/bin/Linux_64/ was not guessed correctly by the
+   GUI on 64 bit systems. Affected the dialogs for statistics and
+   manual sky determination.
+-- Removed the Photometry CheckBox. There is no need anymore to 
+   have it extra. It gets now automatically called after the 
+   astrometry.
+-- updated the TIFF library to version 3.8.2
+-- the manual astroref catalog now takes into account the override 
+   directory for SCIENCE
+-- replaced 'fitspaste' by 'fitscut' to avoid licensing issues
+-- included a nonlinearity correction in the splitting script of WFC@INT
+
+
+v1.0.6  (2006-04-12)
+
+-- Included a statistics GUI under "miscellaneous"
+-- The "local copy" RadioButton in the astrometric reference catalog
+   menu is now hidden if no such catalog is specified in the
+   "Initialise" PG. Same holds for the "use OFFTARGET" CheckBox
+   in the "Superflatting" PG.
+-- There is now the possibility to subtract a constant sky from the
+   images, either determined from one representative chip for the
+   entire exposure, or from each chip. If desired, an image section
+   can be chosen. Additionally, it is possible that no sky is subtracted.
+   The sky can also be determined manually.
+-- Fixed a bug in the creation of the splitting script that occurred if 
+   additional keys are copied into the THELI header.
+-- Added a "do not apply flat" CheckBox (e.g. for VISIR@VLT)
+-- Small layout changes, cleaning up of the code
+-- Included a pairwise chop-nod sky subtraction in the superflatting PG
+-- Included a procedure that determines just the shift between images
+   without caring for sky position angle and reference catalogues. The 
+   solution is transformed into the usual format understood by swarp.
+   This includes relative photometric zeropoints. With this step THELI
+   is now capable of performing a full reduction of e.g. mid-IR data
+   that feature as little as one detectable object per exposure.
+-- Added support for masks created with latest versions of DS9
+-- Added support for imaging masks, i.e. an image having pixel values 1
+   for good pixels and 0 for bad pixels will be multiplied to the
+   global weight if such an image is found in the scripts directory.
+   It must have the same name as the instrument, plus a ".fits" suffix.
+   Effect is the same as the global .reg file, but the image might
+   be easier to create in some cases (such as VISIR)
+-- No more dummy SUPERFLAT is created if the user does not calculate
+   a SUPERFLAT. Consequently, the normalisation script gets only
+   invoked if a SUPERFLAT has actually been requested.
+
+
+v1.0.5  (2006-03-01)
+
+-- Relaxed some of the regular expressions watching the line edits.
+   That makes deleting easier.
+-- Hiding the projection type and celestial type again, since
+   they make swarp_v1.38 crash if different from TAN and EQUATORIAL.
+-- Made the instrument configuration files accessible through
+   the "Edit" pull-down menu   
+-- Included the path to the THELI binaries in the code. Previously
+   I assumed that the executables were in the search PATH. Problem
+   was a call to 'hmstodecimal' in the coaddition PG.
+-- Included another item under the "settings" menu for the selection
+   of the favourite pdf viewer (currently acroread and gvv)
+-- Introduced the "Miscellaneous" pull-down menu. It contains
+   the color image dialog (previously under "reduction"), and a new
+   dialog for combining a set of images.
+-- Smaller technical improvements to the install.sh script and the 
+   GUI. The installer is now compatible with ldacpipeline-0-10-1.
+-- The user can now choose between a mean and median combination
+   for the SUPERFLAT.
+-- The three radio buttons and the combo box for the "transform"
+   script were merged into a single combo box. The "kangle" parameter
+   for astrometrix went into the parameter table where all the other
+   parameters where waiting for it already. 
+
+
+v1.0.4  (2006-02-15)
+
+-- The "sextractor-eye" combination does not recognize cosmics in 
+   undersampled data due to their great resemblance with the PSF. 
+   An outlier rejection process is now available from within the 
+   Coaddition processing group. Pixels with values higher or lower than
+   a certain rms threshold have their weights then set to zero.
+   If three or less pixels with non-zero weight are in the stack, 
+   then no rejection is performed. The algorithm is currently slow
+   for a larger number (>15 or so) of exposures or mosaics.
+-- Made the validator watching the user input of the transformation code
+   for the splitting script less stringent. One could not delete a number
+   from within the string entered.
+-- Some of the c-programs in the tools directory where adding a
+   comment line to the FITS header. This caused segmentation faults
+   appearing in an irregular fashion on some Linux systems, without
+   clear preference. For compatibility, I switched the offending code
+   off.
+-- Fixed a bug in the distribute_sets.sh script. The ${TEMPDIR}
+   was missing in some path.
+-- Introduced lower and upper thresholds in the weighting process,
+   and a corresponding parameter table.
+-- Fixed a bug where the command lines of the create weights script
+   and distribute sets script still showed up if no parameters were
+   given. The default values were used then.
+-- Removed the STATUS_WEIGHTS(OFF) variables and all dependencies.
+   They were superflicious since they always have the same value
+   as the status of the science exposures. 
+   Same for the STATUS_OFFTARGET. I assume that if an OFFTARGET field
+   is present, it will always undergo the same processing steps as the
+   SCIENCE field. If THELI is used consequently, this is automatically
+   the case anyway. So, no need to bother with it.
+-- Included automatic OFFTARGET processing for the 'distribute set' step.
+-- Small fixes of the layout and the integrated online help
+-- The OFFTARGET processing is now fully supported in the astrom/photom
+   group as well (the reference catalogue was not retrieved automatically
+   for the OFFTARGET field before)
+-- The create_astromcats script now produces skycat catalogues for overlay
+-- Modified the global_weights script such that the DARK and SUPERFLAT
+   constraints are no longer mandatory but optional. The corresponding
+   parameters went into the parameters table.
+-- The DEBLEND_MINCONT sextractor parameter is now accessible through the
+   GUI. Exposures with very large objects might want its value to be changed
+   to optimise the number and distribution of detected sources.
+
+
+v1.0.3  (2005-10-30)
+
+-- the status (checked/unchecked) of the photometrix script
+   was not properly written to the logfile. this did not affect
+   the data reduction but was just an annoyance.
+-- made a work-around a Qt bug that set the dark-red foreground
+   colour of mandatory CheckBoxes randomly to black when changes
+   were made to the gui status
+-- the color of the "process bias" checkbox now changes to black
+   if the user checks the "do not apply bias/dark" checkbox.
+-- included min and max thresholds in the calibration processing group
+   for the biases, darks and science exposures. these thresholds
+   were present already for the flat fields, and it is mandatory
+   to explicitly specify them. outlying images are moved to a
+   BADMODE directory. The manual reflects these changes.
+-- hiding the memory progress bar if "uname" does not yield "Linux"
+   as an operating system
+-- BIAS / DARK / FLAT exposures are now combined directly in memory
+   if the number of images is smaller or equal than the NFRAMES 
+   parameter. If there are more images, temporary data is written 
+   to disk in the previous fashion. Parameter handling is identical.
+-- fixed a broken link in the help menu
+-- up to now, if the "spread sequence" task in the calibration PG
+   was used, the user had to process the corresponding subdirectories
+   (SCIENCE_Si, and if applicable OFFTARGET_Si) individually. In this 
+   release this has been automatised and all directories will be done
+   automatically, unless a particular directory is entered in the
+   SCIENCE/OFFTARGET field.
+   This affects the "Debias / flatfield" task in the calibration PG,
+   and the "Subtract Superflat" task in the superflatting PG.
+
+
+v1.0.2  (2005-10-20)
+
+-- fixed a bug in the create_weights scripts. A blank in the
+   argument list could lead to the non-creation of the weight 
+   images.
+-- fixed a bug (missing newline character) in the routine that
+   creates the data splitting script when a new instrument is
+   included.
+-- fixed a bug leading to double file name extensions such as
+   OFCSDD instead of OFCSD if a task was repeated. This bug was
+   introduced during the recent "Qt-ification" of the c-code.
+-- fixed a bug in the script that creates an astrometric
+   reference catalogue from an image. it caused three lines
+   in the beginning with zeroes for the coordinates, which, in
+   case of a very sparse and small field, confused astrometrix.
+-- if the user selected some font size or style, it was saved in the
+   log file but got overriden by some default styles upon relaunch
+   of the GUI. this has been fixed.
+-- Replaced some calls to strndup() with Qt native QString 
+   functions. The motivation was non-compilation on MacOS X.
+-- the command list gets now automatically updated if the
+   processing status is changed through 
+   Reduction->Change processing status
+-- the LineEdit in the Initialise PG that took the pipeline
+   path has been removed. The information is now hardcoded
+   and gets initialised through the install script. The manual
+   has been updated accordingly.
+
+
+v1.0.1  (2005-10-03)
+
+-- fixed a bug that could crash the GUI when the 
+   pipeline path in the INITIALISE PG is partially deleted
+-- fixed a bug in the parameter handling
+-- fixed a bug in the install script (omitted ${BIN} in some paths)
+-- improved parameter handling
+-- improved the logfile handling
+-- improved command syntax prediction. The file name extensions
+   (OFC etc) came out wrong if the processing status was changed
+   several times in a row.
+-- updates to the GUI documentation (affected: all sections)
+
+
+2005-09-16 v1.0.0 released

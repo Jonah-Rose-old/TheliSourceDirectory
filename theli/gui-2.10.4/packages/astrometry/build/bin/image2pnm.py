@@ -1,0 +1,1 @@
+../lib/python/astrometry/util/image2pnm.py

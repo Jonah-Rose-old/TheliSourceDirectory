@@ -1,0 +1,15 @@
+export PIPESOFT=
+export EXT=
+
+export PIPEBIN=${PIPESOFT}/bin
+export PIPELIB=${PIPESOFT}/lib
+export OBJSUB=obj_${EXT}
+export PIPECONF=${PIPESOFT}/conf
+export PIPEDATA=${PIPESOFT}/data
+export PATH=${PATH}:$PIPEBIN/${EXT}:$PIPESOFT/scripts
+
+if [ $?PERL5LIB ]; then
+  export PERL5LIB=${PERL5LIB}:/${PIPESOFT}/scripts/astrometrix
+else
+  export PERL5LIB=/${PIPESOFT}/scripts/astrometrix
+fi

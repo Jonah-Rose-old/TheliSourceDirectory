@@ -1,0 +1,337 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+
+int compare_double(const void *a, const void *b);
+
+void usage(int i)
+{
+  if (i == 0) {
+      fprintf(stderr,"\n");
+      fprintf(stderr,"Select images bracketing another image in time.\n");
+      fprintf(stderr,"Date: 2013-04-25, Author: Mischa Schirmer\n\n");
+      fprintf(stderr,"Usage: dynamic_background \n");
+      fprintf(stderr,"       -i reference MJD\n");
+      fprintf(stderr,"       -f file with sky images (containing two columns with name and the MJD)\n");
+      fprintf(stderr,"       -w window size (from how many exposures do we create the background model?)\n");
+      fprintf(stderr,"      [-e file with images names to be excluded (e.g. bright stars or extended objects)]\n");
+      fprintf(stderr,"      [-g maximum gap size in hours (default: 1.0)]\n\n");
+  }
+
+  exit (0);
+}
+
+
+//********************************************************  
+int main(int argc, char *argv[])
+{
+  FILE *science_file, *exclusion_file;
+  int win = 4, flag_excl = 0;
+  double ref_mjd = -1.0, gap = 1.0 / 24.;
+  long i, j, k, n_sky, n_excl;
+  char science_filename[1000], dummy[1000], exclusion_filename[1000];
+
+  typedef struct {
+    char name[1000];
+    double mjd;
+    double index;
+    double diff;
+    int blockid;
+  } data;
+
+  // print usage if no arguments were given
+
+  if (argc==1) usage(0);
+
+  //  Read command line arguments
+  
+  for (i=1; i<argc; i++) {
+    if (argv[i][0] == '-') {
+      switch((int)argv[i][1]) {
+      case 'i': ref_mjd = atof(argv[++i]);
+	break;
+      case 'f': strcpy(science_filename,argv[++i]);
+	break;
+      case 'e': strcpy(exclusion_filename,argv[++i]);
+	flag_excl = 1;
+	break;
+      case 'w': win = atoi(argv[++i]);
+	break;
+      case 'g': gap = atof(argv[++i]) / 24.;
+	break;
+      }
+    }
+  }
+
+  if (win > 0 && win <= 2) {
+    fprintf(stdout, "ERROR: %d images used for dynamic background modelling. Must be at least 3!\n", win);
+    exit (1);
+  }
+
+  // open the files
+  if ((science_file = fopen(science_filename, "r")) == NULL) {
+    fprintf(stderr, "ERROR: Cannot open %s\n", science_filename);
+    exit (1);
+  }
+  // how many elements are there
+  i = 0;
+  while(fgets(dummy,1000,science_file) != NULL) {
+    i++;
+  }
+  n_sky = i;
+  rewind(science_file);
+  data skydata[n_sky];
+  
+  n_excl = 1;
+  if (flag_excl) {
+    if ((exclusion_file = fopen(exclusion_filename, "r")) == NULL) {
+      fprintf(stderr, "ERROR: Cannot open %s\n", exclusion_filename);
+      exit (1);
+    }
+    // how many elements are there
+    i = 0;
+    while(fgets(dummy,1000,exclusion_file) != NULL) {
+      i++;
+    }
+    n_excl = i;
+    rewind(exclusion_file);
+  }
+
+  int ndim;
+  if (n_excl == 0) ndim = 1;
+  else ndim = n_excl;
+
+  data exclusiondata[ndim];
+
+  // read the data
+  if (flag_excl) {
+    for (i=0; i<n_excl; i++) {
+      if (fscanf(exclusion_file, "%s", &exclusiondata[i].name[0]) == 0) {
+	fprintf(stderr, "ERROR: Could not read from %s\n", exclusion_filename);
+	exit (1);
+      }
+    }
+  }
+
+  if (ref_mjd < 0.) {
+    fprintf(stderr, "ERROR: Reference MJD was not defined.\n");
+    exit (1);
+  }
+
+  int test1 = 0, test2 = 0;
+
+  j = 0;
+  double mjd_tmp;
+  int testcomp1, testcomp2;
+  for (i=0; i<n_sky; i++) {
+    if (fscanf(science_file, "%s %lf", &dummy[0], &mjd_tmp) == 0) {
+      fprintf(stderr, "ERROR: Could not read from %s\n", science_filename);
+      exit (1);
+    }
+    // delete the entry if the reference MJD is equal to the sky MJD
+    // Can happen maximally once.
+    testcomp1 = test1;
+    testcomp2 = test2;
+    if (ref_mjd == mjd_tmp) test1++;
+    // delete the entry if image is contained in the exclusion file
+    for (k=0; k<n_excl; k++) {
+      if (flag_excl && strcmp(dummy,exclusiondata[k].name) == 0) test2++;
+    }
+    if (testcomp1 == test1 && testcomp2 == test2) {
+      strcpy(skydata[j].name,dummy);
+      skydata[j].mjd = mjd_tmp;
+      j++;
+    }
+  }
+
+  n_sky = j;
+
+  if (test1 > 1) {
+    fprintf(stderr, "ERROR: Identical MJD entries found!\n");
+    exit (1);
+  }
+
+  if (n_sky <= 2) {
+    printf("NO_MATCHING_SKY_FOUND1\n");
+    exit (1);
+  }
+
+
+  //****************************************************************************
+  // DYNAMIC MODE: Print the names of the 'win' closest images
+  //****************************************************************************
+
+  if (win >= 3) { 
+
+    // Add the time difference between the sky exposures and the reference MJD
+    double *mjd_diff_sort;
+    mjd_diff_sort = (double*) calloc(n_sky, sizeof(double));
+    
+    for (i=0; i<n_sky; i++) {
+      skydata[i].diff = fabs(skydata[i].mjd - ref_mjd);
+      mjd_diff_sort[i] = skydata[i].diff;
+    }
+    
+    // Sort the MJD diffs in ascending order
+    qsort(mjd_diff_sort, n_sky, sizeof(double), compare_double);
+    
+    // for (i=0; i<n_sky; i++) printf("%lf\n", mjd_diff_sort[i]);
+    
+    // 's' in an index of indices, sorted
+    long *s;
+    s = (long*) calloc(n_sky, sizeof(long));
+    for (i=0; i<n_sky; i++) {
+      for (j=0; j<n_sky; j++) {
+	if (skydata[i].diff == mjd_diff_sort[j]) {
+	  s[j] = i;
+	  break;
+	}
+      }
+    }
+
+    // Print the matching file names
+    if (ref_mjd < skydata[0].mjd && fabs(ref_mjd - skydata[0].mjd) > gap) {
+      printf("NO_MATCHING_SKY_FOUND2\n");
+      exit (1);
+    }
+    if (ref_mjd > skydata[n_sky-1].mjd && fabs(ref_mjd - skydata[n_sky-1].mjd) > gap) {
+      printf("NO_MATCHING_SKY_FOUND3\n");
+      exit (1);
+    }
+
+    for (j=0; j<win; j++) {
+      if (skydata[s[j]].diff <= gap)
+	printf("%s\n", skydata[s[j]].name);
+      else {
+	fprintf(stderr, "ERROR: The background window covers a gap of %lf hours,\n", skydata[s[j]].diff*24.);
+	fprintf(stderr, "       larger than the maximum allowed gap size of %lf hours.\n", gap*24.);
+	exit (1);
+      }
+    }
+
+    free(mjd_diff_sort);
+    free(s);
+  }
+
+
+  //****************************************************************************
+  // STATIC MODE:
+  //****************************************************************************
+
+  if (win == 0) {
+    
+    // How many blocks do we have, based on the maximum allowed gap size?
+    float diff;
+    int blockcount = 1, n_blocks;
+    for (i=1; i<n_sky; i++) {
+      diff = skydata[i].mjd - skydata[i-1].mjd;
+      if (diff > gap) blockcount ++;
+    }
+    n_blocks = blockcount;
+    
+    // Loop over the list again to determine the block membership of an individual exposure
+    blockcount = 0;
+    skydata[0].blockid = 0;
+    for (i=1; i<n_sky; i++) {
+      diff = skydata[i].mjd - skydata[i-1].mjd;
+      if (diff > gap) {
+	blockcount++;
+      }
+      skydata[i].blockid = blockcount;
+    }
+
+    // To which block does the reference MJD belong, or does it sit between blocks (for sky observations)?
+    int ref_blockid = 0;
+    if (ref_mjd < skydata[0].mjd) {
+      ref_blockid = 0;
+      if (fabs(ref_mjd - skydata[0].mjd) > gap) 
+	printf("NO_MATCHING_SKY_FOUND4\n");
+    }
+    if (ref_mjd > skydata[n_sky-1].mjd) {
+      ref_blockid = n_blocks - 1;
+      if (fabs(ref_mjd - skydata[n_sky-1].mjd) > gap) 
+	printf("NO_MATCHING_SKY_FOUND5\n");
+    }
+
+
+    int withinblock = 0;
+    for (i=0; i<n_sky-1; i++) {
+      // The reference MJD is within a block
+      if (ref_mjd > skydata[i].mjd && ref_mjd < skydata[i+1].mjd && skydata[i].blockid == skydata[i+1].blockid) {
+	ref_blockid = skydata[i].blockid;
+	withinblock = 1;
+      }
+    }
+
+    if (!withinblock) {
+      for (i=0; i<n_sky-1; i++) {
+	// The reference MJD is between blocks
+	if (ref_mjd > skydata[i].mjd && ref_mjd < skydata[i+1].mjd && skydata[i].blockid != skydata[i+1].blockid) {
+	  // The reference MJD is too far away from neighbouring sky blocks, and therefore cannot be treated
+	  if (fabs(skydata[i].mjd - ref_mjd) > gap && fabs(skydata[i+1].mjd - ref_mjd) > gap) {
+	    printf("NO_MATCHING_SKY_FOUND6\n");
+	    exit(0);
+	  }
+	  // Assign the closer block id
+	  if (fabs(skydata[i].mjd - ref_mjd) <= fabs(skydata[i+1].mjd - ref_mjd))
+	    ref_blockid = skydata[i].blockid;
+	  else
+	    ref_blockid = skydata[i+1].blockid;
+	}
+      }
+    }
+
+    // Now that the block ID is known, we print all associated images
+    for (i=0; i<n_sky; i++) {
+      if (skydata[i].blockid == ref_blockid) printf("%s\n", skydata[i].name);
+    }
+  }
+
+  fclose(science_file);
+
+  exit (0);
+  
+}
+
+
+//*****************************************************************
+double maxarr(double *data, long dim)
+{
+  long i;
+  double max;
+  
+  max = data[0];
+  
+  for (i = 0; i < dim; i++)  {
+    if (data[i] > max) max = data[i];
+  }
+  
+  return (max);
+}
+
+
+//*****************************************************************
+double minarr(double *data, long dim)
+{
+  long i;
+  double min;
+  
+  min = data[0];
+  
+  for (i = 0; i < dim; i++)  {
+    if (data[i] < min) min = data[i];
+  }
+  
+  return (min);
+}
+
+
+//*****************************************************************
+int compare_double(const void *a, const void *b)
+{
+  const double *da = (const double *) a;
+  const double *db = (const double *) b;
+  
+  return (*da > *db) - (*da < *db);
+}

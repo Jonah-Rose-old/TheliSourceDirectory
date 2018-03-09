@@ -1,0 +1,5 @@
+A few of the source codes here require the C++11 standard. These are:
+
+fftw/*.cc (support for C++ threads)
+
+These have been available in gcc as of gcc 4.4 (2009)

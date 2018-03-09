@@ -1,0 +1,60 @@
+#!/bin/bash -xv
+
+# $1: main dir
+# $2: science dir
+# $3: file extension
+
+INSTDIR=instruments_professional
+if [ ! -f ${INSTDIR}/${INSTRUMENT}.ini ]; then
+    INSTDIR=instruments_commercial
+fi
+if [ ! -f ${INSTDIR}/${INSTRUMENT}.ini ]; then
+    INSTDIR=~/.theli/instruments_user/
+fi
+. ${INSTDIR}/${INSTRUMENT:?}.ini
+
+# Collect header data
+# DO NOT DELETE ${TEMPDIR}/imdata_geometry.dat
+# It is used by other scripts that call this script
+cd $1/$2/
+${P_DFITS} *$3.fits | ${P_FITSORT} -d CRVAL1 CRVAL2 NAXIS1 NAXIS2 > ${TEMPDIR}/imdata_geometry.dat
+
+# The RA/DEC median (center; the median avoids problems at the 0|360 degree boundary)
+${P_GAWK} '{print $2}' ${TEMPDIR}/imdata_geometry.dat > ${TEMPDIR}/alpha_$$
+${P_GAWK} '{print $3}' ${TEMPDIR}/imdata_geometry.dat > ${TEMPDIR}/delta_$$
+ra_center=`${P_GETSTATS} -i ${TEMPDIR}/alpha_$$ -m median -n -f`
+dec_center=`${P_GETSTATS} -i ${TEMPDIR}/delta_$$ -m median -n -f`
+
+rm ${TEMPDIR}/radec_vertices_$$
+
+# Get the RA/DEC vertices of each chip to determine the search radius
+exec < ${TEMPDIR}/imdata_geometry.dat
+while read file ra dec n m
+do
+    ${P_XY2SKY} -d ${file} 1 1  $n 1  1 $m  $n $m | ${P_GAWK} '{print $1, $2}' >> ${TEMPDIR}/radec_vertices_$$
+done
+
+# DECLINATION RANGE:
+${P_SORT} -n -k 2 ${TEMPDIR}/radec_vertices_$$ > ${TEMPDIR}/radec_vertices_sortdec_$$
+mindec=`${P_GAWK} '(NR==1) {print $2}' ${TEMPDIR}/radec_vertices_sortdec_$$`
+maxdec=`tail -n 1 ${TEMPDIR}/radec_vertices_sortdec_$$ | ${P_GAWK} '{print $2}'`
+dec_radius=`echo ${mindec} ${maxdec} | ${P_GAWK} '{print 60.*($2-$1)/2.}'`
+
+# RA RANGE (deal with 0|360 deg boundary):
+${P_SORT} -n -k 1 ${TEMPDIR}/radec_vertices_$$ > ${TEMPDIR}/radec_vertices_sortra_$$
+minra=`${P_GAWK} '(NR==1) {print $1}' ${TEMPDIR}/radec_vertices_sortra_$$ `
+maxra=`tail -n 1 ${TEMPDIR}/radec_vertices_sortra_$$ | ${P_GAWK} '{print $1}'`
+# Detect if we crossed the origin (qualitatively:  maxra-minra > 350)
+check=`echo ${minra} ${maxra} | ${P_GAWK} '{if ($2-$1 > 350) print "yes"; else print "no"}'`
+if [ "${check}" = "yes" ]; then
+    ${P_GAWK} '{if ($1>180) print $1-360.; else print $1}' \
+	${TEMPDIR}/radec_vertices_sortra_$$ | ${P_SORT} -n -k 1 > ${TEMPDIR}/radec_vertices_sortra_tmp_$$
+    minra=`${P_GAWK} '(NR==1) {print $1}' ${TEMPDIR}/radec_vertices_sortra__tmp_$$ `
+    maxra=`tail -n 1 ${TEMPDIR}/radec_vertices_sortra_tmp_$$ | ${P_GAWK} '{print $1}'`
+fi    
+ra_radius=`echo ${minra} ${maxra} ${dec_center} | ${P_GAWK} '{print 60.*($2-$1)/2./cos($3*3.14159/180.0)}'`
+
+# Maximum search radius, plus 10% safety margin
+max_radius=`echo ${ra_radius} ${dec_radius} | ${P_GAWK} '{print 1.1*sqrt($1*$1+$2*$2)}'`
+
+echo ${ra_center} ${dec_center} ${max_radius} > ${TEMPDIR}/auto_ra_dec.dat
