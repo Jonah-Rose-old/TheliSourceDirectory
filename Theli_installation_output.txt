@@ -1,0 +1,443 @@
+ 
+Your operating system is:  Linux_64
+ 
+ 
+####################################################
+# Installing the CDS client
+####################################################
+ 
+checking prefix... /usr/local
+checking whether make sets $(MAKE)... yes
+checking for gawk... gawk
+checking for gcc... gcc
+checking whether the C compiler works... yes
+checking for C compiler default output file name... a.out
+checking for suffix of executables... 
+checking whether we are cross compiling... no
+checking for suffix of object files... o
+checking whether we are using the GNU C compiler... yes
+checking whether gcc accepts -g... yes
+checking for gcc option to accept ISO C89... none needed
+checking for ranlib... ranlib
+checking computer... unknown
+checking how to run the C preprocessor... gcc -E
+checking for grep that handles long lines and -e... /usr/bin/grep
+checking for egrep... /usr/bin/grep -E
+checking for ANSI C header files... yes
+checking for sys/types.h... yes
+checking for sys/stat.h... yes
+checking for stdlib.h... yes
+checking for string.h... yes
+checking for memory.h... yes
+checking for strings.h... yes
+checking for inttypes.h... yes
+checking for stdint.h... yes
+checking for unistd.h... yes
+checking fcntl.h usability... yes
+checking fcntl.h presence... yes
+checking for fcntl.h... yes
+checking termio.h usability... yes
+checking termio.h presence... yes
+checking for termio.h... yes
+checking for an ANSI C-conforming const... yes
+checking for size_t... yes
+checking whether struct tm is in sys/time.h or time.h... time.h
+checking strip utility...  ok 
+checking return type of signal handlers... void
+checking for pid_t... yes
+checking vfork.h usability... no
+checking vfork.h presence... no
+checking for vfork.h... no
+checking for fork... yes
+checking for vfork... yes
+checking for working fork... yes
+checking for working vfork... (cached) yes
+checking for getcwd... yes
+checking for mkdir... yes
+checking for putenv... yes
+checking for strdup... yes
+checking for strerror... yes
+checking for strstr... yes
+===== compil for export =====
+configure: creating ./config.status
+config.status: creating Makefile
+----the prefix for installation directories is:	/projects/fishergroup/jrose2/TheliSourcedirectory/gui-2.10.4/packages//cdsclient-3.80/tmp
+    If this choice is not convenient, re-execute this configure
+    with the --prefix option, e.g.
+ ./configure --prefix=$HOME
+----Otherwise, proceed with   make   followed by   make install
+gcc -O   -I. -c aclient.c
+gcc -O   -I. -c skclient.c
+gcc -O   -I. -c skio.c
+gcc aclient.o skclient.o skio.o  -o aclient
+strip aclient
+test -d /projects/fishergroup/jrose2/TheliSourcedirectory/gui-2.10.4/packages//cdsclient-3.80/tmp/bin || mkdir /projects/fishergroup/jrose2/TheliSourcedirectory/gui-2.10.4/packages//cdsclient-3.80/tmp/bin
+cp -p aclient  /projects/fishergroup/jrose2/TheliSourcedirectory/gui-2.10.4/packages//cdsclient-3.80/tmp/bin
+if [ -d /projects/fishergroup/jrose2/TheliSourcedirectory/gui-2.10.4/packages//cdsclient-3.80/tmp/man ]; then echo /projects/fishergroup/jrose2/TheliSourcedirectory/gui-2.10.4/packages//cdsclient-3.80/tmp/man exists; \
+else mkdir /projects/fishergroup/jrose2/TheliSourcedirectory/gui-2.10.4/packages//cdsclient-3.80/tmp/man; fi 
+/projects/fishergroup/jrose2/TheliSourcedirectory/gui-2.10.4/packages//cdsclient-3.80/tmp/man exists
+for f in sk.3 aclient.1 wwwget.1 aclient.tex; do \
+    e=`echo $f | cut -d. -f2`;  \
+    if [ -d /projects/fishergroup/jrose2/TheliSourcedirectory/gui-2.10.4/packages//cdsclient-3.80/tmp/man/man$e ] ; then echo /projects/fishergroup/jrose2/TheliSourcedirectory/gui-2.10.4/packages//cdsclient-3.80/tmp/man/man$e exists ; \
+    else mkdir /projects/fishergroup/jrose2/TheliSourcedirectory/gui-2.10.4/packages//cdsclient-3.80/tmp/man/man$e ; fi ; \
+    cp -p $f /projects/fishergroup/jrose2/TheliSourcedirectory/gui-2.10.4/packages//cdsclient-3.80/tmp/man/man$e ;  \
+done
+/projects/fishergroup/jrose2/TheliSourcedirectory/gui-2.10.4/packages//cdsclient-3.80/tmp/man/man1 exists
+test -d /projects/fishergroup/jrose2/TheliSourcedirectory/gui-2.10.4/packages//cdsclient-3.80/tmp/bin || mkdir /projects/fishergroup/jrose2/TheliSourcedirectory/gui-2.10.4/packages//cdsclient-3.80/tmp/bin
+ractools=""; test -r /ftp/incoming/outils:raccord && ractools=/ftp/incoming/outils:raccord/*; \
+        test -z "$ractools" || ls -l $ractools; \
+cdsutil="gsc4sim exo4sim viz4sim oldsim cdspack_x86 lessh"; test -z "" && cdsutil=""; \
+cp -p vizquery catcat lscat findcat find_gen find_gen1 aclient_cgi sesame simref simbib abibcode abibcode.awk Detex find_cats find_cats.gz find[2a-z]*  $cdsutil $ractools /projects/fishergroup/jrose2/TheliSourcedirectory/gui-2.10.4/packages//cdsclient-3.80/tmp/bin; \
+for f in $ractools; do chmod 755 /projects/fishergroup/jrose2/TheliSourcedirectory/gui-2.10.4/packages//cdsclient-3.80/tmp/bin/`basename $f`; done
+touch /projects/fishergroup/jrose2/TheliSourcedirectory/gui-2.10.4/packages//cdsclient-3.80/tmp/versions
+v=`egrep 'cdsclient' /projects/fishergroup/jrose2/TheliSourcedirectory/gui-2.10.4/packages//cdsclient-3.80/tmp/versions |wc -l` ; \
+if test $v -eq 0 ; then \
+  echo "cdsclient:V3.80">>/projects/fishergroup/jrose2/TheliSourcedirectory/gui-2.10.4/packages//cdsclient-3.80/tmp/versions; \
+else \
+  sed "s/^\(cdsclient\):V.*/\1:V3.80/g" /projects/fishergroup/jrose2/TheliSourcedirectory/gui-2.10.4/packages//cdsclient-3.80/tmp/versions >version.tmp;\
+  cat version.tmp > /projects/fishergroup/jrose2/TheliSourcedirectory/gui-2.10.4/packages//cdsclient-3.80/tmp/versions; \
+  rm -f version.tmp; \
+fi
+echo "#===Be sure ~/src/cdspack contains all findxxx"
+#===Be sure ~/src/cdspack contains all findxxx
+rm -rf *.cache
+rm -f *.o
+rm -f aclient 
+rm -f *.log *.aux *.dvi *.lis *.ps
+rm -f core config.status
+rm -rf *.cache
+ 
+####################################################
+# Installing the fitstools
+####################################################
+ 
+rm -f bin/* *.o fftw/*.o tiff/*.o
+g++ -std=c++0x -Wall -Wextra -pedantic -Wno-deprecated -g -I/usr/include/cfitsio -I/usr/include/CCfits -I/usr/local/include/cfitsio -I/usr/local/include/CCfits -I./include  -c -o fitsmask.o fitsmask.cc
+g++ -std=c++0x -Wall -Wextra -pedantic -Wno-deprecated -g -I/usr/include/cfitsio -I/usr/include/CCfits -I/usr/local/include/cfitsio -I/usr/local/include/CCfits -I./include  -c -o fitscopyhead.o fitscopyhead.cc
+g++ -std=c++0x -Wall -Wextra -pedantic -Wno-deprecated -g -I/usr/include/cfitsio -I/usr/include/CCfits -I/usr/local/include/cfitsio -I/usr/local/include/CCfits -I./include  -c -o getkey.o getkey.cc
+g++ -std=c++0x -Wall -Wextra -pedantic -Wno-deprecated -g -I/usr/include/cfitsio -I/usr/include/CCfits -I/usr/local/include/cfitsio -I/usr/local/include/CCfits -I./include  -c -o getfitsval.o getfitsval.cc
+g++ -std=c++0x -Wall -Wextra -pedantic -Wno-deprecated -g -I/usr/include/cfitsio -I/usr/include/CCfits -I/usr/local/include/cfitsio -I/usr/local/include/CCfits -I./include  -c -o histogram.o histogram.cc
+g++ -std=c++0x -Wall -Wextra -pedantic -Wno-deprecated -g -I/usr/include/cfitsio -I/usr/include/CCfits -I/usr/local/include/cfitsio -I/usr/local/include/CCfits -I./include  -c -o fitsdemosaicbayer.o fitsdemosaicbayer.cc
+g++ -std=c++0x -Wall -Wextra -pedantic -Wno-deprecated -g -I/usr/include/cfitsio -I/usr/include/CCfits -I/usr/local/include/cfitsio -I/usr/local/include/CCfits -I./include  -c -o fitsaddkey.o fitsaddkey.cc
+g++ -std=c++0x -Wall -Wextra -pedantic -Wno-deprecated -g -I/usr/include/cfitsio -I/usr/include/CCfits -I/usr/local/include/cfitsio -I/usr/local/include/CCfits -I./include  -c -o gaussconvolve.o gaussconvolve.cc
+g++ -std=c++0x -Wall -Wextra -pedantic -Wno-deprecated -g -I/usr/include/cfitsio -I/usr/include/CCfits -I/usr/local/include/cfitsio -I/usr/local/include/CCfits -I./include  -c -o split_grond.o split_grond.cc
+g++ -std=c++0x -Wall -Wextra -pedantic -Wno-deprecated -g -I/usr/include/cfitsio -I/usr/include/CCfits -I/usr/local/include/cfitsio -I/usr/local/include/CCfits -I./include  -c -o cdelt2cd.o cdelt2cd.cc
+g++ -std=c++0x -Wall -Wextra -pedantic -Wno-deprecated -g -I/usr/include/cfitsio -I/usr/include/CCfits -I/usr/local/include/cfitsio -I/usr/local/include/CCfits -I./include  -c -o paste_swope.o paste_swope.cc
+g++ -std=c++0x -Wall -Wextra -pedantic -Wno-deprecated -g -I/usr/include/cfitsio -I/usr/include/CCfits -I/usr/local/include/cfitsio -I/usr/local/include/CCfits -I./include  -c -o fitshistomod.o fitshistomod.cc
+g++ -std=c++0x -Wall -Wextra -pedantic -Wno-deprecated -g -I/usr/include/cfitsio -I/usr/include/CCfits -I/usr/local/include/cfitsio -I/usr/local/include/CCfits -I./include  -c -o sumcircle.o sumcircle.cc
+g++ -std=c++0x -Wall -Wextra -pedantic -Wno-deprecated -g -I/usr/include/cfitsio -I/usr/include/CCfits -I/usr/local/include/cfitsio -I/usr/local/include/CCfits -I./include  -c -o statistics.o statistics.cc
+g++ -std=c++0x -Wall -Wextra -pedantic -Wno-deprecated -g -I/usr/include/cfitsio -I/usr/include/CCfits -I/usr/local/include/cfitsio -I/usr/local/include/CCfits -I./include  -c -o fitsextractext.o fitsextractext.cc
+g++ -std=c++0x -Wall -Wextra -pedantic -Wno-deprecated -g -I/usr/include/cfitsio -I/usr/include/CCfits -I/usr/local/include/cfitsio -I/usr/local/include/CCfits -I./include  -c -o fitscdinfo.o fitscdinfo.cc
+g++ -std=c++0x -Wall -Wextra -pedantic -Wno-deprecated -g -I/usr/include/cfitsio -I/usr/include/CCfits -I/usr/local/include/cfitsio -I/usr/local/include/CCfits -I./include  -c -o paste_sami.o paste_sami.cc
+g++ -std=c++0x -Wall -Wextra -pedantic -Wno-deprecated -g -I/usr/include/cfitsio -I/usr/include/CCfits -I/usr/local/include/cfitsio -I/usr/local/include/CCfits -I./include  -c -o fitsbloomdetect.o fitsbloomdetect.cc
+g++ -std=c++0x -Wall -Wextra -pedantic -Wno-deprecated -g -I/usr/include/cfitsio -I/usr/include/CCfits -I/usr/local/include/cfitsio -I/usr/local/include/CCfits -I./include  -c -o myFITS.o myFITS.cc
+g++ -std=c++0x -Wall -Wextra -pedantic -Wno-deprecated -g -I/usr/include/cfitsio -I/usr/include/CCfits -I/usr/local/include/cfitsio -I/usr/local/include/CCfits -I./include  -c -o fitsstat.o fitsstat.cc
+g++ -std=c++0x -Wall -Wextra -pedantic -Wno-deprecated -g -I/usr/include/cfitsio -I/usr/include/CCfits -I/usr/local/include/cfitsio -I/usr/local/include/CCfits -I./include  -c -o fitscurve.o fitscurve.cc
+g++ -std=c++0x -Wall -Wextra -pedantic -Wno-deprecated -g -I/usr/include/cfitsio -I/usr/include/CCfits -I/usr/local/include/cfitsio -I/usr/local/include/CCfits -I./include  -c -o get_posangle.o get_posangle.cc
+g++ -std=c++0x -Wall -Wextra -pedantic -Wno-deprecated -g -I/usr/include/cfitsio -I/usr/include/CCfits -I/usr/local/include/cfitsio -I/usr/local/include/CCfits -I./include  -c -o fitscompare.o fitscompare.cc
+g++ -std=c++0x -Wall -Wextra -pedantic -Wno-deprecated -g -I/usr/include/cfitsio -I/usr/include/CCfits -I/usr/local/include/cfitsio -I/usr/local/include/CCfits -I./include  -c -o fitspic.o fitspic.cc
+g++ -std=c++0x -Wall -Wextra -pedantic -Wno-deprecated -g -I/usr/include/cfitsio -I/usr/include/CCfits -I/usr/local/include/cfitsio -I/usr/local/include/CCfits -I./include  -c -o fitscollapse.o fitscollapse.cc
+g++ -std=c++0x -Wall -Wextra -pedantic -Wno-deprecated -g -I/usr/include/cfitsio -I/usr/include/CCfits -I/usr/local/include/cfitsio -I/usr/local/include/CCfits -I./include  -c -o fitssmoothedge.o fitssmoothedge.cc
+g++ -std=c++0x -Wall -Wextra -pedantic -Wno-deprecated -g -I/usr/include/cfitsio -I/usr/include/CCfits -I/usr/local/include/cfitsio -I/usr/local/include/CCfits -I./include  -c -o corrliris.o corrliris.cc
+g++ -std=c++0x -Wall -Wextra -pedantic -Wno-deprecated -g -I/usr/include/cfitsio -I/usr/include/CCfits -I/usr/local/include/cfitsio -I/usr/local/include/CCfits -I./include  -c -o getpsf.o getpsf.cc
+g++ -std=c++0x -Wall -Wextra -pedantic -Wno-deprecated -g -I/usr/include/cfitsio -I/usr/include/CCfits -I/usr/local/include/cfitsio -I/usr/local/include/CCfits -I./include  -c -o paste_dualchannel.o paste_dualchannel.cc
+g++ -std=c++0x -Wall -Wextra -pedantic -Wno-deprecated -g -I/usr/include/cfitsio -I/usr/include/CCfits -I/usr/local/include/cfitsio -I/usr/local/include/CCfits -I./include  -c -o split_decam.o split_decam.cc
+g++ -std=c++0x -Wall -Wextra -pedantic -Wno-deprecated -g -I/usr/include/cfitsio -I/usr/include/CCfits -I/usr/local/include/cfitsio -I/usr/local/include/CCfits -I./include  -c -o fitsdebloom.o fitsdebloom.cc
+g++ -std=c++0x -Wall -Wextra -pedantic -Wno-deprecated -g -I/usr/include/cfitsio -I/usr/include/CCfits -I/usr/local/include/cfitsio -I/usr/local/include/CCfits -I./include  -c -o fitsblend.o fitsblend.cc
+g++ -std=c++0x -Wall -Wextra -pedantic -Wno-deprecated -g -I/usr/include/cfitsio -I/usr/include/CCfits -I/usr/local/include/cfitsio -I/usr/local/include/CCfits -I./include  -c -o fitsflip.o fitsflip.cc
+g++ -std=c++0x -Wall -Wextra -pedantic -Wno-deprecated -g -I/usr/include/cfitsio -I/usr/include/CCfits -I/usr/local/include/cfitsio -I/usr/local/include/CCfits -I./include  -c -o fitsnonlinearity.o fitsnonlinearity.cc
+g++ -std=c++0x -Wall -Wextra -pedantic -Wno-deprecated -g -I/usr/include/cfitsio -I/usr/include/CCfits -I/usr/local/include/cfitsio -I/usr/local/include/CCfits -I./include  -c -o split_gmos_multiport.o split_gmos_multiport.cc
+g++ -std=c++0x -Wall -Wextra -pedantic -Wno-deprecated -g -I/usr/include/cfitsio -I/usr/include/CCfits -I/usr/local/include/cfitsio -I/usr/local/include/CCfits -I./include  -c -o equalisebayerflat.o equalisebayerflat.cc
+g++ -std=c++0x -Wall -Wextra -pedantic -Wno-deprecated -g -I/usr/include/cfitsio -I/usr/include/CCfits -I/usr/local/include/cfitsio -I/usr/local/include/CCfits -I./include  -c -o fitswrap.o fitswrap.cc
+g++ -std=c++0x -Wall -Wextra -pedantic -Wno-deprecated -g -I/usr/include/cfitsio -I/usr/include/CCfits -I/usr/local/include/cfitsio -I/usr/local/include/CCfits -I./include  -c -o fitsguessgeom.o fitsguessgeom.cc
+g++ -std=c++0x -Wall -Wextra -pedantic -Wno-deprecated -g -I/usr/include/cfitsio -I/usr/include/CCfits -I/usr/local/include/cfitsio -I/usr/local/include/CCfits -I./include  -c -o fitsfindblank.o fitsfindblank.cc
+g++ -std=c++0x -Wall -Wextra -pedantic -Wno-deprecated -g -I/usr/include/cfitsio -I/usr/include/CCfits -I/usr/local/include/cfitsio -I/usr/local/include/CCfits -I./include  -c -o fitsshift.o fitsshift.cc
+g++ -std=c++0x -Wall -Wextra -pedantic -Wno-deprecated -g -I/usr/include/cfitsio -I/usr/include/CCfits -I/usr/local/include/cfitsio -I/usr/local/include/CCfits -I./include  -c -o rotate_cdmatrix.o rotate_cdmatrix.cc
+g++ -std=c++0x -Wall -Wextra -pedantic -Wno-deprecated -g -I/usr/include/cfitsio -I/usr/include/CCfits -I/usr/local/include/cfitsio -I/usr/local/include/CCfits -I./include  -c -o fitspropagateerror.o fitspropagateerror.cc
+g++ -std=c++0x -Wall -Wextra -pedantic -Wno-deprecated -g -I/usr/include/cfitsio -I/usr/include/CCfits -I/usr/local/include/cfitsio -I/usr/local/include/CCfits -I./include  -c -o splitsuprimecam.o splitsuprimecam.cc
+g++ -std=c++0x -Wall -Wextra -pedantic -Wno-deprecated -g -I/usr/include/cfitsio -I/usr/include/CCfits -I/usr/local/include/cfitsio -I/usr/local/include/CCfits -I./include  -c -o fitsmerge.o fitsmerge.cc
+g++ -std=c++0x -Wall -Wextra -pedantic -Wno-deprecated -g -I/usr/include/cfitsio -I/usr/include/CCfits -I/usr/local/include/cfitsio -I/usr/local/include/CCfits -I./include  -c -o fits_da_max.o fits_da_max.cc
+g++ -std=c++0x -Wall -Wextra -pedantic -Wno-deprecated -g -I/usr/include/cfitsio -I/usr/include/CCfits -I/usr/local/include/cfitsio -I/usr/local/include/CCfits -I./include  -c -o fitstools.o fitstools.cc
+g++ -std=c++0x -Wall -Wextra -pedantic -Wno-deprecated -g -I/usr/include/cfitsio -I/usr/include/CCfits -I/usr/local/include/cfitsio -I/usr/local/include/CCfits -I./include  -c -o gpcfitsmask.o gpcfitsmask.cc
+g++ -std=c++0x -Wall -Wextra -pedantic -Wno-deprecated -g -I/usr/include/cfitsio -I/usr/include/CCfits -I/usr/local/include/cfitsio -I/usr/local/include/CCfits -I./include  -c -o swarpfilter.o swarpfilter.cc
+g++ -std=c++0x -Wall -Wextra -pedantic -Wno-deprecated -g -I/usr/include/cfitsio -I/usr/include/CCfits -I/usr/local/include/cfitsio -I/usr/local/include/CCfits -I./include  -c -o split_paucam.o split_paucam.cc
+g++ -std=c++0x -Wall -Wextra -pedantic -Wno-deprecated -g -I/usr/include/cfitsio -I/usr/include/CCfits -I/usr/local/include/cfitsio -I/usr/local/include/CCfits -I./include  -c -o crosstalk.o crosstalk.cc
+g++ -std=c++0x -Wall -Wextra -pedantic -Wno-deprecated -g -I/usr/include/cfitsio -I/usr/include/CCfits -I/usr/local/include/cfitsio -I/usr/local/include/CCfits -I./include  -c -o fitsbin.o fitsbin.cc
+g++ -std=c++0x -Wall -Wextra -pedantic -Wno-deprecated -g -I/usr/include/cfitsio -I/usr/include/CCfits -I/usr/local/include/cfitsio -I/usr/local/include/CCfits -I./include  -c -o expand_sexmask.o expand_sexmask.cc
+g++ -std=c++0x -Wall -Wextra -pedantic -Wno-deprecated -g -I/usr/include/cfitsio -I/usr/include/CCfits -I/usr/local/include/cfitsio -I/usr/local/include/CCfits -I./include  -c -o getfitsvalues.o getfitsvalues.cc
+g++ -std=c++0x -Wall -Wextra -pedantic -Wno-deprecated -g -I/usr/include/cfitsio -I/usr/include/CCfits -I/usr/local/include/cfitsio -I/usr/local/include/CCfits -I./include  -c -o split_kasi.o split_kasi.cc
+g++ -std=c++0x -Wall -Wextra -pedantic -Wno-deprecated -g -I/usr/include/cfitsio -I/usr/include/CCfits -I/usr/local/include/cfitsio -I/usr/local/include/CCfits -I./include  -c -o fitsmaskexpand.o fitsmaskexpand.cc
+fitsstat.cc:1:18: fatal error: CCfits: No such file or directory
+ #include <CCfits>
+                  ^
+fitsmaskexpand.cc:1:18: fatal error: CCfits: No such file or directory
+ #include <CCfits>
+                  ^
+fitsguessgeom.cc:1:18: fatal error: CCfits: No such file or directory
+ #include <CCfits>
+                  ^
+splitsuprimecam.cc:1:18: fatal error: CCfits: No such file or directory
+ #include <CCfits>
+                  ^
+fitsextractext.cc:1:18: fatal error: CCfits: No such file or directory
+ #include <CCfits>
+                  ^
+fitsdemosaicbayer.cc:1:18: fatal error: CCfits: No such file or directory
+ #include <CCfits>
+                  ^
+fitsaddkey.cc:1:18: fatal error: CCfits: No such file or directory
+ #include <CCfits>
+                  ^
+compilation terminated.
+compilation terminated.
+fitspropagateerror.cc:1:18: fatal error: CCfits: No such file or directory
+ #include <CCfits>
+                  ^
+paste_dualchannel.cc:1:18: fatal error: CCfits: No such file or directory
+ #include <CCfits>
+                  ^
+fitsfindblank.cc:1:18: fatal error: CCfits: No such file or directory
+ #include <CCfits>
+                  ^
+compilation terminated.
+compilation terminated.
+compilation terminated.
+fitsbloomdetect.cc:1:18: fatal error: CCfits: No such file or directory
+ #include <CCfits>
+                  ^
+compilation terminated.
+fitscdinfo.cc:1:18: fatal error: CCfits: No such file or directory
+ #include <CCfits>
+                  ^
+compilation terminated.
+fitssmoothedge.cc:1:18: fatal error: CCfits: No such file or directory
+ #include <CCfits>
+                  ^
+compilation terminated.
+split_kasi.cc:1:18: fatal error: CCfits: No such file or directory
+ #include <CCfits>
+                  ^
+compilation terminated.
+fitswrap.cc:1:18: fatal error: CCfits: No such file or directory
+ #include <CCfits>
+                  ^
+compilation terminated.
+get_posangle.cc:1:18: fatal error: CCfits: No such file or directory
+ #include <CCfits>
+                  ^
+getfitsvalues.cc:1:18: fatal error: CCfits: No such file or directory
+ #include <CCfits>
+                  ^
+compilation terminated.
+compilation terminated.
+fitscompare.cc:1:18: fatal error: CCfits: No such file or directory
+ #include <CCfits>
+                  ^
+compilation terminated.
+cdelt2cd.cc:1:18: fatal error: CCfits: No such file or directory
+ #include <CCfits>
+                  ^
+compilation terminated.
+fitscollapse.cc:1:18: fatal error: CCfits: No such file or directory
+ #include <CCfits>
+                  ^
+compilation terminated.
+getfitsval.cc:1:18: fatal error: CCfits: No such file or directory
+ #include <CCfits>
+                  ^
+compilation terminated.
+compilation terminated.
+fitscopyhead.cc:1:18: fatal error: CCfits: No such file or directory
+ #include <CCfits>
+                  ^
+compilation terminated.
+split_paucam.cc:1:18: fatal error: CCfits: No such file or directory
+ #include <CCfits>
+                  ^
+compilation terminated.
+gaussconvolve.cc:1:18: fatal error: CCfits: No such file or directory
+ #include <CCfits>
+                  ^
+compilation terminated.
+split_grond.cc:1:18: fatal error: CCfits: No such file or directory
+ #include <CCfits>
+                  ^
+compilation terminated.
+sumcircle.cc:1:18: fatal error: CCfits: No such file or directory
+ #include <CCfits>
+                  ^
+compilation terminated.
+fitsflip.cc:1:18: fatal error: CCfits: No such file or directory
+ #include <CCfits>
+                  ^
+fits_da_max.cc:1:18: fatal error: CCfits: No such file or directory
+ #include <CCfits>
+                  ^
+getpsf.cc:1:18: fatal error: CCfits: No such file or directory
+ #include <CCfits>
+                  ^
+compilation terminated.
+compilation terminated.
+compilation terminated.
+compilation terminated.
+fitscurve.cc:1:18: fatal error: CCfits: No such file or directory
+ #include <CCfits>
+                  ^
+compilation terminated.
+split_decam.cc:1:18: fatal error: CCfits: No such file or directory
+ #include <CCfits>
+                  ^
+compilation terminated.
+equalisebayerflat.cc:1:18: fatal error: CCfits: No such file or directory
+ #include <CCfits>
+                  ^
+compilation terminated.
+fitsblend.cc:1:18: fatal error: CCfits: No such file or directory
+ #include <CCfits>
+                  ^
+compilation terminated.
+fitsmerge.cc:1:18: fatal error: CCfits: No such file or directory
+ #include <CCfits>
+                  ^
+compilation terminated.
+fitspic.cc:1:18: fatal error: CCfits: No such file or directory
+ #include <CCfits>
+                  ^
+corrliris.cc:1:18: fatal error: CCfits: No such file or directory
+ #include <CCfits>
+                  ^
+compilation terminated.
+compilation terminated.
+compilation terminated.
+crosstalk.cc:1:18: fatal error: CCfits: No such file or directory
+ #include <CCfits>
+                  ^
+compilation terminated.
+make: *** [corrliris.o] Error 1
+make: *** Waiting for unfinished jobs....
+make: *** [fitspic.o] Error 1
+make: *** [fitscollapse.o] Error 1
+make: *** [split_kasi.o] Error 1
+make: *** [fitsstat.o] Error 1
+make: *** [crosstalk.o] Error 1
+fitsdebloom.cc:1:18: fatal error: CCfits: No such file or directory
+ #include <CCfits>
+                  ^
+compilation terminated.
+make: *** [fitsfindblank.o] Error 1
+make: *** [fitscompare.o] Error 1
+paste_swope.cc:1:18: fatal error: CCfits: No such file or directory
+ #include <CCfits>
+                  ^
+compilation terminated.
+make: *** [fitsdebloom.o] Error 1
+make: *** [fitsmerge.o] Error 1
+make: *** [getfitsvalues.o] Error 1
+fitsshift.cc:1:18: fatal error: CCfits: No such file or directory
+ #include <CCfits>
+                  ^
+make: *** [split_decam.o] Error 1
+compilation terminated.
+make: *** [paste_swope.o] Error 1
+make: *** [paste_dualchannel.o] Error 1
+compilation terminated.
+make: *** [fitsshift.o] Error 1
+make: *** [split_paucam.o] Error 1
+compilation terminated.
+make: *** [getpsf.o] Error 1
+split_gmos_multiport.cc:1:18: fatal error: CCfits: No such file or directory
+ #include <CCfits>
+                  ^
+make: *** [splitsuprimecam.o] Error 1
+compilation terminated.
+make: *** [fitsbloomdetect.o] Error 1
+make: *** [fitsextractext.o] Error 1
+make: *** [split_grond.o] Error 1
+make: *** [get_posangle.o] Error 1
+make: *** [equalisebayerflat.o] Error 1
+make: *** [split_gmos_multiport.o] Error 1
+make: *** [gaussconvolve.o] Error 1
+make: *** [fitscurve.o] Error 1
+paste_sami.cc:1:18: fatal error: CCfits: No such file or directory
+ #include <CCfits>
+                  ^
+compilation terminated.
+make: *** [fitscopyhead.o] Error 1
+make: *** [sumcircle.o] Error 1
+make: *** [fitscdinfo.o] Error 1
+make: *** [fitsblend.o] Error 1
+make: *** [fitswrap.o] Error 1
+make: *** [fitsguessgeom.o] Error 1
+make: *** [fitsmaskexpand.o] Error 1
+make: *** [fits_da_max.o] Error 1
+make: *** [fitspropagateerror.o] Error 1
+make: *** [cdelt2cd.o] Error 1
+make: *** [fitsflip.o] Error 1
+make: *** [getfitsval.o] Error 1
+make: *** [fitssmoothedge.o] Error 1
+make: *** [fitsaddkey.o] Error 1
+make: *** [paste_sami.o] Error 1
+make: *** [fitsdemosaicbayer.o] Error 1
+gpcfitsmask.cc:1:18: fatal error: CCfits: No such file or directory
+ #include <CCfits>
+                  ^
+compilation terminated.
+make: *** [gpcfitsmask.o] Error 1
+fitsbin.cc:2:18: fatal error: CCfits: No such file or directory
+ #include <CCfits>
+                  ^
+compilation terminated.
+make: *** [fitsbin.o] Error 1
+getkey.cc:2:18: fatal error: CCfits: No such file or directory
+ #include <CCfits>
+                  ^
+compilation terminated.
+make: *** [getkey.o] Error 1
+expand_sexmask.cc:3:18: fatal error: CCfits: No such file or directory
+ #include <CCfits>
+                  ^
+compilation terminated.
+rotate_cdmatrix.cc:2:18: fatal error: CCfits: No such file or directory
+ #include <CCfits>
+                  ^
+compilation terminated.
+fitsnonlinearity.cc:3:18: fatal error: CCfits: No such file or directory
+ #include <CCfits>
+                  ^
+compilation terminated.
+make: *** [expand_sexmask.o] Error 1
+make: *** [rotate_cdmatrix.o] Error 1
+make: *** [fitsnonlinearity.o] Error 1
+fitsmask.cc:9:18: fatal error: CCfits: No such file or directory
+ #include <CCfits>
+                  ^
+compilation terminated.
+make: *** [fitsmask.o] Error 1
+fitshistomod.cc:4:18: fatal error: CCfits: No such file or directory
+ #include <CCfits>
+                  ^
+compilation terminated.
+make: *** [fitshistomod.o] Error 1
+fitstools.cc:10:18: fatal error: CCfits: No such file or directory
+ #include <CCfits>
+                  ^
+compilation terminated.
+myFITS.cc:9:18: fatal error: CCfits: No such file or directory
+ #include <CCfits>
+                  ^
+compilation terminated.
+make: *** [myFITS.o] Error 1
+make: *** [fitstools.o] Error 1
+swarpfilter.cc:3:18: fatal error: CCfits: No such file or directory
+ #include <CCfits>
+                  ^
+compilation terminated.
+make: *** [swarpfilter.o] Error 1
+ 
+*************************************************
+ 
+ERROR while compiling fitstools.
+Check the output for missing libraries.
+ 
+*************************************************
+ 
