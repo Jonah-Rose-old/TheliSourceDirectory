@@ -198,23 +198,6 @@ by Herb Sutter (2000) and references therein].
 
         */
 
-        /*! \fn Keyword& HDU::readNextKey(const std::vector<String>& incList, const std::vector<String>& excList, bool searchFromBeginning);
-              \brief Read the next key in the HDU which matches a string in incList, and does not match string in excList
-
-              Parameters:
-              \param incList Vector of strings specifying keyword names to search.
-              \param excList Vector of strings specifying names to exclude from search.  This may be left empty.
-              \param searchFromBeginning If 'true', search will be conducted from the start of the HDU.  Otherwise it starts from the current position.
-
-              This is a wrapper around the CFITSIO fits_find_nextkey function.  It reads in and returns the next keyword whose
-              name matches matches one of the strings in incList, which may contain wild card characters (*,?, and #). It will
-              exclude keywords whose name matches a string in excList.  If no keyword is found, a FitError is thrown.
-              
-              By default the search is conducted from the current keyword position in the HDU.  If searchFromBeginning 
-              is set to 'true', search will start from the beginning of the HDU. If HDU is not the currently open extension, 
-              this will make it so and start the keyword search from the beginning. 
-        */
-
         /*! \fn  static std::vector<int> HDU::keywordCategories ();
               \brief return the enumerated keyword categories used by readAllKeys() and copyAllKeys()
 
@@ -459,17 +442,6 @@ and return its value.
               determination).  If this situation occurs, the function will throw a FitsException.              
 
         */
-        
-        /*! \fn virtual void HDU::resetImageRead ();
-              \brief force next image reading operation to read from file instead of object cache.
-              
-              [Note: It is not necessary to call this function for normal image reading operations.]
-              For primary HDUs and image extensions, this forces the next read operation
-              to retrieve data from the file regardless of whether the data has
-              already been read and stored in the HDU's internal arrays.  This does nothing
-              if the HDU does not contain an image.
-        
-        */
 
          /*! \fn void HDU::suppressScaling (bool toggle = true);
              \brief turn off image scaling regardless of the BSCALE and BZERO keyword values
@@ -658,8 +630,7 @@ and return its value.
         virtual void scale (double value);
         virtual double zero () const;
         virtual void zero (double value);
-        virtual void resetImageRead ();
-        virtual void suppressScaling (bool toggle = true);
+        void suppressScaling (bool toggle = true);
         void writeChecksum ();
         void updateChecksum ();
         std::pair<int,int> verifyChecksum () const;
@@ -672,9 +643,6 @@ and return its value.
         static std::vector<int> keywordCategories ();
         const std::map<string,Keyword*>& keyWord () const;
         const Keyword& keyWord (const string& keyname) const;
-        Keyword& readNextKey(const std::vector<String>& incList,
-                             const std::vector<String>& excList,
-                             bool searchFromBeginning = false);
 
     public:
       // Additional Public Declarations
@@ -915,10 +883,6 @@ and return its value.
   inline void HDU::zero (double value)
   {
     m_zero = value;
-  }
-  
-  inline void HDU::resetImageRead ()
-  {
   }
 
   inline void HDU::saveReadKeyword (Keyword* newKey)

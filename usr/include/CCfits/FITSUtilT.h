@@ -13,6 +13,9 @@
 #include "MSconfig.h" // for truncation warning
 #endif
 
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
 
 #include "FITSUtil.h"
 

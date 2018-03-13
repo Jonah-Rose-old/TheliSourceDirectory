@@ -168,7 +168,6 @@ namespace CCfits {
          <tr><td>float</td><td>double (will lose precision), float, int, integer string</td></tr>
          <tr><td>double</td><td>double, float, int, integer string</td></tr>
          <tr><td>int</td><td>int, integer string</td></tr>
-         <tr><td>string</td><td>double, float, int, string</td></tr>
        </TABLE>
        More conversions may be added in the future as the need arises.
 
@@ -269,7 +268,6 @@ namespace CCfits {
   template <> float& Keyword::value(float& val) const;
   template <> double& Keyword::value(double& val) const;
   template <> int& Keyword::value(int& val) const;
-  template <> String& Keyword::value(String& val) const;
 
   template <> void Keyword::setValue(const float& newValue);
   template <> void Keyword::setValue(const double& newValue);

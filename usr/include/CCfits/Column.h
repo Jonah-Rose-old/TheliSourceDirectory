@@ -214,7 +214,7 @@ namespace CCfits {
 */
 
 
-/*! \fn Column::InvalidNumberOfRows::InvalidNumberOfRows (int number, bool silent);
+/*! \fn Column::InvalidNumberOfRows::InvalidNumberOfRows (size_t number, bool silent);
 
         \brief Exception ctor, prefixes the string "Fits Error: number of rows to write must be positive " before the specific message.
 
@@ -290,31 +290,17 @@ namespace CCfits {
 
 */
 
-/*!  \fn template <typename S> void Column::read(std::valarray<S>& vals, long row) ;
+/*!  \fn template <typename S> void Column::read(std::valarray<S>& vals, long rows) ;
 
         \brief return a single row of a vector column into a std::valarray
 
         \param vals The output valarray object
-        \param row The row number to be retrieved (starting at 1).
+        \param rows The row number to be retrieved (starting at 1).
 */
 
-/*!  \fn template <typename S> void Column::read(std::vector<S>& vals, long row) ;
-
-        \brief return a single row of a vector column into a std::vector
-
-        \param vals The output vector object
-        \param row The row number to be retrieved (starting at 1).
-*/
-
-/*!  \fn  template <typename S> void Column::read(std::valarray<S>& vals, long row, S* nullValue) ;
+/*!  \fn  template <typename S> void Column::read(std::valarray<S>& vals, long rows, S* nullValue) ;
 
         \brief return a single row of a vector column into a std::valarray, setting undefined values
-
-*/
-
-/*!  \fn  template <typename S> void Column::read(std::valarray<S>& vals, long row, S* nullValue) ;
-
-        \brief return a single row of a vector column into a std::vector, setting undefined values
 
 */
 
@@ -944,7 +930,7 @@ namespace CCfits {
       class InvalidNumberOfRows : public FitsException  //## Inherits: <unnamed>%3B20EB8B0205
       {
         public:
-            InvalidNumberOfRows (int number, bool silent = true);
+            InvalidNumberOfRows (size_t number, bool silent = true);
 
         protected:
         private:
@@ -963,13 +949,7 @@ namespace CCfits {
         void setDisplay ();
         virtual void setDimen ();
         friend std::ostream& operator << (std::ostream& s, const Column& right);
-        
-        // The parent SET function is needed by Table classes, but 
-        //  should not be part of the user interface.  It is deliberately left
-        //   out of the document section up top.
         Table* parent () const;
-        void setParent(Table* parent);
-        
         //	Inequality operators for imposing sort order on columns.
         friend bool operator < (const Column& left, const Column& right);
         //	Inequality operators for imposing sort order on columns.
@@ -1146,12 +1126,10 @@ namespace CCfits {
         // return a single  row of a vector column.
         template <typename S>
         void read(std::valarray<S>& vals, long rows) ;
-        template <typename S>
-        void read(std::vector<S>& vals, long rows);
+
         void read(std::valarray<std::complex<float> >& vals, long rows) ;
+
         void read(std::valarray<std::complex<double> >& vals, long rows) ;
-        void read(std::vector<std::complex<float> >& vals, long rows) ;
-        void read(std::vector<std::complex<double> >& vals, long rows) ;
 
         // get a set of rows from a vector column.
         template <typename S>
@@ -1176,9 +1154,6 @@ namespace CCfits {
         template <typename S>
         void read(std::valarray<S>& vals, long rows, S* nullValue) ;
 
-        template <typename S>
-        void read(std::vector<S>& vals, long rows, S* nullValue) ;
-        
         // get a set of rows from a vector column.
         template <typename S>
         void readArrays(std::vector<std::valarray<S> >& vals, long first, long last, S* nullValue);
@@ -1201,8 +1176,9 @@ namespace CCfits {
 
         friend void Table::initRead();
 
-        friend void Table::reindex(int startNum, bool isInsert);
+        friend void Table::reindex();
 
+        friend void Table::copyData(const Table& right);
     protected:
         Column (int columnIndex, 	// The column index, i.e. the integer n in the keyword TCOLn
         const String &columnName, 	// The column name, curiously TTYPEn

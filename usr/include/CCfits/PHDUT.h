@@ -40,9 +40,9 @@ namespace CCfits
                 if ( PrimaryHDU<S>* phdu = dynamic_cast<PrimaryHDU<S>*>(this) )
                 {
                         // proceed if cast is successful.
-                        const std::valarray<S>& __tmp = phdu->readImage(first,nElements,nullValue);
+                        const std::valarray<S>& __tmp = phdu->readImage(first,nElements,nullValue);                           
                         image.resize(__tmp.size());
-                        image = __tmp;                           
+                        image = __tmp;
                 }
                 else
                 {
@@ -51,8 +51,8 @@ namespace CCfits
                                 PrimaryHDU<float>& phdu 
                                                 = dynamic_cast<PrimaryHDU<float>&>(*this);
                                 float nulVal(0);
-                                if (nullValue) nulVal = static_cast<float>(*nullValue);                                                               
-                                FITSUtil::fill(image,phdu.readImage(first,nElements, &nulVal));
+                                if (nullValue) nulVal = static_cast<float>(*nullValue);                                 
+                                FITSUtil::fill(image,phdu.readImage(first,nElements,&nulVal));
 
                         }
                         else if (bitpix() == Idouble)
@@ -61,7 +61,7 @@ namespace CCfits
                                                 = dynamic_cast<PrimaryHDU<double>&>(*this);
                                 double nulVal(0);
                                 if (nullValue) nulVal = static_cast<double>(*nullValue);                                 
-                                FITSUtil::fill(image,phdu.readImage(first,nElements, &nulVal));
+                                FITSUtil::fill(image,phdu.readImage(first,nElements,&nulVal));
 
                         }
                         else if (bitpix() == Ibyte)
@@ -70,7 +70,7 @@ namespace CCfits
                                                 = dynamic_cast<PrimaryHDU<unsigned char>&>(*this);
                                 unsigned char nulVal(0);
                                 if (nullValue) nulVal = static_cast<unsigned char>(*nullValue);                                 
-                                FITSUtil::fill(image,phdu.readImage(first,nElements, &nulVal));
+                                FITSUtil::fill(image,phdu.readImage(first,nElements,&nulVal));                               
                         } 
                         else if (bitpix() == Ilong)
                         {
@@ -81,7 +81,8 @@ namespace CCfits
                                         unsigned INT32BIT nulVal(0);
                                         if (nullValue) nulVal 
                                                 = static_cast<unsigned INT32BIT>(*nullValue);                                 
-                                        FITSUtil::fill(image,phdu.readImage(first,nElements, &nulVal));
+                                        FITSUtil::fill(image,
+                                                        phdu.readImage(first,nElements,&nulVal));                              
                                 }
                                 else
                                 {
@@ -89,16 +90,10 @@ namespace CCfits
                                                         = dynamic_cast<PrimaryHDU<INT32BIT>&>(*this);
                                         INT32BIT nulVal(0);
                                         if (nullValue) nulVal = static_cast<INT32BIT>(*nullValue);                                 
-                                        FITSUtil::fill(image,phdu.readImage(first,nElements, &nulVal));
+                                        FITSUtil::fill(image,
+                                                        phdu.readImage(first,nElements,&nulVal));                              
                                 }
-                        }
-			else if (bitpix() == Ilonglong)
-			{
-                           PrimaryHDU<LONGLONG>& phdu = dynamic_cast<PrimaryHDU<LONGLONG>&>(*this);
-                           LONGLONG nulVal(0);
-                           if (nullValue) nulVal = static_cast<LONGLONG>(*nullValue);                                 
-                           FITSUtil::fill(image,phdu.readImage(first,nElements, &nulVal));
-			}    
+                        }    
                         else if (bitpix() == Ishort)
                         {
                                 if ( zero() == USBASE && scale() == 1)
@@ -108,7 +103,8 @@ namespace CCfits
                                         unsigned short nulVal(0);
                                         if (nullValue) nulVal 
                                                         = static_cast<unsigned short>(*nullValue);                                 
-                                        FITSUtil::fill(image,phdu.readImage(first,nElements, &nulVal));
+                                        FITSUtil::fill(image,
+                                                        phdu.readImage(first,nElements,&nulVal));                             
                                 }
                                 else
                                 {
@@ -116,7 +112,8 @@ namespace CCfits
                                                         = dynamic_cast<PrimaryHDU<short>&>(*this);
                                         short nulVal(0);
                                         if (nullValue) nulVal = static_cast<short>(*nullValue);                                 
-                                        FITSUtil::fill(image,phdu.readImage(first,nElements, &nulVal));
+                                        FITSUtil::fill(image,
+                                                        phdu.readImage(first,nElements,&nulVal));                             
 
                                 }
                         }          
@@ -172,10 +169,10 @@ namespace CCfits
                 makeThisCurrent();
                 if (PrimaryHDU<S>* phdu = dynamic_cast<PrimaryHDU<S>*>(this))
                 {
-                   const std::valarray<S>& __tmp =
-                       phdu->readImage(firstVertex,lastVertex,stride,nullValue);
-                   image.resize(__tmp.size());
-                   image = __tmp;                         
+                        const std::valarray<S>& __tmp 
+                                        = phdu->readImage(firstVertex,lastVertex,stride,nullValue);                         
+                        image.resize(__tmp.size());
+                        image = __tmp;
                 }
                 else
                 {
@@ -185,14 +182,16 @@ namespace CCfits
                                 float nulVal(0);
                                 if (nullValue) nulVal = static_cast<float>(*nullValue);                                 
                                 PrimaryHDU<float>& phdu = dynamic_cast<PrimaryHDU<float>&>(*this);
-                                FITSUtil::fill(image,phdu.readImage(firstVertex,lastVertex,stride,&nulVal));
+                                FITSUtil::fill(image,
+                                        phdu.readImage(firstVertex,lastVertex,stride,&nulVal));
                         }
                         else if (bitpix() == Idouble)
                         {
                                 PrimaryHDU<double>& phdu = dynamic_cast<PrimaryHDU<double>&>(*this);
                                 double nulVal(0);
                                 if (nullValue) nulVal = static_cast<double>(*nullValue);                                 
-                                FITSUtil::fill(image,phdu.readImage(firstVertex,lastVertex,stride,&nulVal));
+                                FITSUtil::fill(image,
+                                                phdu.readImage(firstVertex,lastVertex,stride,&nulVal));                              
                         }
                         else if (bitpix() == Ibyte)
                         {
@@ -200,7 +199,8 @@ namespace CCfits
                                                 = dynamic_cast<PrimaryHDU<unsigned char>&>(*this);
                                 unsigned char nulVal(0);
                                 if (nullValue) nulVal = static_cast<unsigned char>(*nullValue);                                 
-                                FITSUtil::fill(image,phdu.readImage(firstVertex,lastVertex,stride,&nulVal));
+                                FITSUtil::fill(image,
+                                                phdu.readImage(firstVertex,lastVertex,stride,&nulVal));
                         } 
                         else if (bitpix() == Ilong)
                         {
@@ -211,7 +211,8 @@ namespace CCfits
                                         unsigned INT32BIT nulVal(0);
                                         if (nullValue) nulVal 
                                                 = static_cast<unsigned INT32BIT>(*nullValue);                                 
-                                        FITSUtil::fill(image,phdu.readImage(firstVertex,lastVertex,stride,&nulVal));
+                                        FITSUtil::fill(image,
+                                             phdu.readImage(firstVertex,lastVertex,stride,&nulVal));                            
                                 }
                                 else
                                 {
@@ -219,17 +220,10 @@ namespace CCfits
                                                         = dynamic_cast<PrimaryHDU<INT32BIT>&>(*this);
                                         INT32BIT nulVal(0);
                                         if (nullValue) nulVal = static_cast<INT32BIT>(*nullValue);                                 
-                                        FITSUtil::fill(image,phdu.readImage(firstVertex,lastVertex,stride,&nulVal));
+                                        FITSUtil::fill(image,
+                                             phdu.readImage(firstVertex,lastVertex,stride,&nulVal));                            
                                 }      
                         }    
-                        else if (bitpix() == Ilonglong)
-                        {
-                                PrimaryHDU<LONGLONG>& phdu 
-                                                = dynamic_cast<PrimaryHDU<LONGLONG>&>(*this);
-                                LONGLONG nulVal(0);
-                                if (nullValue) nulVal = static_cast<LONGLONG>(*nullValue);                                 
-                                FITSUtil::fill(image,phdu.readImage(firstVertex,lastVertex,stride,&nulVal));
-                        } 
                         else if (bitpix() == Ishort)
                         {
                                 if ( zero() == USBASE && scale() == 1)
@@ -239,7 +233,8 @@ namespace CCfits
                                         unsigned short nulVal(0);
                                         if (nullValue) nulVal 
                                                 = static_cast<unsigned short>(*nullValue);                                 
-                                        FITSUtil::fill(image,phdu.readImage(firstVertex,lastVertex,stride,&nulVal));
+                                        FITSUtil::fill(image,
+                                             phdu.readImage(firstVertex,lastVertex,stride,&nulVal));                            
                                 }
                                 else
                                 {
@@ -247,7 +242,8 @@ namespace CCfits
                                                         = dynamic_cast<PrimaryHDU<short>&>(*this);
                                         short nulVal(0);
                                         if (nullValue) nulVal = static_cast<short>(*nullValue);                                 
-                                        FITSUtil::fill(image,phdu.readImage(firstVertex,lastVertex,stride,&nulVal));
+                                        FITSUtil::fill(image,
+                                             phdu.readImage(firstVertex,lastVertex,stride,&nulVal));                            
                                 }
                         }          
                         else 
@@ -359,22 +355,6 @@ namespace CCfits
                                         phdu.writeImage(first,nElements,__tmp, plNull);                          
                                 }
                         }    
-                        else if (bitpix() == Ilonglong)
-                        {
-                                PrimaryHDU<LONGLONG>& phdu 
-                                                = dynamic_cast<PrimaryHDU<LONGLONG>&>(*this);
-                                std::valarray<LONGLONG> __tmp;         
-                                FITSUtil::fill(__tmp,data);
-                                LONGLONG *pllNull=0;
-                                LONGLONG llNull=0;
-                                if (nullValue)
-                                {
-                                   llNull = static_cast<LONGLONG>(*nullValue);
-                                   pllNull = &llNull;
-                                }                                        
-                                phdu.writeImage(first,nElements,__tmp, pllNull);
-
-                        } 
                         else if (bitpix() == Ishort)
                         {
                                 if ( zero() == USBASE && scale() == 1)
@@ -436,7 +416,7 @@ namespace CCfits
                 size_t n(first.size());
                 long firstElement(0);
                 long dimSize(1);
-                for (long i = 0; i < n; ++i)
+                for (long i = 0; i < first.size(); ++i)
                 {
                         firstElement +=  ((first[i] - 1)*dimSize);
                         dimSize *=naxes(i);   
@@ -455,7 +435,7 @@ namespace CCfits
                 size_t n(first.size());
                 long firstElement(0);
                 long dimSize(1);
-                for (long i = 0; i < n; ++i)
+                for (long i = 0; i < first.size(); ++i)
                 {
 
                         firstElement +=  ((first[i] - 1)*dimSize);
@@ -532,15 +512,6 @@ namespace CCfits
                                         phdu.writeImage(firstVertex,lastVertex,stride,__tmp);                         
                                 }
                         }                           
-                        else if (bitpix() == Ilonglong)
-                        {
-                                PrimaryHDU<LONGLONG>& phdu 
-                                        = dynamic_cast<PrimaryHDU<LONGLONG>&>(*this);
-                                size_t n(data.size());
-                                std::valarray<LONGLONG> __tmp(n);
-                                for (size_t j= 0; j < n; ++j) __tmp[j] = data[j];
-                                phdu.writeImage(firstVertex,lastVertex,stride,__tmp);                        
-                        } 
                         else if (bitpix() == Ishort)
                         {
                                 if ( zero() == USBASE && scale() == 1)

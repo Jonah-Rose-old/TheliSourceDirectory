@@ -206,7 +206,7 @@ namespace CCfits {
       \param hduKeys Allows optional reading of keys in the HDU that is searched for if it 
                       is successfully found
       \param primaryKey Allows optional reading of primary header keys on construction
-      \param version   Optional version number. If specified, checks the EXTVER keyword.
+      \param version   Optional version number. If specified, checks the EXTVERS keyword.
 
 
       \exception FitsError thrown on non-zero status code from cfitsio when not overriden
@@ -280,7 +280,7 @@ namespace CCfits {
      The arguments are:
      \param name The file to be written to disk
      \param bitpix the datatype of the primary image. <i>bitpix</i> may be one of the following CFITSIO constants: BYTE_IMG, SHORT_IMG, LONG_IMG,
-     FLOAT_IMG, DOUBLE_IMG, USHORT_IMG, ULONG_IMG, LONGLONG_IMG.  Note that if you send in a <i>bitpix</i> of 
+     FLOAT_IMG, DOUBLE_IMG, USHORT_IMG, ULONG_IMG.  Note that if you send in a <i>bitpix</i> of 
      USHORT_IMG or ULONG_IMG, CCfits will set HDU::bitpix() to its signed equivalent (SHORT_IMG
      or LONG_IMG), and then set BZERO to 2^15 or 2^31.
 
@@ -384,7 +384,7 @@ namespace CCfits {
       \param readDataFlag boolean: if true, read data if HDU is found                    
       \param hduKeys Allows optional reading of keys in the HDU that is searched for if it 
                       is successfully found
-      \param version   Optional version number. If specified, checks the EXTVER keyword.
+      \param version   Optional version number. If specified, checks the EXTVERS keyword.
 
 
 */
@@ -520,7 +520,7 @@ do this either).
      functions.  
 
      <i>bpix</i> may be one of the following CFITSIO constants: BYTE_IMG, SHORT_IMG, LONG_IMG,
-     FLOAT_IMG, DOUBLE_IMG, USHORT_IMG, ULONG_IMG, LONGLONG_IMG.  Note that if you send in a <i>bpix</i> of 
+     FLOAT_IMG, DOUBLE_IMG, USHORT_IMG, ULONG_IMG.  Note that if you send in a <i>bpix</i> of 
      USHORT_IMG or ULONG_IMG, CCfits will set HDU::bitpix() to its signed equivalent (SHORT_IMG
      or LONG_IMG), and then set BZERO to 2^15 or 2^31.
 

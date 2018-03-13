@@ -23,6 +23,9 @@ namespace CCfits {
 #include "MSconfig.h" // for truncation warning
 #endif
 
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
 
 #ifdef SSTREAM_DEFECT
 #include <strstream>
@@ -230,18 +233,18 @@ namespace CCfits {
 */
 
 
-/*! \fn   const ColMap& Table::column () const;
+/*! \fn   const map<string,Column*>& Table::column () const;
 
-        \brief return a reference to the multimap containing the columns. 
+        \brief return a reference to the array containing the columns. 
 
         This public version might be used to query the size of the column container
         in a routine that manipulates column table data.
 
 */
 
-/*! \fn   ColMap& Table::column ();
+/*! \fn   map<string,Column*>& Table::column ();
 
-        \brief return a reference to the multimap containing the columns. 
+        \brief return a reference to the array containing the columns. 
 
         To be used  in the implementation of subclasses.
 
@@ -265,6 +268,12 @@ namespace CCfits {
 */
 
 
+
+/*! \fn      void Table::setColumn (const String& colname, Column *value);
+
+        \brief set the column with name colname to the input value.
+
+ */
 
 
 
@@ -314,9 +323,8 @@ namespace CCfits {
         void deleteRows (const std::vector<long>& rowList);
         virtual long getRowsize () const;
         virtual int numCols () const;
-        virtual const ColMap& column () const;
-        virtual ColMap& column ();
-        virtual void copyColumn(const Column& inColumn, int colIndx, bool insertNewCol=true);
+        virtual const std::map<string, Column*>& column () const;
+        virtual std::map<string, Column*>& column ();
 
     public:
       // Additional Public Declarations
@@ -332,9 +340,10 @@ namespace CCfits {
         Table (FITSBase* p, HduType xtype, int number);
 
         virtual std::ostream & put (std::ostream &s) const;
+        void column (int columnNum, Column *value);
         void init (bool readFlag = false, const std::vector<String>& keys = std::vector<String>());
         virtual void setColumn (const String& colname, Column* value);
-        void reindex (int startNum, bool isInsert);
+        void reindex ();
         void numCols (int value);
 
       // Additional Protected Declarations
@@ -353,7 +362,7 @@ namespace CCfits {
         int m_numCols;
 
       // Data Members for Associations
-        ColMap m_column;
+        std::map<string, Column*> m_column;
 
       // Additional Implementation Declarations
       friend class Column;
@@ -382,7 +391,7 @@ namespace CCfits {
      return m_numCols;
   }
 
-  inline const ColMap& Table::column () const
+  inline const std::map<string, Column*>& Table::column () const
   {
     return m_column;
   }
@@ -392,7 +401,7 @@ namespace CCfits {
     m_numCols = value;
   }
 
-  inline ColMap& Table::column ()
+  inline std::map<string, Column*>& Table::column ()
   {
     return m_column;
   }

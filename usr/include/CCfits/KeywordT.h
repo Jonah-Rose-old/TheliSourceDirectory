@@ -141,47 +141,6 @@ namespace CCfits
          return val;    
    }
 
-   template <>
-   inline String& Keyword::value(String& val) const
-   {
-      switch (m_keytype)
-      {
-         case Tint:
-           {
-              const KeyData<int>& thisKey = static_cast<const KeyData<int>&>(*this);
-              std::ostringstream oss;
-              oss << thisKey.keyval();
-              val = oss.str();              
-           }
-            break;
-         case Tfloat:
-           {
-              const KeyData<float>& thisKey = static_cast<const KeyData<float>&>(*this);
-              std::ostringstream oss;
-              oss << thisKey.keyval();
-              val = oss.str();              
-           }
-            break;
-         case Tdouble:
-           {
-              const KeyData<double>& thisKey = static_cast<const KeyData<double>&>(*this);
-              std::ostringstream oss;
-              oss << thisKey.keyval();
-              val = oss.str();              
-           }
-            break;
-         case Tstring:
-           {
-              const KeyData<String>& thisKey = static_cast<const KeyData<String>&>(*this);
-              val = thisKey.keyval();
-           }
-            break;
-         default:
-            throw Keyword::WrongKeywordValueType(name());
-      }
-      return val;
-   }
-
 
    template <>
    inline void Keyword::setValue(const float& newValue)
@@ -262,8 +221,6 @@ namespace CCfits
       }
 
    }
-   
-
 
 #endif
 } // namespace CCfits

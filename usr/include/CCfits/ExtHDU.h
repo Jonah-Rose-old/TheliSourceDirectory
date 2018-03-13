@@ -125,9 +125,9 @@ namespace CCfits {
 
 */                       
 
-/*! \fn   const ColMap& ExtHDU::column () const;
+/*! \fn   const map<string,Column*>& ExtHDU::column () const;
 
-        \brief return a reference to the multimap containing the columns. 
+        \brief return a reference to the array containing the columns. 
 
         \exception WrongExtensionType thrown if *this is an image extension.
 */
@@ -203,23 +203,6 @@ namespace CCfits {
                         recommended.                
 
 
-*/
-
-/*! \fn      virtual void ExtHDU::copyColumn(const Column& inColumn, int colIndx, bool insertNewCol=true);
-
-       \brief copy a column (from different or same HDU and file) into an existing table HDU.
-       
-       This is meant to provide the same functionality as CFITSIO's fits_copy_col, and therefore
-       does not work with columns with variable length fields.
-       Copying a column from an AsciiTable to a BinTable is prohibited.  colIndx range should be
-       from 1 to nCurrentCols+1 if inserting, or 1 to nCurrentCols if replacing.  
-         
-       \param inColumn The Column object which is to be copied
-       \param colIndx The position for which the copied Column will be placed (first colIndx = 1).
-       \param insertNewCol If 'true', new Column will be inserted in or appended to table.
-                           If 'false', Column will replace current Column at position = colIndx.
-                           
-       
 */
 
 /*! \fn      virtual void ExtHDU::deleteColumn(const String& columnName);
@@ -475,11 +458,10 @@ namespace CCfits {
         virtual Column& column (int colIndex) const;
         virtual long rows () const;
         virtual void addColumn (ValueType type, const String& columnName, long repeatWidth, const String& colUnit = String(""), long decimals = -1, size_t columnNumber = 0);
-        virtual void copyColumn(const Column& inColumn, int colIndx, bool insertNewCol=true);
         virtual void deleteColumn (const String& columnName);
         virtual long getRowsize () const;
         virtual int numCols () const;
-        virtual const ColMap& column () const;
+        virtual const std::map<string, Column*>& column () const;
 
         bool isCompressed () const;
         int version () const;

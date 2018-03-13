@@ -40,11 +40,6 @@ namespace CCfits {
         //	in with a specified type.
         static Keyword* getKeyword (const String& keyName, ValueType keyType, HDU* p);
         static Keyword* getKeyword (int keyNumber, HDU* p);
-        // If calling function already has the keyword name, it can send it in as the
-        //   3rd argument and the function will make use of it.  Otherwise leave it
-        //   empty and the function will just extract the keyword name from the card.
-        //   This function does not take ownership of the memory allocated to card.
-        static Keyword* getKeywordFromCard(char* card, HDU* p, const String& keyName=string(""));
 
       // Additional Public Declarations
 

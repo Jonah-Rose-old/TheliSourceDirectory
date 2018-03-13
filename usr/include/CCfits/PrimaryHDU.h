@@ -40,14 +40,24 @@ namespace CCfits {
         //	readData() does nothing.
         virtual void readData (bool readFlag = false, const std::vector<String>& keys = std::vector<String>());
         const std::valarray<T>& image () const;
-        const std::valarray<T>& readImage (long first, long nElements, T* nullValue);
-        const std::valarray<T>& readImage (const std::vector<long>& firstVertex, const std::vector<long>& lastVertex, const std::vector<long>& stride,T* nullValue);
-        void writeImage (long first, long nElements, const std::valarray<T>& inData, T* nullValue = 0);
-        void writeImage (const std::vector<long>& firstVertex, const std::vector<long>& lastVertex, const std::vector<long>& stride, const std::valarray<T>& inData);
-        virtual void zero (double value);
-        virtual void scale (double value);
-        virtual void suppressScaling(bool toggle = true);
-        virtual void resetImageRead ();
+        std::valarray<T>& image ();
+        void setImage (const std::valarray<T>& inData);
+        //	Read data reads the image if readFlag is true and
+        //	optional keywords if supplied. Thus, with no arguments,
+        //	readData() does nothing.
+        virtual const std::valarray<T>& readImage (long first, long nElements, T* nullValue);
+        //	Read data reads the image if readFlag is true and
+        //	optional keywords if supplied. Thus, with no arguments,
+        //	readData() does nothing.
+        virtual const std::valarray<T>& readImage (const std::vector<long>& firstVertex, const std::vector<long>& lastVertex, const std::vector<long>& stride, T* nullValue);
+        //	Read data reads the image if readFlag is true and
+        //	optional keywords if supplied. Thus, with no arguments,
+        //	readData() does nothing.
+        virtual void writeImage (long first, long nElements, const std::valarray<T>& inData, T* nullValue = 0);
+        //	Read data reads the image if readFlag is true and
+        //	optional keywords if supplied. Thus, with no arguments,
+        //	readData() does nothing.
+        virtual void writeImage (const std::vector<long>& firstVertex, const std::vector<long>& lastVertex, const std::vector<long>& stride, const std::valarray<T>& inData);
 
       // Additional Public Declarations
 
@@ -184,6 +194,19 @@ namespace CCfits {
     return m_data.image();
   }
 
+  template <typename T>
+  std::valarray<T>& PrimaryHDU<T>::image ()
+  {
+
+    return m_data.image();
+  }
+
+  template <typename T>
+  void PrimaryHDU<T>::setImage (const std::valarray<T>& inData)
+  {
+    m_data.image().resize(inData.size());
+    m_data.setImage(inData);
+  }
 
   template <typename T>
   const std::valarray<T>& PrimaryHDU<T>::readImage (long first, long nElements, T* nullValue)
@@ -193,7 +216,7 @@ namespace CCfits {
   }
 
   template <typename T>
-  const std::valarray<T>& PrimaryHDU<T>::readImage (const std::vector<long>& firstVertex, const std::vector<long>& lastVertex, const std::vector<long>& stride,T* nullValue)
+  const std::valarray<T>& PrimaryHDU<T>::readImage (const std::vector<long>& firstVertex, const std::vector<long>& lastVertex, const std::vector<long>& stride, T* nullValue)
   {
     makeThisCurrent();
     return m_data.readImage(fitsPointer(),firstVertex,lastVertex,stride,nullValue,naxes(),anynul());
@@ -202,49 +225,15 @@ namespace CCfits {
   template <typename T>
   void PrimaryHDU<T>::writeImage (long first, long nElements, const std::valarray<T>& inData, T* nullValue)
   {
-    long newNaxisN=0;
-    m_data.writeImage(fitsPointer(),first,nElements,inData,naxes(),newNaxisN,nullValue);
-    if (newNaxisN)
-       naxes(naxes().size()-1,newNaxisN);
+    m_data.writeImage(fitsPointer(),first,nElements,inData,naxes(),nullValue);
   }
 
   template <typename T>
   void PrimaryHDU<T>::writeImage (const std::vector<long>& firstVertex, const std::vector<long>& lastVertex, const std::vector<long>& stride, const std::valarray<T>& inData)
   {
-    long newNaxisN=0;
-    m_data.writeImage(fitsPointer(),firstVertex,lastVertex,stride,inData,naxes(),newNaxisN);
-    if (newNaxisN)
-       naxes(naxes().size()-1,newNaxisN);
- }
- 
-  template <typename T>
-  void PrimaryHDU<T>::scale (double value)
-  {
-     PHDU::scale(value);
-     m_data.scalingHasChanged();
+    m_data.writeImage(fitsPointer(),firstVertex,lastVertex,stride,inData,naxes());
   }
 
-  template <typename T>
-  void PrimaryHDU<T>::zero (double value)
-  {
-     PHDU::zero(value);
-     m_data.scalingHasChanged();
-  }
-
-  template <typename T>
-  void PrimaryHDU<T>::suppressScaling (bool toggle)
-  {
-     HDU::suppressScaling(toggle);
-     m_data.scalingHasChanged();
-  }
-   
-  template <typename T>
-  void PrimaryHDU<T>::resetImageRead()
-  {
-     m_data.resetRead();
-  }
-   
-  
   // Additional Declarations
 
 } // namespace CCfits

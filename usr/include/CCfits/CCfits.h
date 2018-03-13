@@ -16,7 +16,6 @@
 
 namespace CCfits {
   class ExtHDU;
-  class Column;
 
 } // namespace CCfits
 #include <map>
@@ -64,8 +63,7 @@ namespace CCfits {
   *  Tdblcomplex=TDBLCOMPLEX, 
   *  VTbit= -TBIT, 
   *  VTbyte=-TBYTE,
-  *  VTlogical=-Tlogical,
-  *  VTstring=-TSTRING,
+  *  VTlogical=-Tlogical, 
   *  VTushort=-TUSHORT,
   *  VTshort=-TSHORT,
   *  VTuint=-TUINT, 
@@ -78,7 +76,7 @@ namespace CCfits {
   *  VTcomplex=-TCOMPLEX,
   *  VTdblcomplex=-TDBLCOMPLEX
   */
-  typedef enum {Tnull, Tbit = TBIT, Tbyte = TBYTE, Tlogical = TLOGICAL, Tstring = TSTRING, Tushort = TUSHORT, Tshort = TSHORT,Tuint = TUINT,Tint = TINT, Tulong = TULONG,Tlong = TLONG, Tlonglong = TLONGLONG, Tfloat = TFLOAT, Tdouble = TDOUBLE, Tcomplex = TCOMPLEX, Tdblcomplex=TDBLCOMPLEX, VTbit= -TBIT, VTbyte=-TBYTE,VTlogical=-Tlogical, VTstring=-TSTRING, VTushort=-TUSHORT,VTshort=-TSHORT,VTuint=-TUINT, VTint=-TINT,VTulong=-TULONG,VTlong=-TLONG,VTlonglong=-TLONGLONG,VTfloat=-TFLOAT,VTdouble=-TDOUBLE,VTcomplex=-TCOMPLEX,VTdblcomplex=-TDBLCOMPLEX} ValueType;
+  typedef enum {Tnull, Tbit = TBIT, Tbyte = TBYTE, Tlogical = TLOGICAL, Tstring = TSTRING, Tushort = TUSHORT, Tshort = TSHORT,Tuint = TUINT,Tint = TINT, Tulong = TULONG,Tlong = TLONG, Tlonglong = TLONGLONG, Tfloat = TFLOAT, Tdouble = TDOUBLE, Tcomplex = TCOMPLEX, Tdblcomplex=TDBLCOMPLEX, VTbit= -TBIT, VTbyte=-TBYTE,VTlogical=-Tlogical, VTushort=-TUSHORT,VTshort=-TSHORT,VTuint=-TUINT, VTint=-TINT,VTulong=-TULONG,VTlong=-TLONG,VTlonglong=-TLONGLONG,VTfloat=-TFLOAT,VTdouble=-TDOUBLE,VTcomplex=-TCOMPLEX,VTdblcomplex=-TDBLCOMPLEX} ValueType;
 
 
 
@@ -92,8 +90,7 @@ namespace CCfits {
   Ifloat = FLOAT_IMG, 
   Idouble = DOUBLE_IMG, 
   Iushort = USHORT_IMG, 
-  Iulong = ULONG_IMG,
-  Ilonglong = LONGLONG_IMG} ImageType;
+  Iulong = ULONG_IMG} ImageType;
 
 
 
@@ -102,11 +99,6 @@ namespace CCfits {
 
 
   typedef std::multimap<String,CCfits::ExtHDU*> ExtMap;
-  
-  /*! \var typedef std::multipmap<std::string,CCfits::Column*> ColMap
-      \brief Type definition for a table's column container.
-  */
-  typedef std::multimap<std::string,CCfits::Column*> ColMap; 
 
 
 

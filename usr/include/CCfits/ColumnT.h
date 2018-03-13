@@ -355,165 +355,7 @@ namespace CCfits
    {
            read(vals,row,static_cast<S*>(0));
    }
-   template <typename S>
-   void Column::read(std::vector<S>& vals, long row) 
-   {
-           read(vals,row,static_cast<S*>(0));
-   }
 
-   template <typename S>
-   void Column::read(std::vector<S>& vals, long row, S* nullValue) 
-   {
-           if (row > parent()->rows())
-           {
-              throw Column::InvalidRowNumber(name());
-           }
-           parent()->makeThisCurrent();                
-           // isRead() returns true if the data were read in the ctor.
-           if ( ColumnVectorData<S>* col = dynamic_cast<ColumnVectorData<S>*>(this))
-           {
-                   // fails if user requested outputType different from input type.
-
-
-                   if (!isRead()) col->readRow(row,nullValue);
-                   FITSUtil::fill(vals,col->data(row));
-           }
-           else
-           {
-                   FITSUtil::MatchType<S> outputType;
-                   if ( outputType() == type() ) 
-                   { 
-                           // in this case user tried to read vector row from scalar column.
-                           // one could be charitable and return a valarray of size 1,
-                           // but... I'm going to throw an exception suggesting the user
-                           // might not have meant that.
-
-                           throw Column::WrongColumnType(name());
-                   }
-
-                   // the InvalidDataType exception should not be possible.
-                   try
-                   {
-                       // about exceptions. The dynamic_casts could throw
-                       // std::bad_cast. If this happens something is seriously
-                       // wrong since the Column stores the value of type() 
-                       // appropriate to each of the casts on construction.
-                       // 
-                       // the InvalidDataType exception should not be possible.
-                       if  ( type() == Tdouble || type() == VTdouble )
-		       {
-                               ColumnVectorData<double>& col 
-                                         = dynamic_cast<ColumnVectorData<double>&>(*this);
-                               if (!isRead()) col.readRow(row);                                  
-                               FITSUtil::fill(vals,col.data(row));
-
-                       }
-		       else if (type() == Tfloat  || type() == VTfloat )
-		       { 
-                               ColumnVectorData<float>& col 
-                                     = dynamic_cast<ColumnVectorData<float>&>(*this);
-                               if (!isRead()) col.readRow(row); 
-                               FITSUtil::fill(vals,col.data(row));
-                       }
-		       else if (type() == Tint  || type() == VTint )
-		       {
-                               int nullVal(0);
-                               if (nullValue) nullVal = static_cast<int>(*nullValue); 
-                               ColumnVectorData<int>& col  
-                                       = dynamic_cast<ColumnVectorData<int>&>(*this);
-                               if (!isRead()) col.readRow(row,&nullVal); 
-                               FITSUtil::fill(vals,col.data(row));
-		       }
-		       else if (type() == Tshort  || type() == VTshort  )
-                       {
-                               short nullVal(0);
-                               if (nullValue) nullVal = static_cast<short>(*nullValue); 
-                               ColumnVectorData<short>& col 
-                                       = dynamic_cast<ColumnVectorData<short>&>(*this);
-                               if (!isRead()) col.readRow(row,&nullVal); 
-                               FITSUtil::fill(vals,col.data(row));
-                       }
-		       else if (type() == Tlong  || type() == VTlong )
-		       {	
-                               long nullVal(0);
-                               if (nullValue) nullVal = static_cast<long>(*nullValue); 
-                               ColumnVectorData<long>& col 
-                                       = dynamic_cast<ColumnVectorData<long>&>(*this);
-                               if (!isRead()) col.readRow(row,&nullVal); 
-                               FITSUtil::fill(vals,col.data(row));
-                       }
-		       else if (type() == Tlonglong  || type() == VTlonglong )
-		       {	
-                               LONGLONG nullVal(0);
-                               if (nullValue) nullVal = static_cast<LONGLONG>(*nullValue); 
-                               ColumnVectorData<LONGLONG>& col 
-                                       = dynamic_cast<ColumnVectorData<LONGLONG>&>(*this);
-                               if (!isRead()) col.readRow(row,&nullVal); 
-                               FITSUtil::fill(vals,col.data(row));
-                       }
-		       else if (type() == Tlogical  || type() == VTlogical )
-		       {	
-                               bool nullVal(0);
-                               if (nullValue) nullVal = static_cast<bool>(*nullValue); 
-                               ColumnVectorData<bool>& col 
-                                       = dynamic_cast<ColumnVectorData<bool>&>(*this);
-                               if (!isRead()) col.readRow(row,&nullVal); 
-                               FITSUtil::fill(vals,col.data(row));
-		       }
-		       else if (type() == Tbit || type() == Tbyte ||  
-                               type() == VTbit || type() == VTbyte )
-		       {
-                               unsigned char nullVal(0);
-                               if (nullValue) nullVal 
-                                           = static_cast<unsigned char>(*nullValue); 
-                               ColumnVectorData<unsigned char>& col 
-                                     = dynamic_cast<ColumnVectorData<unsigned char>&>(*this);
-                               if (!isRead()) col.readRow(row,&nullVal); 
-                               FITSUtil::fill(vals,col.data(row));
-                       }
-		       else if (type() == Tushort || type() == VTushort)
-                       {
-                               unsigned short nullVal(0);
-                               if (nullValue) nullVal 
-                                           = static_cast<unsigned short>(*nullValue); 
-                               ColumnVectorData<unsigned short>& col 
-                                     = dynamic_cast<ColumnVectorData<unsigned short>&>(*this);
-                               if (!isRead()) col.readRow(row,&nullVal); 
-                               FITSUtil::fill(vals,col.data(row));
-                       }
-		       else if (type() == Tuint || type() == VTuint)
-                       {
-                               unsigned int nullVal(0);
-                               if (nullValue) nullVal 
-                                           = static_cast<unsigned int>(*nullValue); 
-                               ColumnVectorData<unsigned int>& col 
-                                     = dynamic_cast<ColumnVectorData<unsigned int>&>(*this);
-                               if (!isRead()) col.readRow(row,&nullVal); 
-                               FITSUtil::fill(vals,col.data(row));
-		       }
-		       else if (type() == Tulong || type() == VTulong)
-                       {
-                               unsigned long nullVal(0);
-                               if (nullValue) nullVal 
-                                           = static_cast<unsigned long>(*nullValue); 
-                               ColumnVectorData<unsigned long>& col 
-                                       = dynamic_cast<ColumnVectorData<unsigned long>&>(*this);
-                               if (!isRead()) col.readRow(row,&nullVal); 
-                               FITSUtil::fill(vals,col.data(row));
-                       }
-		       else
-                       {
-                               throw InvalidDataType(name());
-
-                       }
-
-                   }
-                   catch (std::bad_cast)
-                   {
-                       throw WrongColumnType(name());
-                   }     
-            }
-   }
 
    template <typename S>
    void Column::read(std::valarray<S>& vals, long row, S* nullValue) 
@@ -1163,6 +1005,7 @@ void Column::write (const std::vector<S>& indata,const std::vector<long>& vector
                                    long firstRow)
    {
       // implement as valarray version, which will also check array size.
+      size_t n(vectorLengths.size());
       std::valarray<S> __tmp(indata,nelements);
       write(__tmp,vectorLengths,firstRow);
    }        
@@ -1416,7 +1259,7 @@ void Column::write (const std::vector<S>& indata,const std::vector<long>& vector
                  {
                          FITSUtil::fill(__tmp[i],indata[i]);
                  }                                                                
-                 col.writeData(__tmp,firstRow,pNullVal);
+                 col.writeData(__tmp,firstRow,&nullVal);
              }                            
              else if  ( type() == Tushort || type() == VTushort)
 	     {
