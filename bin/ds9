@@ -1,0 +1,2 @@
+#!/bin/sh
+exec wish8.6 -f ${DS9_HOME-/usr/share/saods9}/library/ds9.tcl $*
