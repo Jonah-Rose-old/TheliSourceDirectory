@@ -1,0 +1,13 @@
+March 30th, 1998
+
+This is V1.2 of WeightWatcher.
+The release of this software accompanies the March pre-release of
+ESO Imaging Survey (EIS) data.
+
+WeightWatcher is a program that combines weight-maps, flag-maps and
+polygon data in order to produce control maps which can directly be
+used in astronomical image-processing packages like Drizzle or
+SExtractor2.
+
+
+					Emmanuel Bertin.
