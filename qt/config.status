@@ -1,6 +1,0 @@
-#!/bin/sh
-if [ "$#" -gt 0 ]; then
-  echo yes | /gpfs/projects/fishergroup/jrose2/TheliSourcedirectory/qt/configure  "$@"
-else
-  echo yes | /gpfs/projects/fishergroup/jrose2/TheliSourcedirectory/qt/configure 
-fi

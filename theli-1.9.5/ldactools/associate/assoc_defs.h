@@ -1,2 +1,0 @@
-#define MAXCHAN 100
-#define PI 3.14159265359
